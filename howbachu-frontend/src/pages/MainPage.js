@@ -2,41 +2,78 @@ import styled from "styled-components";
 import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import NavBar from "../components/NavBar";
+import {useEffect, useState} from "react";
 
 const MainPage = () => {
+    const [isSmall, setIsSmall] = useState(false);
+
+    useEffect(() => {
+        // 스크롤 이벤트 처리
+        const handleScroll = () => {
+            setIsSmall((window.scrollY || document.documentElement.scrollTop) > 30)
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <>
+        <MainPageLayout>
             <Wrapper>
                 <TopicContainer>
-                    <Topic/>
+                    <Topic id="topic" isSmall={isSmall}/>
                 </TopicContainer>
-                <OpinionWrapper>
-                    <Opinion/>
-                    <Opinion/>
-                    <Opinion/>
+                <OpinionWrapper isSmall={isSmall}>
+                <OpinionContainer isSmall={isSmall}>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                    <OpinionBox className="Opin"/>
+                </OpinionContainer>
                 </OpinionWrapper>
             </Wrapper>
-            <NavBar/>
-        </>
+            <ColorNav className="yellow"/>
+        </MainPageLayout>
     );
 };
 
-
-const Wrapper = styled.div`
-  border: 1px solid #ff7272;
+const MainPageLayout = styled.div`
+  padding: 100px 0 50px 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
-  margin-top: 30px;
+`
+const Wrapper = styled.div`
 `
 const TopicContainer = styled.div`
-  border: 1px solid #fff288;
 `
 const OpinionWrapper = styled.div`
   width: 320px;
-  border: 1px solid #97ff97;
+  margin-top: ${(props)=>props.isSmall &&`200px`};
+  border: 1px solid #7605d3;
+`
+const OpinionContainer = styled.div`
+  width: 320px;
+  overflow: hidden;
+  margin-top: 30px;
+`
+const OpinionBox = styled(Opinion)`
+  &.Opin {
+    margin-bottom: 20px;
+  }
+`
+const ColorNav = styled(NavBar)`
+  &.yellow {
+    background-color: #bdddff;
+    position: fixed;
+    bottom: 0;
+  }
 `
 
 export default MainPage;
