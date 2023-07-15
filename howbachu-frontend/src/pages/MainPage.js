@@ -18,26 +18,21 @@ const MainPage = () => {
 
     return (
         <MainPageLayout>
-            <Wrapper>
-                <TopicContainer>
-                    <Topic id="topic" isSmall={isSmall}/>
-                </TopicContainer>
-                <OpinionWrapper isSmall={isSmall}>
-                <OpinionContainer isSmall={isSmall}>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                    <OpinionBox className="Opin"/>
-                </OpinionContainer>
-                </OpinionWrapper>
-            </Wrapper>
+            <Topic id="topic" isSmall={isSmall}/>
+            <OpinionContainer isSmall={isSmall}>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin"/>
+            </OpinionContainer>
             <ColorNav className="yellow"/>
+            <a href="https://www.flaticon.com" title="아이콘">아이콘 flaticon</a>
         </MainPageLayout>
     );
 };
@@ -49,19 +44,10 @@ const MainPageLayout = styled.div`
   align-items: center;
   text-align: center;
 `
-const Wrapper = styled.div`
-`
-const TopicContainer = styled.div`
-`
-const OpinionWrapper = styled.div`
-  width: 320px;
-  margin-top: ${(props)=>props.isSmall &&`200px`};
-  border: 1px solid #7605d3;
-`
 const OpinionContainer = styled.div`
   width: 320px;
-  overflow: hidden;
-  margin-top: 30px;
+  margin-top: 230px;
+  border: 1px solid #0087ff;
 `
 const OpinionBox = styled(Opinion)`
   &.Opin {
@@ -70,7 +56,7 @@ const OpinionBox = styled(Opinion)`
 `
 const ColorNav = styled(NavBar)`
   &.yellow {
-    background-color: #bdddff;
+    background-color: rgb(209, 180, 255);
     position: fixed;
     bottom: 0;
   }

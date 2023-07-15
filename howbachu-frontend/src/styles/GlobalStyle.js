@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
       cursor: pointer;
     }
-    p {
+    p, div {
       margin: 0;
     }
 `;
