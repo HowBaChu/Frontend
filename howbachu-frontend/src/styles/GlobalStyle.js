@@ -29,5 +29,8 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
       cursor: pointer;
     }
+    p, div {
+      margin: 0;
+    }
 `;
 export default GlobalStyle;
