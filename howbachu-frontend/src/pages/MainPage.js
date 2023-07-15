@@ -20,19 +20,17 @@ const MainPage = () => {
         <MainPageLayout>
             <Topic id="topic" isSmall={isSmall}/>
             <OpinionContainer isSmall={isSmall}>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
-                <OpinionBox className="Opin"/>
+                <OpinionBox className="Opin" isMine={false}/>
+                <OpinionBox className="Opin" isMine={true}/>
+                <OpinionBox className="Opin" isMine={true}/>
+                <OpinionBox className="Opin" isMine={false}/>
+                <OpinionBox className="Opin" isMine={true}/>
+                <OpinionBox className="Opin" isMine={false}/>
+                <OpinionBox className="Opin" isMine={false}/>
+                <OpinionBox className="Opin" isMine={true}/>
+                <OpinionBox className="Opin" isMine={true}/>d
             </OpinionContainer>
             <ColorNav className="yellow"/>
-            <a href="https://www.flaticon.com" title="아이콘">아이콘 flaticon</a>
         </MainPageLayout>
     );
 };
@@ -47,7 +45,8 @@ const MainPageLayout = styled.div`
 const OpinionContainer = styled.div`
   width: 320px;
   margin-top: 230px;
-  border: 1px solid #0087ff;
+  display: flex;
+  flex-direction: column;
 `
 const OpinionBox = styled(Opinion)`
   &.Opin {
