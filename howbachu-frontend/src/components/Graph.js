@@ -9,13 +9,13 @@ const Graph = ({isSmall}) => {
     };
     return (
         <>
-            <input
-                type="range"
-                min="0"
-                max="100"
-                value={percentage}
-                onChange={handlePercentageChange}
-            />
+            {/*<input*/}
+            {/*    type="range"*/}
+            {/*    min="0"*/}
+            {/*    max="100"*/}
+            {/*    value={percentage}*/}
+            {/*    onChange={handlePercentageChange}*/}
+            {/*/>*/}
 
             {isSmall
                 ?

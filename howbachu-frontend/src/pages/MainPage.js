@@ -20,15 +20,15 @@ const MainPage = () => {
         <MainPageLayout>
             <Topic id="topic" isSmall={isSmall}/>
             <OpinionContainer isSmall={isSmall}>
+                <OpinionBox className="Opin" isMine={false} isHot={true}/>
+                <OpinionBox className="Opin" isMine={true} isHot={true}/>
+                <OpinionBox className="Opin" isMine={true}/>
+                <OpinionBox className="Opin" isMine={false}/>
+                <OpinionBox className="Opin" isMine={true}/>
+                <OpinionBox className="Opin" isMine={false}/>
                 <OpinionBox className="Opin" isMine={false}/>
                 <OpinionBox className="Opin" isMine={true}/>
                 <OpinionBox className="Opin" isMine={true}/>
-                <OpinionBox className="Opin" isMine={false}/>
-                <OpinionBox className="Opin" isMine={true}/>
-                <OpinionBox className="Opin" isMine={false}/>
-                <OpinionBox className="Opin" isMine={false}/>
-                <OpinionBox className="Opin" isMine={true}/>
-                <OpinionBox className="Opin" isMine={true}/>d
             </OpinionContainer>
             <ColorNav className="yellow"/>
         </MainPageLayout>

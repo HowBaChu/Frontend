@@ -20,7 +20,7 @@ const Nav = styled.nav`
 const Menu = styled.button`
   width: 100%;
   background: none;
-  border: 1px solid #252525;
+  box-shadow: 0 0 1px gray;
   cursor: pointer;
   height: 50px;
   line-height: 50px;

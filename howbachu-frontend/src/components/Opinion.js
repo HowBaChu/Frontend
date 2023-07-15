@@ -1,28 +1,37 @@
 import styled from "styled-components";
 import PROFILE_PURPLE from "../assets/default-profile-img-purple.png"
+import FIRE_PURPLE from "../assets/fire-purple.png"
+import FIRE_WHITE from "../assets/fire-white.png"
 
-const Opinion = ({className, isMine}) => {
+const Opinion = ({className, isMine, isHot}) => {
     return (
-        <OpinionWrapper className={className} isMine={isMine}>
+        <OpinionWrapper className={className} isMine={isMine} isHot={isHot}>
             <OpinionBox>
                 <ProfileImgBox>
                     <ProfileImg src={PROFILE_PURPLE}/>
                 </ProfileImgBox>
                 <ContentContainer isMine={isMine}>
-                    <InfoBox isMine={isMine}>
+                    <InfoBox>
                         <UserName>말랑카우</UserName>
-                        <OpinTitle >찍먹이다!</OpinTitle>
+                        <OpinTitle isMine={isMine}>찍먹이다!</OpinTitle>
                     </InfoBox>
-                    <Content>탕수육 맛있겠다 탕수육 야호 ~~~~~~~</Content>
+                    <Content>
+                        탕수육 맛있겠다 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    </Content>
                 </ContentContainer>
+                {isHot &&
+                    <FireIconBox>
+                        <FireIconImg isMine={isMine} />
+                    </FireIconBox>
+                }
             </OpinionBox>
         </OpinionWrapper>
     );
 };
 
 const OpinionWrapper = styled.div`
-  min-width: 200px;
-  max-width: 80%;
+  max-width: ${({ isHot }) => (isHot ? "320px" : "80%")};
+  min-width: ${({ isHot }) => (isHot ? "320px" : "200px")};
   box-shadow: 0 0 1px gray;
   border-radius: 8px;
   padding: 5px;
@@ -73,6 +82,17 @@ const Content = styled.div`
   text-align: start;
   line-height: 1.1;
   word-break: break-all;
+`
+const FireIconBox = styled.div`
+  width: 30px;
+  height: 30px;
+`
 
+const FireIconImg = styled.img.attrs(props => ({
+    src: props.isMine ? FIRE_PURPLE : FIRE_WHITE,
+    alt: "fire_icon"
+}))`
+  width: 30px;
+  height: 30px;
 `
 export default Opinion;
