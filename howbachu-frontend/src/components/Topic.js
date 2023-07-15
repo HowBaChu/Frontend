@@ -15,7 +15,7 @@ const Topic = ({isSmall}) => {
 
 const TopicWrapper = styled.div`
   width: 320px;
-  border: 1px solid #252525;
+  box-shadow: 0 0 2px gray;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
