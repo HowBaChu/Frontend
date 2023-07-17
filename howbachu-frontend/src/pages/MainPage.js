@@ -55,7 +55,7 @@ const OpinionBox = styled(Opinion)`
 `
 const ColorNav = styled(NavBar)`
   &.yellow {
-    background-color: rgb(209, 180, 255);
+    background-color: white;
     position: fixed;
     bottom: 0;
   }
