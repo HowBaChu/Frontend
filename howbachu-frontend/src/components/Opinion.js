@@ -86,6 +86,7 @@ const Content = styled.div`
 const FireIconBox = styled.div`
   width: 30px;
   height: 30px;
+  margin-right: 5px;
 `
 
 const FireIconImg = styled.img.attrs(props => ({
