@@ -7,7 +7,6 @@ import {useNavigate} from "react-router-dom";
 
 const NavBar = ({className}) => {
     const navigate = useNavigate();
-
     return (
         <Nav className={className}>
             <Menu onClick={() => navigate("/")}>
@@ -43,8 +42,8 @@ const Menu = styled.button`
   align-items: center;
 `
 const Icon = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 `
 
 export default NavBar;

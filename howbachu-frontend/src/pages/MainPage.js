@@ -3,6 +3,7 @@ import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import NavBar from "../components/NavBar";
 import {useState} from "react";
+import OpinionInput from "../components/OpinionInput";
 
 const MainPage = () => {
     const [isSmall, setIsSmall] = useState(false);
@@ -27,6 +28,7 @@ const MainPage = () => {
                     <OpinionBox className="Opin" isMine={true}/>
                 </OpinionContainer>
             </OpinionArea>
+            <Input className="input"/>
             <ColorNav className="nav"/>
         </MainPageLayout>
     );
@@ -50,7 +52,7 @@ const OpinionArea = styled.div`
 `
 const OpinionContainer = styled.div`
   width: 320px;
-  margin: 0 auto;
+  margin: 0 auto 30px auto;
   display: flex;
   flex-direction: column;
 `
@@ -61,9 +63,16 @@ const OpinionBox = styled(Opinion)`
 `
 const ColorNav = styled(NavBar)`
   &.nav {
-    background-color: white;
     position: fixed;
     bottom: 0;
+    background-color: white;
+  }
+`
+const Input = styled(OpinionInput)`
+  &.input {
+    position: fixed;
+    bottom: 50px;
+    background-color: white;
   }
 `
 
