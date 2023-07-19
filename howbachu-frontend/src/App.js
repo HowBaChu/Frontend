@@ -12,6 +12,8 @@ import ProfileEditPage from "./pages/ProfileEditPage";
 import MyOpinionPage from "./pages/MyOpinionPage";
 import TopicHistoryPage from "./pages/TopicHistoryPage";
 import ReportPage from "./pages/ReportPage";
+import LoginPage from "./pages/LoginPage";
+import NavBar from "./components/NavBar";
 
 function App() {
     return (
@@ -29,7 +31,9 @@ function App() {
                         <Route path="/my-opinions" element={<MyOpinionPage/>}/>
                         <Route path="/popular-posts" element={<TopicHistoryPage/>}/>
                         <Route path="/reports" element={<ReportPage/>}/>
+                        <Route path="/login" element={<LoginPage/>}/>
                     </Routes>
+                    <NavBar />
                 </BrowserRouter>
             </ThemeProvider>
         </div>

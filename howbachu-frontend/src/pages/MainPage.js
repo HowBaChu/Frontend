@@ -29,7 +29,6 @@ const MainPage = () => {
                 </OpinionContainer>
             </OpinionArea>
             <Input className="input"/>
-            <ColorNav className="nav"/>
         </MainPageLayout>
     );
 };
@@ -59,13 +58,6 @@ const OpinionContainer = styled.div`
 const OpinionBox = styled(Opinion)`
   &.Opin {
     margin-bottom: 20px;
-  }
-`
-const ColorNav = styled(NavBar)`
-  &.nav {
-    position: fixed;
-    bottom: 0;
-    background-color: white;
   }
 `
 const Input = styled(OpinionInput)`

@@ -1,0 +1,12 @@
+#Wrapper {
+    /*height은 테두리 그리려고 임의로 작성했어요 width 320px만 바꾸지 말아주세요*/
+    width: 320px;
+    height: 680px;
+    margin: 100px auto;
+    border: 2px solid #ff8f8f;
+}
+
+#LoginFormContainer {
+    border: 1px solid #98b3ff;
+    height: 500px;
+}

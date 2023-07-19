@@ -30,6 +30,9 @@ const Nav = styled.nav`
   overflow: hidden;
   display: flex;
   justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
 `
 const Menu = styled.button`
   width: 100%;
