@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {useState} from "react";
 
-const Graph = ({isSmall}) => {
+const Graph = ({isSmall, className}) => {
     const [percentage, setPercentage] = useState(50);
 
     const handlePercentageChange = (e) => {
@@ -9,14 +9,6 @@ const Graph = ({isSmall}) => {
     };
     return (
         <>
-            {/*<input*/}
-            {/*    type="range"*/}
-            {/*    min="0"*/}
-            {/*    max="100"*/}
-            {/*    value={percentage}*/}
-            {/*    onChange={handlePercentageChange}*/}
-            {/*/>*/}
-
             {isSmall
                 ?
                 <StickGraph>
@@ -25,9 +17,9 @@ const Graph = ({isSmall}) => {
                     </GraphBackground>
                 </StickGraph>
                 :
-                <CircleGraph>
+                <CircleGraph className={className}>
                     <GraphBackground percentage={percentage}>
-                        {percentage}%
+                        {/*{percentage}%*/}
                     </GraphBackground>
                 </CircleGraph>
             }
@@ -36,8 +28,9 @@ const Graph = ({isSmall}) => {
 };
 
 const CircleGraph = styled.div`
-  width: 130px;
-  height: 130px;
+  
+  width: ${({className}) => className ? `80px` : `130px`};
+  height: ${({className}) => className ? `80px` : `130px`};
   border: 1px solid #b281ff;
   border-radius: 50%;
   text-align: center;
@@ -51,7 +44,6 @@ const GraphBackground = styled.div`
   background-color: rgba(148, 80, 255, 0.34);
   transition: width 0.5s ease;
 `;
-
 const StickGraph = styled.div`
   width: 300px;
   height: 20px;
@@ -60,6 +52,5 @@ const StickGraph = styled.div`
   border-radius: 15px;
   margin: 5px 0;
 `
-
 
 export default Graph;

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
-import NavBar from "../components/NavBar";
 import {useState} from "react";
 import OpinionInput from "../components/OpinionInput";
 
@@ -34,7 +33,6 @@ const MainPage = () => {
 };
 
 const MainPageLayout = styled.div`
-  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
