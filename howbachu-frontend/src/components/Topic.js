@@ -1,27 +1,25 @@
 import styled from "styled-components";
 import Graph from "./Graph";
 
-//todo 남은 시간 Timestamp
-
-const Topic = ({isSmall}) => {
+const Topic = ({isSmall, className}) => {
     return (
-        <TopicWrapper isSmall={isSmall}>
+        <TopicWrapper isSmall={isSmall} className={className}>
             <Title isSmall={isSmall}>탕수육은 부먹 vs 찍먹</Title>
-            <Graph isSmall={isSmall}/>
+            <Graph isSmall={isSmall} className={className}/>
             <LeftTime>13 : 05 : 14</LeftTime>
         </TopicWrapper>
     );
 };
 
 const TopicWrapper = styled.div`
-  width: 320px;
+  width: ${({className}) => className ? `275px` : `320px`};
   box-shadow: 0 0 2px gray;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: ${({className}) => className ? `static` : `fixed`};
   top: 100px;
   background-color: white;
 `

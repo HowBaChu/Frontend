@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import GlobalStyle from "./styles/GlobalStyle";
 import {Theme} from "./styles/Theme";
-import {ThemeProvider} from "styled-components";
+import styled, {ThemeProvider} from "styled-components";
 import TextLogo from "./components/TextLogo";
 
 import MainPage from "./pages/MainPage";
@@ -22,22 +22,30 @@ function App() {
                 <GlobalStyle/>
                 <BrowserRouter>
                     <TextLogo/>
-                    <Routes>
-                        <Route path="/" element={<MainPage/>}/>
-                        <Route path="/serch" element={<SerchPage/>}/>
-                        <Route path="/likes" element={<LikePage/>}/>
-                        <Route path="/profile" element={<MyPage/>}/>
-                        <Route path="/profile/edit" element={<ProfileEditPage/>}/>
-                        <Route path="/my-opinions" element={<MyOpinionPage/>}/>
-                        <Route path="/popular-posts" element={<TopicHistoryPage/>}/>
-                        <Route path="/reports" element={<ReportPage/>}/>
-                        <Route path="/login" element={<LoginPage/>}/>
-                    </Routes>
+                    <RouteArea>
+                        <Routes>
+                            <Route path="/" element={<MainPage/>}/>
+                            <Route path="/serch" element={<SerchPage/>}/>
+                            <Route path="/likes" element={<LikePage/>}/>
+                            <Route path="/profile" element={<MyPage/>}/>
+                            <Route path="/profile/edit" element={<ProfileEditPage/>}/>
+                            <Route path="/my-opinions" element={<MyOpinionPage/>}/>
+                            <Route path="/popular-posts" element={<TopicHistoryPage/>}/>
+                            <Route path="/reports" element={<ReportPage/>}/>
+                            <Route path="/login" element={<LoginPage/>}/>
+                        </Routes>
+                    </RouteArea>
                     <NavBar />
                 </BrowserRouter>
             </ThemeProvider>
         </div>
     );
 }
+
+const RouteArea = styled.div`
+    width: 320px;
+    height: 690px;
+    margin: 100px auto 0 auto;
+`
 
 export default App;

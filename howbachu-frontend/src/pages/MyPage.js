@@ -49,8 +49,6 @@ const MyPage = () => {
 };
 
 const Div = styled.div`
-  width: 320px;
-  margin: 100px auto 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +58,7 @@ const Div = styled.div`
 const ProfileImgBox = styled.div`
   width: 250px;
   height: 250px;
-  border: 1px solid gray;
+  box-shadow: 0 0 3px ${({theme}) => theme.colors.DARK_GRAY};
   border-radius: 25px;
   overflow: hidden;
 `
@@ -109,7 +107,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 15px;
-  box-shadow: 0 0 2px ${({theme}) => theme.colors.DARK_GRAY};
+  box-shadow: 0 0 1px ${({theme}) => theme.colors.DARK_GRAY};
   border-radius: 8px;
   font-size: 20px;
   font-weight: 600;
@@ -118,7 +116,7 @@ const Button = styled.button`
 `
 const ProfileMsgBox = styled.div`
   width: 250px;
-  margin-top: 10px;
+  margin-top: 7px;
   padding: 10px;
   box-shadow: 0 0 2px gray;
   border-radius: 8px;
