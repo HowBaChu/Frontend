@@ -16,8 +16,9 @@ const MainPage = () => {
             <Topic id="topic" isSmall={isSmall}/>
             <OpinionArea isSmall={isSmall} onScroll={handleOpinionScroll}>
                 <OpinionContainer isSmall={isSmall}>
-                    <OpinionBox className="Opin" isMine={false} isHot={true}/>
+                    <OpinionBox className="Opin" isMine={false} isHot={true} hotColor={true}/>
                     <OpinionBox className="Opin" isMine={true} isHot={true}/>
+                    <OpinionBox className="Opin" isMine={false} isHot={true}/>
                     <OpinionBox className="Opin" isMine={true}/>
                     <OpinionBox className="Opin" isMine={false}/>
                     <OpinionBox className="Opin" isMine={true}/>

@@ -3,9 +3,9 @@ import PROFILE_PURPLE from "../assets/default-profile-img-purple.png"
 import FIRE_PURPLE from "../assets/fire-purple.png"
 import FIRE_WHITE from "../assets/fire-white.png"
 
-const Opinion = ({className, isMine, isHot}) => {
+const Opinion = ({className, isMine, isHot, hotColor, opinList}) => {
     return (
-        <OpinionWrapper className={className} isMine={isMine} isHot={isHot}>
+        <OpinionWrapper className={className} isMine={isMine} isHot={isHot} hotColor={hotColor} opinList={opinList}>
             <OpinionBox>
                 <ProfileImgBox>
                     <ProfileImg src={PROFILE_PURPLE}/>
@@ -30,12 +30,13 @@ const Opinion = ({className, isMine, isHot}) => {
 };
 
 const OpinionWrapper = styled.div`
-  max-width: ${({ isHot }) => (isHot ? "320px" : "80%")};
+  max-width: ${({ isHot, opinList }) => (isHot || opinList ? "320px" : "80%")};
   min-width: ${({ isHot }) => (isHot ? "320px" : "200px")};
   box-shadow: 0 0 1px gray;
   border-radius: 8px;
   padding: 5px;
   background-color: ${({isMine, theme}) => isMine? `white` : theme.colors.PURPLE1};
+  background-color: ${({hotColor, theme}) => hotColor && theme.colors.HOT_PINK };
   align-self: ${({isMine}) => isMine? `end` : `start`};
 `
 const OpinionBox = styled.div`
@@ -88,7 +89,6 @@ const FireIconBox = styled.div`
   height: 30px;
   margin-right: 5px;
 `
-
 const FireIconImg = styled.img.attrs(props => ({
     src: props.isMine ? FIRE_PURPLE : FIRE_WHITE,
     alt: "fire_icon"
@@ -96,4 +96,5 @@ const FireIconImg = styled.img.attrs(props => ({
   width: 30px;
   height: 30px;
 `
+
 export default Opinion;

@@ -2,6 +2,9 @@ import styled from "styled-components";
 import DEFAULT_IMG from "../assets/logo.png";
 import COMMENT_ICON from "../assets/comment_icon.png"
 import EDIT_ICON from "../assets/edit_icon.png"
+import CROWN_ICON from "../assets/crown_icon.png"
+import REPORT_ICON from "../assets/report_icon.png"
+
 import {useNavigate} from "react-router-dom";
 
 const MyPage = () => {
@@ -35,11 +38,11 @@ const MyPage = () => {
                         내가 쓴 글
                     </Button>
                     <Button onClick={()=>navigate("/popular-posts")}>
-                        <BtnIcon src={DEFAULT_IMG}/>
+                        <BtnIcon src={CROWN_ICON}/>
                         명예의 전당
                     </Button>
                     <Button onClick={()=>navigate("/reports")}>
-                        <BtnIcon src={DEFAULT_IMG}/>
+                        <BtnIcon src={REPORT_ICON}/>
                         신고내역
                     </Button>
                 </ButtonContainer>
@@ -122,15 +125,11 @@ const ProfileMsgBox = styled.div`
   border-radius: 8px;
 `
 const ButtonContainer = styled.div`
-  margin-top: 20px;
+  margin-top: 7px;
 `
 const BtnIcon = styled.img`
   width: 25px;
   height: 25px;
 `
+
 export default MyPage;
-
-
-
-
-
