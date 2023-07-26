@@ -4,7 +4,6 @@ import CROWN_ICON from "../assets/crown-purple_icon.png"
 
 const TopicHistoryPage = () => {
     return (
-
         <HistoryList>
             <TopicWrapper>
                 <Crown>
@@ -12,21 +11,18 @@ const TopicHistoryPage = () => {
                 </Crown>
                 <HistoryTopic className="history" />
             </TopicWrapper>
-
             <TopicWrapper>
                 <Crown>
                     <CrownIcon src={CROWN_ICON} />
                 </Crown>
                 <HistoryTopic className="history" />
             </TopicWrapper>
-
             <TopicWrapper>
                 <Crown>
                     <CrownIcon src={CROWN_ICON} />
                 </Crown>
                 <HistoryTopic className="history" />
             </TopicWrapper>
-
             <TopicWrapper>
                 <Crown>
                     <CrownIcon src={CROWN_ICON} />
