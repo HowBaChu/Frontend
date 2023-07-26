@@ -12,7 +12,7 @@ const Topic = ({isSmall, className}) => {
 };
 
 const TopicWrapper = styled.div`
-  width: ${({className}) => className ? `275px` : `320px`};
+  width: ${({className}) => className ? `275px` : `345px`};
   box-shadow: 0 0 2px gray;
   border-radius: 8px;
   display: flex;

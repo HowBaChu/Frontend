@@ -4,38 +4,44 @@ import CROWN_ICON from "../assets/crown-purple_icon.png"
 
 const TopicHistoryPage = () => {
     return (
-        <HistoryList>
-            <TopicWrapper>
-                <Crown>
-                    <CrownIcon src={CROWN_ICON} />
-                </Crown>
-                <HistoryTopic className="history" />
-            </TopicWrapper>
-            <TopicWrapper>
-                <Crown>
-                    <CrownIcon src={CROWN_ICON} />
-                </Crown>
-                <HistoryTopic className="history" />
-            </TopicWrapper>
-            <TopicWrapper>
-                <Crown>
-                    <CrownIcon src={CROWN_ICON} />
-                </Crown>
-                <HistoryTopic className="history" />
-            </TopicWrapper>
-            <TopicWrapper>
-                <Crown>
-                    <CrownIcon src={CROWN_ICON} />
-                </Crown>
-                <HistoryTopic className="history" />
-            </TopicWrapper>
-        </HistoryList>
+        <PageWrapper>
+            <HistoryList>
+                <TopicWrapper>
+                    <Crown>
+                        <CrownIcon src={CROWN_ICON} />
+                    </Crown>
+                    <HistoryTopic className="history" />
+                </TopicWrapper>
+                <TopicWrapper>
+                    <Crown>
+                        <CrownIcon src={CROWN_ICON} />
+                    </Crown>
+                    <HistoryTopic className="history" />
+                </TopicWrapper>
+                <TopicWrapper>
+                    <Crown>
+                        <CrownIcon src={CROWN_ICON} />
+                    </Crown>
+                    <HistoryTopic className="history" />
+                </TopicWrapper>
+                <TopicWrapper>
+                    <Crown>
+                        <CrownIcon src={CROWN_ICON} />
+                    </Crown>
+                    <HistoryTopic className="history" />
+                </TopicWrapper>
+            </HistoryList>
+        </PageWrapper>
     );
 };
 
+const PageWrapper = styled.div`
+  width: 345px;
+  height: 690px;
+  margin: 110px auto 0 auto;
+`
 const HistoryList = styled.div`
-  width: 320px;
-  height: 680px;
+  height: 670px;
   display: flex;
   flex-direction: column;
   align-items: center;

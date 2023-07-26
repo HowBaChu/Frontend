@@ -4,7 +4,7 @@ import InfoInput from "../components/InfoInput";
 
 const ProfileEditPage = () => {
     return (
-        <>
+        <PageWrapper>
             <ProfileContainer>
                 <ProfileImgBox>
                     <ProfileImg src={DEFAULT_IMG}/>
@@ -31,9 +31,15 @@ const ProfileEditPage = () => {
                 <Btn type="cancel">취소</Btn>
                 <Btn type="save">저장</Btn>
             </Buttons>
-        </>
+        </PageWrapper>
     );
 };
+
+const PageWrapper = styled.div`
+  width: 345px;
+  height: 690px;
+  margin: 110px auto 0 auto;
+`
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-around;

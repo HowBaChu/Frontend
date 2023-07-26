@@ -34,6 +34,7 @@ const Input = styled.input`
   margin: 5px 10px;
   border: none;
   font-size: 16px;
+  background-color: transparent;
   color: ${({theme}) => theme.colors.DARK_GRAY};
 `
 

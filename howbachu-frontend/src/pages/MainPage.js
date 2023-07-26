@@ -16,9 +16,9 @@ const MainPage = () => {
             <Topic id="topic" isSmall={isSmall}/>
             <OpinionArea isSmall={isSmall} onScroll={handleOpinionScroll}>
                 <OpinionContainer isSmall={isSmall}>
-                    <OpinionBox className="Opin" isMine={false} isHot={true} hotColor={true}/>
-                    <OpinionBox className="Opin" isMine={true} isHot={true}/>
                     <OpinionBox className="Opin" isMine={false} isHot={true}/>
+                    <OpinionBox className="Opin" isMine={true}/>
+                    <OpinionBox className="Opin" isMine={false}/>
                     <OpinionBox className="Opin" isMine={true}/>
                     <OpinionBox className="Opin" isMine={false}/>
                     <OpinionBox className="Opin" isMine={true}/>
@@ -34,11 +34,13 @@ const MainPage = () => {
 };
 
 const MainPageLayout = styled.div`
+  width: 345px;
+  height: 690px;
+  margin: 90px auto 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: ${({theme}) => theme.colors.BG_PURPLE};
 `
 const OpinionArea = styled.div`
   width: 100%;
@@ -49,7 +51,7 @@ const OpinionArea = styled.div`
   position: fixed;
 `
 const OpinionContainer = styled.div`
-  width: 320px;
+  width: 345px;
   margin: 0 auto 30px auto;
   display: flex;
   flex-direction: column;
