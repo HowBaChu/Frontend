@@ -1,5 +1,3 @@
-import "./login.css"
-
 const LoginPage = () => {
     return (
         <div id="Wrapper">

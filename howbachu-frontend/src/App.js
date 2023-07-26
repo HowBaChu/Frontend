@@ -5,7 +5,7 @@ import styled, {ThemeProvider} from "styled-components";
 import TextLogo from "./components/TextLogo";
 
 import MainPage from "./pages/MainPage";
-import SerchPage from "./pages/SerchPage";
+import SearchPage from "./pages/SearchPage";
 import LikePage from "./pages/LikePage";
 import MyPage from "./pages/MyPage";
 import ProfileEditPage from "./pages/ProfileEditPage";
@@ -25,7 +25,7 @@ function App() {
                     <RouteArea>
                         <Routes>
                             <Route path="/" element={<MainPage/>}/>
-                            <Route path="/serch" element={<SerchPage/>}/>
+                            <Route path="/serch" element={<SearchPage/>}/>
                             <Route path="/likes" element={<LikePage/>}/>
                             <Route path="/profile" element={<MyPage/>}/>
                             <Route path="/profile/edit" element={<ProfileEditPage/>}/>
