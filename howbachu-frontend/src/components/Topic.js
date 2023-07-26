@@ -4,7 +4,7 @@ import Graph from "./Graph";
 const Topic = ({isSmall, className}) => {
     return (
         <TopicWrapper isSmall={isSmall} className={className}>
-            <Title isSmall={isSmall}>탕수육은 부먹 vs 찍먹</Title>
+            <Title isSmall={isSmall} className={className}>탕수육은 부먹 vs 찍먹</Title>
             <Graph isSmall={isSmall} className={className}/>
             <LeftTime>13 : 05 : 14</LeftTime>
         </TopicWrapper>
@@ -24,8 +24,8 @@ const TopicWrapper = styled.div`
   background-color: white;
 `
 const Title = styled.h2`
-  padding: ${(props)=>props.isSmall?`10px`:`5px`};
-  font-size: ${(props)=>props.isSmall?`20px`:`25px`};
+  padding: ${({isSmall})=>isSmall?`10px`:`5px`};
+  font-size: ${({isSmall, className}) => isSmall || className ?`20px`:`25px`};
   font-weight: 600;
 `
 const LeftTime = styled.div`
