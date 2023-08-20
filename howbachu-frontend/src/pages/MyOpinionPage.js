@@ -24,27 +24,30 @@ const MyOpinionPage = () => {
                 <Button />
             </ButtonBox>
             <MyOpinList>
-                <Opin opinList={true} isMine={true}/>
-                <Opin opinList={true} isMine={true}/>
-                <Opin opinList={true} isMine={true}/>
-                <Opin opinList={true} isMine={true}/>
-                <Opin opinList={true} isMine={true}/>
-                <Opin opinList={true} isMine={true}/>
-                <Opin opinList={true} isMine={true}/>
-                <Opin opinList={true} isMine={true}/>
-                <Opin opinList={true} isMine={true}/>
+                <Opin className="list"/>
+                <Opin className="list"/>
+                <Opin className="list"/>
+                <Opin className="list"/>
+                <Opin className="list"/>
+                <Opin className="list"/>
+                <Opin className="list"/>
             </MyOpinList>
         </PageWrapper>
     );
 };
 
 const PageWrapper = styled.div`
-  width: 100%;
+  width: 345px;
+  height: 690px;
+  margin: 110px auto 0 auto;
 `
 const Opin = styled(Opinion)`
-  margin: 10px auto 0 auto;
-  width: 313px;
-  align-self: center;
+  &.list {
+    margin: 10px auto 0 auto;
+    width: 98%;
+    align-self: center;
+    justify-self: center;
+  }
 `
 const InfoContainer = styled.div`
   width: 100%;
@@ -91,10 +94,12 @@ const Button = styled.button`
   border-radius: 8px;
 `
 const MyOpinList = styled.div`
-  height: 560px;
+  margin-top: 20px;
+  height: 530px;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  align-items: center;
+  overflow: scroll;
 `
 
 export default MyOpinionPage;

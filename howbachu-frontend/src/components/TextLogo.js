@@ -19,7 +19,7 @@ const LogoBox = styled.div`
   height: 100px;
   position: fixed;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.52);
+  background-color: ${({theme}) => theme.colors.BG_PURPLE};
   padding: 30px 0 30px 30px;
 `
 const Button = styled.button`

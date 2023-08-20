@@ -6,6 +6,8 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         margin: 0;
         font-family: ‘Noto Sans KR’, sans-serif;
+      background-color: ${({theme}) => theme.colors.BG_PURPLE};
+
     };
     a{
         text-decoration: none;

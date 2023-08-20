@@ -53,8 +53,10 @@ const MyPage = () => {
 
 const Div = styled.div`
   display: flex;
+  width: 345px;
+  height: 690px;
+  margin: 110px auto 0 auto;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
 `

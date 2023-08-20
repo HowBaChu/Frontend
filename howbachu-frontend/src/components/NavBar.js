@@ -3,6 +3,7 @@ import HOME_ICON from "../assets/home_icon.png"
 import SERCH_ICON from "../assets/search_icon.png"
 import LIKE_ICON from "../assets/good_icon.png"
 import MYPAGE_ICON from "../assets/mypage_icon.png"
+import CROWN_ICON from "../assets/crown_icon.png"
 import {useNavigate} from "react-router-dom";
 
 const NavBar = ({className}) => {
@@ -15,8 +16,8 @@ const NavBar = ({className}) => {
             <Menu onClick={() => navigate("/serch")}>
                 <Icon src={SERCH_ICON}/>
             </Menu>
-            <Menu onClick={() => navigate("/likes")}>
-                <Icon src={LIKE_ICON}/>
+            <Menu onClick={() => navigate("/popular-posts")}>
+                <Icon src={CROWN_ICON}/>
             </Menu>
             <Menu onClick={() => navigate("/profile")}>
                 <Icon src={MYPAGE_ICON}/>
