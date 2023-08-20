@@ -1,33 +1,33 @@
 import styled from "styled-components";
 
-const InfoInput = ({title}) => {
-    return (
-        <InfoInputBox>
-            <InputTitle>{title}</InputTitle>
-            <InputContainer>
-                <Input type="text" id="inputField"/>
-            </InputContainer>
-        </InfoInputBox>
-    );
+const InfoInput = ({ title, autoFocus }) => {
+  return (
+    <InfoInputBox>
+      <InputTitle>{title}</InputTitle>
+      <InputContainer>
+        <Input type="text" id="inputField" autoFocus={autoFocus} />
+      </InputContainer>
+    </InfoInputBox>
+  );
 };
 
 const InfoInputBox = styled.div`
   width: 280px;
   flex-direction: column;
   align-items: start;
-`
+`;
 const InputTitle = styled.div`
   font-weight: bold;
   font-size: 18px;
-  color: ${({theme}) => theme.colors.DARK_PURPLE};
-`
+  color: ${({ theme }) => theme.colors.DARK_PURPLE};
+`;
 const InputContainer = styled.div`
   box-shadow: 0 0 1px gray;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 const Input = styled.input`
   width: 100%;
   height: 30px;
@@ -35,7 +35,7 @@ const Input = styled.input`
   border: none;
   font-size: 16px;
   background-color: transparent;
-  color: ${({theme}) => theme.colors.DARK_GRAY};
-`
+  color: ${({ theme }) => theme.colors.DARK_GRAY};
+`;
 
 export default InfoInput;

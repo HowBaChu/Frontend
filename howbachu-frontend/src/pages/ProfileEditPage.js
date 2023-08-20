@@ -21,7 +21,7 @@ const ProfileEditPage = () => {
             </ProfileContainer>
             <hr/>
             <InputWrapper>
-                <InfoInput title="email"/>
+                <InfoInput title="email" autoFocus/>
                 <InfoInput title="password"/>
                 <InfoInput title="nickname"/>
                 <InfoInput title="MBTI"/>
@@ -83,7 +83,7 @@ const ProfileMsgBox = styled.div`
   box-shadow: 0 0 2px gray;
   border-radius: 8px;
 `
-const InputWrapper = styled.div`
+const InputWrapper = styled.form`
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -102,10 +102,10 @@ const Btn = styled.button`
   border-radius: 8px;
   color: white;
   font-weight: bold;
-  background-color: ${({theme, type}) => 
-      type === "cancel" 
-          ? theme.colors.GRAY 
-          : theme.colors.DARK_PURPLE
+  background-color: ${({theme, type}) =>
+          type === "cancel"
+                  ? theme.colors.GRAY
+                  : theme.colors.DARK_PURPLE
   };
 `
 export default ProfileEditPage;
