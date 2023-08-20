@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import SEND_ICON from "../assets/send_icon.png"
 
-const OpinionInput = ({className}) => {
+const OpinionInput = ({...attrProps}) => {
     return (
-        <InputWrapper className={className}>
+        <InputWrapper {...attrProps}>
             <InputContainer>
                 <Input />
                 <SendBtn>

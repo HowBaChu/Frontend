@@ -3,6 +3,7 @@ import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import { useState } from "react";
 import OpinionInput from "../components/OpinionInput";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const [isSmall, setIsSmall] = useState(false);
@@ -10,25 +11,30 @@ const MainPage = () => {
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
+  const navigate = useNavigate();
 
   return (
     <MainPageLayout>
       <Topic id="topic" $isSmall={isSmall} />
       <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
         <OpinionContainer $isSmall={isSmall}>
-          <OpinionBox isMine={false} isHot={true} />
-          <OpinionBox isMine={true} />
-          <OpinionBox isMine={false} />
-          <OpinionBox isMine={true} />
-          <OpinionBox isMine={false} />
-          <OpinionBox isMine={true} />
-          <OpinionBox isMine={false} />
-          <OpinionBox isMine={false} />
-          <OpinionBox isMine={true} />
-          <OpinionBox isMine={true} />
+          <OpinionBox
+            isMine={false}
+            isHot={true}
+            onClick={() => navigate("/test")}
+          />
+          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
+          <OpinionBox isMine={false} onClick={() => navigate("/test")} />
+          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
+          <OpinionBox isMine={false} onClick={() => navigate("/test")} />
+          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
+          <OpinionBox isMine={false} onClick={() => navigate("/test")} />
+          <OpinionBox isMine={false} onClick={() => navigate("/test")} />
+          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
+          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
         </OpinionContainer>
       </OpinionArea>
-      <Input className="input" />
+      <Input />
     </MainPageLayout>
   );
 };
@@ -60,11 +66,9 @@ const OpinionBox = styled(Opinion)`
   margin-bottom: 20px;
 `;
 const Input = styled(OpinionInput)`
-  &.input {
-    position: fixed;
-    bottom: 50px;
-    background-color: white;
-  }
+  position: fixed;
+  bottom: 50px;
+  background-color: white;
 `;
 
 export default MainPage;

@@ -13,6 +13,7 @@ import TopicHistoryPage from "./pages/TopicHistoryPage";
 import ReportPage from "./pages/ReportPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
+import Threadpage from "./pages/Threadpage";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <TextLogo />
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/:opinId" element={<MainPage />} />
+            <Route path="/:opinId" element={<Threadpage />} />
+            <Route path="/test" element={<Threadpage />} />
             <Route path="/serch" element={<SearchPage />} />
             <Route path="/profile" element={<MyPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
