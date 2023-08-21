@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import DEFAULT_IMG from "../assets/logo.png";
-import COMMENT_ICON from "../assets/comment_icon.png"
-import EDIT_ICON from "../assets/edit_icon.png"
-import CROWN_ICON from "../assets/crown_icon.png"
-import REPORT_ICON from "../assets/report_icon.png"
+import DEFAULT_IMG from "../assets/imgs/logo.png";
+import COMMENT_ICON from "../assets/imgs/comment_icon.png"
+import EDIT_ICON from "../assets/imgs/edit_icon.png"
+import CROWN_ICON from "../assets/imgs/crown_icon.png"
+import REPORT_ICON from "../assets/imgs/report_icon.png"
 
 import {useNavigate} from "react-router-dom";
 

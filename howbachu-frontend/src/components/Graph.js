@@ -1,47 +1,39 @@
 import styled from "styled-components";
-import {useState} from "react";
+import CirCle_Graph from "./Circle_Graph";
+import graph_data from "../assets/data/graph_data";
+import { useEffect, useState } from "react";
 
-const Graph = ({isSmall, className}) => {
-    const [percentage, setPercentage] = useState(50);
+const Graph = ({ isSmall }) => {
+  const [percentage, setPercentage] = useState(0);
 
-    const handlePercentageChange = (e) => {
-        setPercentage(parseInt(e.target.value));
-    };
-    return (
-        <>
-            {isSmall
-                ?
-                <StickGraph>
-                    <GraphBackground percentage={percentage}>
-                        {percentage}%
-                    </GraphBackground>
-                </StickGraph>
-                :
-                <CircleGraph className={className}>
-                    <GraphBackground percentage={percentage}>
-                        {/*{percentage}%*/}
-                    </GraphBackground>
-                </CircleGraph>
-            }
-        </>
-    );
+  useEffect(() => {
+    const data = graph_data?.datasets[0];
+    setPercentage((data.data[0] * 100) / (data.data[0] + data.data[1]) || 0);
+  }, [percentage]);
+
+  return (
+    <>
+      {isSmall ? (
+        <StickGraph>
+          <StickBackground $percentage={percentage}>
+            {/*{parseInt(percentage)}%*/}
+          </StickBackground>
+        </StickGraph>
+      ) : (
+        <CircleGraph />
+      )}
+    </>
+  );
 };
 
-const CircleGraph = styled.div`
-  
-  width: ${({className}) => className ? `80px` : `130px`};
-  height: ${({className}) => className ? `80px` : `130px`};
-  border: 1px solid #b281ff;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 130px;
-  margin: 5px;
-  overflow: hidden;
-`
-const GraphBackground = styled.div`
-  width: ${(props) => `${props.percentage}%`};
+const CircleGraph = styled(CirCle_Graph)`
+  width: 130px;
+  height: 130px;
+`;
+const StickBackground = styled.div`
+  width: ${(props) => `${props.$percentage}%`};
   height: 100%;
-  background-color: rgba(148, 80, 255, 0.34);
+  background-color: rgb(196, 168, 255);
   transition: width 0.5s ease;
 `;
 const StickGraph = styled.div`
@@ -51,6 +43,8 @@ const StickGraph = styled.div`
   border: 1px solid #b281ff;
   border-radius: 15px;
   margin: 5px 0;
-`
+  background-color: rgb(173, 90, 255);
+  overflow: hidden;
+`;
 
 export default Graph;
