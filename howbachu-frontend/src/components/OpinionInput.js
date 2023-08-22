@@ -1,47 +1,54 @@
 import styled from "styled-components";
-import SEND_ICON from "../assets/send_icon.png"
+import SEND_ICON from "../assets/send_icon.svg";
 
-const OpinionInput = ({...attrProps}) => {
-    return (
-        <InputWrapper {...attrProps}>
-            <InputContainer>
-                <Input />
-                <SendBtn>
-                    <SendIcon src={SEND_ICON} alt="send_icon"/>
-                </SendBtn>
-            </InputContainer>
-        </InputWrapper>
-    );
+const OpinionInput = ({ ...attrProps }) => {
+  return (
+    <InputWrapper {...attrProps}>
+      <InputContainer>
+        <UserName>하우바츄</UserName>
+        <Input placeHolder="댓글을 입력하세요" />
+        <SendBtn>
+          <SendIcon src={SEND_ICON} alt="send_icon" />
+        </SendBtn>
+      </InputContainer>
+    </InputWrapper>
+  );
 };
 
 const InputWrapper = styled.div`
   width: 100%;
   height: 50px;
-`
+`;
 const InputContainer = styled.div`
   margin: 10px auto 5px auto;
   width: 90%;
   height: 35px;
-  box-shadow: 0 0 1px ${({theme}) => theme.colors.DARK_GRAY};
+  border: 1px solid rgb(196, 196, 196);
   border-radius: 8px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-`
+`;
+const UserName = styled.p`
+  padding: 11px 0 10px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+`;
 const Input = styled.input`
   width: 290px;
   height: 30px;
   padding-left: 10px;
   border: none;
-`
+`;
 const SendBtn = styled.button`
   width: 30px;
   height: 30px;
-`
+`;
 const SendIcon = styled.img`
   margin-top: 5px;
   width: 20px;
-  height: 20px; 
-`
+  height: 20px;
+`;
 
 export default OpinionInput;

@@ -1,17 +1,16 @@
-import React from 'react';
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/text_logo.svg";
 
 const TextLogo = () => {
-    const navigate = useNavigate();
-    return (
-        <LogoBox>
-            <Button onClick={() => navigate("/")}>
-                <Colored>하우바츄</Colored><br/>
-                HowBaChu
-            </Button>
-        </LogoBox>
-    );
+  const navigate = useNavigate();
+  return (
+    <LogoBox>
+      <Button onClick={() => navigate("/")}>
+        <img src={logo} alt={logo} />
+      </Button>
+    </LogoBox>
+  );
 };
 
 const LogoBox = styled.div`
@@ -19,16 +18,13 @@ const LogoBox = styled.div`
   height: 100px;
   position: fixed;
   top: 0;
-  background-color: ${({theme}) => theme.colors.BG_PURPLE};
-  padding: 30px 0 30px 30px;
-`
+  background-color: ${({ theme }) => theme.colors.BG_PURPLE};
+  padding: 30px 0 30px 16px;
+`;
 const Button = styled.button`
   font-weight: bold;
   font-size: 20px;
   text-align: left;
-`
-const Colored = styled.span`
-  color: ${({theme}) => theme.colors.DARK_PURPLE};
-`
+`;
 
 export default TextLogo;
