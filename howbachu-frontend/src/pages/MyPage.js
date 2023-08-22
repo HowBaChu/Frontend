@@ -42,10 +42,10 @@ const MyPage = () => {
 };
 
 const Div = styled.div`
-  display: flex;
   width: 345px;
   height: 690px;
   margin: 110px auto 0 auto;
+  display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -64,18 +64,18 @@ const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 45px;
   align-items: center;
+  gap: 45px;
 `;
 
 const InfoContainer = styled.div`
   width: 250px;
-  border-radius: 8px;
   margin-top: 10px;
   padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 8px;
 `;
 const InfoTxt = styled.div`
   width: 200px;
@@ -83,8 +83,8 @@ const InfoTxt = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 6px;
   align-items: center;
+  gap: 6px;
 `;
 const UserName = styled.p`
   font-size: 20px;
@@ -105,7 +105,6 @@ const Button = styled.button`
   align-items: center;
   gap: 15px;
   background-color: white;
-  //box-shadow: 0 0 1px ${({ theme }) => theme.colors.DARK_GRAY};
   border: 1px solid ${({ theme }) => theme.colors.TXT_GRAY};
   border-radius: 20px;
   font-size: 20px;
@@ -120,7 +119,7 @@ const Email = styled.p`
 `;
 const ProfileMsgBox = styled.div`
   width: 250px;
-  margin-top: 8px;
+  margin-top: 12px;
   padding: 10px;
   background-color: white;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));

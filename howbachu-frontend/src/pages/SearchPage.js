@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SEARCH_ICON from "../assets/search_icon.svg";
+
 const SearchPage = () => {
   return (
     <PageWrapper>
