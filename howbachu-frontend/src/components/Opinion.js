@@ -1,10 +1,23 @@
 import styled from "styled-components";
 import default_profile_icon from "../assets/default-profile-img_icon.svg";
-import FIRE from "../assets/fire_icon.svg"
-import HEART_EMPTY from "../assets/empty_heart_icon.svg"
+import FIRE from "../assets/fire_icon.svg";
+import HEART_EMPTY from "../assets/empty_heart_icon.svg";
+import HEART_FULL from "../assets/full_heart_icon.svg";
 import SIREN from "../assets/siren_icon.svg";
+import { useState } from "react";
 
 const Opinion = ({ isMine, isHot, ...attrProps }) => {
+  const [isLikeClicked, setIsLikeClicked] = useState(false);
+
+  const onClickHeart = (e, isHot) => {
+    e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
+
+    if (!isHot) {
+      // 하트(좋아요)일 경우
+      setIsLikeClicked((prev) => !prev);
+    }
+  };
+
   return (
     <OpinionWrapper $isMine={isMine} $isHot={isHot} {...attrProps}>
       <OpinionBox $isMine={isMine}>
@@ -20,16 +33,16 @@ const Opinion = ({ isMine, isHot, ...attrProps }) => {
             <Content>탕수육 맛있겠다 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</Content>
           </ContentContainer>
         </TopBox>
-        <IconBox>
-          <IconImg $isHot={isHot} />
+        <IconBtn isHot={isHot} onClick={(e, isHot) => onClickHeart(e, isHot)}>
+          <IconImg $isHot={isHot} isLikeClicked={isLikeClicked} />
           <LikeCount>24</LikeCount>
-        </IconBox>
+        </IconBtn>
       </OpinionBox>
       <UserActionBtn $isMine={isMine}>
         <ReOpinTxt>답글달기</ReOpinTxt>
-        <button>
+        <SirenIcon>
           <img src={SIREN} />
-        </button>
+        </SirenIcon>
       </UserActionBtn>
     </OpinionWrapper>
   );
@@ -39,7 +52,7 @@ const OpinionWrapper = styled.div`
   width: ${({ $isHot }) => ($isHot ? `100%` : `290px`)};
   box-shadow: 0 0 1px gray;
   border-radius: 15px;
-  padding: 14px 10px 12px 9px;
+  padding: 10px 10px 7px 9px;
   background-color: ${({ $isMine, theme }) =>
     $isMine ? `white` : theme.colors.PURPLE1};
   background-color: ${({ $isHot, theme }) => $isHot && theme.colors.HOT_PINK};
@@ -50,13 +63,11 @@ const OpinionWrapper = styled.div`
 `;
 const OpinionBox = styled.div`
   display: flex;
-  flex-direction: ${({ $isMine }) => ($isMine ? `row-reverse` : `row`)};
   justify-content: space-between;
   align-items: center;
 `;
 const TopBox = styled.div`
   display: flex;
-  flex-direction: ${({ $isMine }) => ($isMine ? `row-reverse` : `row`)};
   align-items: start;
 `;
 const ProfileImgBox = styled.div`
@@ -80,7 +91,6 @@ const ContentContainer = styled.div`
 `;
 const InfoBox = styled.div`
   display: flex;
-  flex-direction: ${({ $isMine }) => ($isMine ? `row-reverse` : `row`)};
   align-items: center;
   margin-top: 3px;
   gap: 5px;
@@ -103,34 +113,34 @@ const Content = styled.div`
   line-height: 1.1;
   word-break: break-all;
 `;
-const IconBox = styled.button`
+const IconBtn = styled.button`
   height: 42px;
 `;
 const IconImg = styled.img.attrs((props) => ({
-  src: props.$isHot ? FIRE : HEART_EMPTY,
+  src: props.$isHot ? FIRE : props.isLikeClicked ? HEART_FULL : HEART_EMPTY,
   alt: "icon",
 }))`
   width: 34px;
   height: 34px;
 `;
-
 const LikeCount = styled.p`
   margin-top: -5px;
   font-size: 6px;
   font-weight: 400;
-`
+`;
 const UserActionBtn = styled.div`
   display: flex;
   align-items: center;
-  justify-content: ${({ $isMine }) => ($isMine ? `end` : `start`)};
+  gap: 6px;
 `;
 const ReOpinTxt = styled.button`
   font-size: 10px;
   font-weight: 400;
-  color: ${({theme}) => theme.colors.TXT_GRAY};
+  color: ${({ theme }) => theme.colors.TXT_GRAY};
   white-space: nowrap;
 `;
 const SirenIcon = styled.button`
+  padding-top: 2px;
 `;
 
 export default Opinion;

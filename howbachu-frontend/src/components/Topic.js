@@ -30,10 +30,14 @@ const TopicWrapper = styled.div`
   background-color: white;
 `;
 const Title = styled.h2`
-  padding: ${({ $isSmall }) => ($isSmall ? `10px` : `5px`)};
-  font-family: "Inter", sans-serif;
-  font-size: ${({ $isSmall, $history }) =>
-    $history || $isSmall ? `12px` : `20px`};
+  padding: ${({ $history, $isSmall }) => {
+    if ($history) {
+      return `25px 0 10px 0`;
+    } else {
+      return $isSmall ? `10px` : `5px`;
+    }
+  }};
+  font-size: ${({ $isSmall }) => ($isSmall ? `12px` : `20px`)};
   font-weight: 700;
 `;
 const LeftTime = styled.div`
@@ -47,7 +51,6 @@ const TimeIcon = styled.img`
   height: 23px;
 `;
 const TimeTxt = styled.p`
-  font-family: "Inter", sans-serif;
   margin-top: 3px;
   font-weight: 100;
   font-size: 12px;

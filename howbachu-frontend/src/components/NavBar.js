@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import HOME_ICON from "../assets/home_icon.png";
 import SERCH_ICON from "../assets/search_icon.png";
-import LIKE_ICON from "../assets/good_icon.png";
 import MYPAGE_ICON from "../assets/mypage_icon.png";
 import CROWN_ICON from "../assets/crown_icon.png";
 import { useNavigate } from "react-router-dom";

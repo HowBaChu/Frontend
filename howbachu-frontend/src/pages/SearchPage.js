@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import SEARCH_ICON from "../assets/search_icon.png";
+import SEARCH_ICON from "../assets/search_icon.svg";
 const SearchPage = () => {
   return (
     <PageWrapper>
       <SearchBar>
+        <Bull>&bull;</Bull>
         <SearchInput placeholder="검색어를 입력해주세요" autoFocus />
         <Button>
           <Icon src={SEARCH_ICON} />
@@ -21,14 +22,20 @@ const PageWrapper = styled.div`
 const SearchBar = styled.div`
   width: 100%;
   height: 40px;
-  border-bottom: 3px solid ${({ theme }) => theme.colors.GRAY};
+  border-bottom: 4px solid ${({ theme }) => theme.colors.LIGHT_GRAY};
   display: flex;
   justify-content: space-around;
   align-items: center;
 `;
+const Bull = styled.p`
+  font-size: 20px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.LIGHT_GRAY};
+`;
 const SearchInput = styled.input`
   width: 80%;
-  font-size: 17px;
+  font-size: 15px;
+  font-weight: 500;
   border: none;
   background-color: transparent;
 `;
