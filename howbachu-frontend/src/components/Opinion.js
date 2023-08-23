@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import default_profile_icon from "../assets/default-profile-img_icon.svg";
+import { useState } from "react";
 import FIRE from "../assets/fire_icon.svg";
 import HEART_EMPTY from "../assets/empty_heart_icon.svg";
 import HEART_FULL from "../assets/full_heart_icon.svg";
 import SIREN from "../assets/siren_icon.svg";
-import { useState } from "react";
+import default_profile_icon from "../assets/default-profile-img_icon.svg";
 
-const Opinion = ({ isMine, isHot, ...attrProps }) => {
+const Opinion = ({ isMine, isHot, isList, ...attrProps }) => {
   const [isLikeClicked, setIsLikeClicked] = useState(false);
 
   const onClickHeart = (e, isHot) => {
@@ -19,7 +19,12 @@ const Opinion = ({ isMine, isHot, ...attrProps }) => {
   };
 
   return (
-    <OpinionWrapper $isMine={isMine} $isHot={isHot} {...attrProps}>
+    <OpinionWrapper
+      $isMine={isMine}
+      $isHot={isHot}
+      {...attrProps}
+      $isList={isList}
+    >
       <OpinionBox $isMine={isMine}>
         <TopBox $isMine={isMine}>
           <ProfileImgBox>

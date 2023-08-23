@@ -4,13 +4,15 @@ import SEND_ICON from "../assets/send_icon.svg";
 const OpinionInput = ({ ...attrProps }) => {
   return (
     <InputWrapper {...attrProps}>
-      <InputContainer>
-        <UserName>하우바츄</UserName>
-        <Input placeHolder="댓글을 입력하세요" />
-        <SendBtn>
-          <SendIcon src={SEND_ICON} alt="send_icon" />
-        </SendBtn>
-      </InputContainer>
+      <Form>
+        <InputContainer>
+          <UserName>하우바츄</UserName>
+          <Input placeHolder="댓글을 입력하세요" />
+          <SendBtn>
+            <SendIcon src={SEND_ICON} alt="send_icon" />
+          </SendBtn>
+        </InputContainer>
+      </Form>
     </InputWrapper>
   );
 };
@@ -21,6 +23,7 @@ const InputWrapper = styled.div`
 `;
 const InputContainer = styled.div`
   margin: 10px auto 5px auto;
+  padding: 10px;
   width: 90%;
   height: 35px;
   border: 1px solid rgb(196, 196, 196);
@@ -30,11 +33,12 @@ const InputContainer = styled.div`
   align-items: center;
 `;
 const UserName = styled.p`
-  padding: 11px 0 10px 14px;
+  padding: 11px 0 10px 0;
   font-size: 14px;
   font-weight: 700;
   white-space: nowrap;
 `;
+const Form = styled.form``;
 const Input = styled.input`
   width: 290px;
   height: 30px;
