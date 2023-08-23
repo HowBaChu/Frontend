@@ -64,6 +64,7 @@ const OpinionContainer = styled.div`
 `;
 const OpinionBox = styled(Opinion)`
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 const Input = styled(OpinionInput)`
   position: fixed;

@@ -1,13 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import "./Font.css";
+
 const GlobalStyle = createGlobalStyle`
     ${reset};
     body{
-        padding: 0;
-        margin: 0;
-        font-family: ‘Noto Sans KR’, sans-serif;
-      background-color: ${({theme}) => theme.colors.BG_PURPLE};
-
+      padding: 0;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: ${({ theme }) => theme.colors.BG_PURPLE};
     };
     a{
         text-decoration: none;
@@ -22,17 +23,23 @@ const GlobalStyle = createGlobalStyle`
       -ms-user-select: auto;
       user-select: auto;
     }
-    input:focus {
+    input:focus, textarea {
       outline: none;
     }
     button {
       border: none;
       background: none;
+      margin: 0;
       padding: 0;
       cursor: pointer;
     }
     p, div {
       margin: 0;
+      padding: 0;
+    }
+    img {
+      margin: 0;
+      padding: 0;
     }
 `;
 export default GlobalStyle;
