@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Graph from "./Graph";
-import time_icon from "../assets/hourglass_icon.svg";
+import time_icon from "../assets/imgs/hourglass_icon.svg";
 
 const Topic = ({ $isSmall, history, ...attrProps }) => {
   return (

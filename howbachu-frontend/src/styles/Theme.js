@@ -13,6 +13,8 @@ export const Theme = {
     PURPLE1: "#D4C4FF",
     PURPLE2: "#9F8AD7",
     PURPLE3: "#A586F8",
+    TOPIC_PURPLE1: "#C4A8FFFF",
+    TOPIC_PURPLE2: "#AD5AFFFF",
     DARK_PURPLE: "#633075",
     BLUE: "#59A4FB",
   },

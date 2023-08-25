@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
-import FIRE from "../assets/fire_icon.svg";
-import HEART_EMPTY from "../assets/empty_heart_icon.svg";
-import HEART_FULL from "../assets/full_heart_icon.svg";
-import SIREN from "../assets/siren_icon.svg";
-import default_profile_icon from "../assets/default-profile-img_icon.svg";
+import FIRE from "../assets/imgs/fire_icon.svg";
+import HEART_EMPTY from "../assets/imgs/empty_heart_icon.svg";
+import HEART_FULL from "../assets/imgs/full_heart_icon.svg";
+import SIREN from "../assets/imgs/siren_icon.svg";
+import default_profile_icon from "../assets/imgs/default-profile-img_icon.svg";
 
 const Opinion = ({ isMine, isHot, isList, ...attrProps }) => {
   const [isLikeClicked, setIsLikeClicked] = useState(false);
@@ -96,8 +96,9 @@ const ContentContainer = styled.div`
 `;
 const InfoBox = styled.div`
   display: flex;
-  align-items: center;
-  margin-top: 3px;
+  flex-direction: ${({ isMine }) => (isMine ? `row-reverse` : `row`)};
+  align-items: end;
+  margin: 5px;
   gap: 5px;
 `;
 const UserName = styled.div`

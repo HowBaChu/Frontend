@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SEND_ICON from "../assets/send_icon.svg";
+import SEND_ICON from "../assets/imgs/send_icon.svg";
 
 const OpinionInput = ({ ...attrProps }) => {
   return (
@@ -26,6 +26,7 @@ const InputContainer = styled.div`
   padding: 10px;
   width: 90%;
   height: 35px;
+
   border: 1px solid rgb(196, 196, 196);
   border-radius: 8px;
   display: flex;

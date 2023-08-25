@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
 import InfoInput from "../components/InfoInput";
-import DEFAULT_IMG from "../assets/logo.png";
-import EDIT_ICON from "../assets/edit_purple_icon.svg";
+import DEFAULT_IMG from "../assets/imgs/logo.png";
+import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
 
 const ProfileEditPage = () => {
   const [selectedImage, setSelectedImage] = useState(DEFAULT_IMG);
@@ -45,7 +45,6 @@ const ProfileEditPage = () => {
             <ProfileMsgBox>안뇽</ProfileMsgBox>
           </InfoContainer>
         </ProfileContainer>
-
         <hr />
         <InputWrapper>
           <InfoInput
@@ -59,7 +58,7 @@ const ProfileEditPage = () => {
           <InfoInput
             title="상태메세지"
             name="msg"
-            value="안녕하세요안녕하세요 안녕하세요안녕하세요 안녕하세요안녕하세요 안녕하세요안녕하세요 안녕하세요안녕하세요"
+            value="안녕하세요 이메일 수정은 불가합니다. 글자수 60자 제한 있습니다."
             textArea={true}
           />
         </InputWrapper>

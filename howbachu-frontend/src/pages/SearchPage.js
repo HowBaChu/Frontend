@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SEARCH_ICON from "../assets/search_icon.svg";
+import SEARCH_ICON from "../assets/imgs/search_icon.svg";
 
 const SearchPage = () => {
   return (
@@ -48,4 +48,5 @@ const Icon = styled.img`
   width: 25px;
   height: 25px;
 `;
+
 export default SearchPage;

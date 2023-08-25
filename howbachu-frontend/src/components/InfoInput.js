@@ -82,6 +82,7 @@ const TextArea = styled.textarea`
   border: none;
   overflow: hidden;
   resize: none;
+  letter-spacing: -1px;
 `;
 const LimitMsg = styled.div`
   padding: 5px;

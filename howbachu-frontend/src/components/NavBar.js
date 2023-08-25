@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import HOME_ICON from "../assets/home_icon.png";
-import SERCH_ICON from "../assets/search_icon.png";
-import MYPAGE_ICON from "../assets/mypage_icon.png";
-import CROWN_ICON from "../assets/crown_icon.png";
 import { useNavigate } from "react-router-dom";
+import HOME_ICON from "../assets/imgs/home_icon.png";
+import SERCH_ICON from "../assets/imgs/search_icon.png";
+import MYPAGE_ICON from "../assets/imgs/mypage_icon.png";
+import CROWN_ICON from "../assets/imgs/crown_icon.png";
 
 const NavBar = ({ className }) => {
   const navigate = useNavigate();

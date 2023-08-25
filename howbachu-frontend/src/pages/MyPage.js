@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import DEFAULT_IMG from "../assets/logo.png";
-import COMMENT_ICON from "../assets/comment_icon.png";
-import EDIT_ICON from "../assets/edit_icon.svg";
-import REPORT_ICON from "../assets/siren_big_icon.svg";
+import DEFAULT_IMG from "../assets/imgs/logo.png";
+import COMMENT_ICON from "../assets/imgs/comment_icon.png";
+import EDIT_ICON from "../assets/imgs/edit_icon.svg";
+import REPORT_ICON from "../assets/imgs/siren_big_icon.svg";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -67,7 +67,6 @@ const BottomWrapper = styled.div`
   align-items: center;
   gap: 45px;
 `;
-
 const InfoContainer = styled.div`
   width: 250px;
   margin-top: 10px;

@@ -1,6 +1,6 @@
 import Opinion from "../components/Opinion";
 import styled from "styled-components";
-import DEFAULT_IMG from "../assets/logo.png";
+import DEFAULT_IMG from "../assets/imgs/logo.png";
 
 const MyOpinionPage = () => {
   return (
@@ -34,6 +34,7 @@ const PageWrapper = styled.div`
   height: 690px;
   margin: 110px auto 0 auto;
 `;
+
 const MyOpin = styled(Opinion)`
   margin: 10px auto 0 auto;
   width: 98%;
