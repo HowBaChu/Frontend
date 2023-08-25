@@ -10,23 +10,20 @@ const MyOpinionPage = () => {
           <ProfileImg src={DEFAULT_IMG} />
         </ProfileImgBox>
         <InfoTxt>
-          <UserName>하우바츄</UserName>
-          <MBTI>INTJ</MBTI>
-          <p>howbachu@naver.com</p>
+          <InfoBox>
+            <UserName>하우바츄</UserName>
+            <MBTI>INTJ</MBTI>
+          </InfoBox>
+          <Email>howbachu@naver.com</Email>
         </InfoTxt>
       </InfoContainer>
-      <ButtonBox>
-        <Button />
-        <Button />
-      </ButtonBox>
       <MyOpinList>
-        <Opin className="list" />
-        <Opin className="list" />
-        <Opin className="list" />
-        <Opin className="list" />
-        <Opin className="list" />
-        <Opin className="list" />
-        <Opin className="list" />
+        <MyOpin isMine={true} isList={true} />
+        <MyOpin isMine={true} />
+        <MyOpin isMine={true} />
+        <MyOpin isMine={true} />
+        <MyOpin isMine={true} />
+        <MyOpin isMine={true} />
       </MyOpinList>
     </PageWrapper>
   );
@@ -37,36 +34,43 @@ const PageWrapper = styled.div`
   height: 690px;
   margin: 110px auto 0 auto;
 `;
-const Opin = styled(Opinion)`
-  &.list {
-    margin: 10px auto 0 auto;
-    width: 98%;
-    align-self: center;
-    justify-self: center;
-  }
+
+const MyOpin = styled(Opinion)`
+  margin: 10px auto 0 auto;
+  width: 98%;
+  align-self: center;
+  justify-self: center;
 `;
 const InfoContainer = styled.div`
   width: 100%;
   border-radius: 8px;
-  padding: 5px;
+  border: 1px solid ${({ theme }) => theme.colors.TXT_GRAY};
+  padding: 10px;
   display: flex;
   gap: 20px;
 `;
 const ProfileImgBox = styled.div`
-  width: 100px;
-  height: 100px;
-  box-shadow: 0 0 3px ${({ theme }) => theme.colors.DARK_GRAY};
+  width: 80px;
+  height: 80px;
+  margin: 2px;
+  box-shadow: 0 0 1px ${({ theme }) => theme.colors.DARK_GRAY};
   border-radius: 25px;
   overflow: hidden;
 `;
 const ProfileImg = styled.img`
-  width: 100px;
+  width: 80px;
+  height: 80px;
 `;
 const InfoTxt = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
+`;
+const InfoBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2px;
 `;
 const UserName = styled.p`
   font-size: 20px;
@@ -77,21 +81,14 @@ const MBTI = styled.p`
   font-weight: bold;
   color: ${({ theme }) => theme.colors.DARK_PURPLE};
 `;
-const ButtonBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: end;
-`;
-const Button = styled.button`
-  margin-right: 5px;
-  width: 50px;
-  height: 20px;
-  border: 1px solid ${({ theme }) => theme.colors.DARK_GRAY};
-  border-radius: 8px;
+const Email = styled.p`
+  font-size: 10px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.GRAY};
 `;
 const MyOpinList = styled.div`
   margin-top: 20px;
-  height: 530px;
+  height: 550px;
   display: flex;
   flex-direction: column;
   align-items: center;

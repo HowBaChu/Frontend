@@ -5,7 +5,7 @@ const Graph_data = {
       backgroundColor: ["rgb(196,168,255)", "rgb(173,90,255)"],
     },
   ],
-  labels: ["0", "1"],
+  labels: ["찍먹", "1"],
 };
 
 export default Graph_data;

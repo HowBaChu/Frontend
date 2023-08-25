@@ -1,10 +1,9 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import HOME_ICON from "../assets/imgs/home_icon.png";
 import SERCH_ICON from "../assets/imgs/search_icon.png";
-import LIKE_ICON from "../assets/imgs/good_icon.png";
 import MYPAGE_ICON from "../assets/imgs/mypage_icon.png";
 import CROWN_ICON from "../assets/imgs/crown_icon.png";
-import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ className }) => {
   const navigate = useNavigate();

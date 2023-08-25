@@ -1,6 +1,8 @@
-import Topic from "../components/Topic";
 import styled from "styled-components";
-import CROWN_ICON from "../assets/imgs/crown-purple_icon.png";
+import Topic from "../components/Topic";
+import CROWN_1 from "../assets/imgs/crown_1.svg";
+import CROWN_2 from "../assets/imgs/crown_2.svg";
+import CROWN_3 from "../assets/imgs/crown_3.svg";
 
 const TopicHistoryPage = () => {
   return (
@@ -8,27 +10,24 @@ const TopicHistoryPage = () => {
       <HistoryList>
         <TopicWrapper>
           <Crown>
-            <CrownIcon src={CROWN_ICON} />
+            <CrownIcon src={CROWN_1} />
           </Crown>
-          <HistoryTopic className="history" />
+          <HistoryTopic history={true} />
         </TopicWrapper>
         <TopicWrapper>
           <Crown>
-            <CrownIcon src={CROWN_ICON} />
+            <CrownIcon src={CROWN_2} />
           </Crown>
-          <HistoryTopic className="history" />
+          <HistoryTopic history={true} />
         </TopicWrapper>
         <TopicWrapper>
           <Crown>
-            <CrownIcon src={CROWN_ICON} />
+            <CrownIcon src={CROWN_3} />
           </Crown>
-          <HistoryTopic className="history" />
+          <HistoryTopic history={true} />
         </TopicWrapper>
         <TopicWrapper>
-          <Crown>
-            <CrownIcon src={CROWN_ICON} />
-          </Crown>
-          <HistoryTopic className="history" />
+          <HistoryTopic history={true} />
         </TopicWrapper>
       </HistoryList>
     </PageWrapper>
@@ -41,11 +40,12 @@ const PageWrapper = styled.div`
   margin: 110px auto 0 auto;
 `;
 const HistoryList = styled.div`
+  padding-top: 10px;
   height: 670px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 58px;
   overflow: scroll;
 
   & > :first-child {
@@ -60,21 +60,19 @@ const TopicWrapper = styled.div`
 `;
 const HistoryTopic = styled(Topic)``;
 const Crown = styled.div`
-  width: 45px;
-  height: 45px;
-  border: 1px solid gray;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 0 2px gray;
   border-radius: 50%;
   display: inline-block;
   position: absolute;
-  top: -20px;
-  left: -22px;
+  top: -28px;
+  left: -30px;
   background-color: ${({ theme }) => theme.colors.LIGHT_PURPLE};
   text-align: center;
 `;
 const CrownIcon = styled.img`
-  width: 30px;
-  height: 30px;
-  margin-top: 7px;
+  margin-top: 9px;
 `;
 
 export default TopicHistoryPage;
