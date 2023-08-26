@@ -5,7 +5,7 @@ const Verified_MSG = "인증 되었습니다:)";
 const NO_Verified_MSG = "현재 비밀번호 확인이 필요합니다.";
 
 const CurPwd = () => {
-  const [isVerified, IsVerified] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
   const helperMsg = isVerified ? Verified_MSG : NO_Verified_MSG;
 
   const onSubmit = (e, data) => {
@@ -20,7 +20,7 @@ const CurPwd = () => {
       <SmallTitle>현재 비밀번호</SmallTitle>
       <InputBox>
         <Input placeholder="현재 비밀번호" type="password" />
-        <Btn type="submit">확인</Btn>
+        <Btn type="submit" $isVerified={isVerified}>확인</Btn>
       </InputBox>
       <HelperTextBox $isVerified={isVerified}>{helperMsg}</HelperTextBox>
     </InputForm>
@@ -65,6 +65,7 @@ const Input = styled.input`
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const Btn = styled.button`
+  visibility: ${({$isVerified}) => $isVerified ? `hidden` : `visible`};
   width: 50px;
   height: 20px;
   border-radius: 5px;
