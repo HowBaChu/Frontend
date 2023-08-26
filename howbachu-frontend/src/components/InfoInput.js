@@ -57,7 +57,7 @@ const NotiMsg = styled.p`
   padding: 5px 0 0 10px;
   font-size: 10px;
   font-weight: 400;
-  color: #f00;
+  color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const Input = styled.input`
   width: 100%;

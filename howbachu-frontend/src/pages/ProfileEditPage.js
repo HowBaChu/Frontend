@@ -3,8 +3,9 @@ import { useState } from "react";
 import InfoInput from "../components/InfoInput";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
+import NewPwd from "../components/NewPwd";
 
-const ProfileEditPage = () => {
+const ProfileEditPage = ({ ableEdit }) => {
   const [selectedImage, setSelectedImage] = useState(DEFAULT_IMG);
 
   const handleImageChange = (e) => {
@@ -36,7 +37,6 @@ const ProfileEditPage = () => {
               <Edit_icon src={EDIT_ICON} />
             </LabelBtn>
           </ProfileImgContainer>
-
           <InfoContainer>
             <InfoTxt>
               <UserName>하우바츄</UserName>
@@ -52,7 +52,7 @@ const ProfileEditPage = () => {
             placeHolder="howbachu@gmail.com"
             disabled={true}
           />
-          <InfoInput title="password" name="password" autoFocus />
+          <NewPwd />
           <InfoInput title="nickname" name="nickname" value="하우바츄" />
           <InfoInput title="MBTI" name="MBTI" value="INTJ" />
           <InfoInput
