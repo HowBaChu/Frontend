@@ -7,14 +7,23 @@ const InfoInput = ({
   disabled,
   value,
   textArea,
+  onValueChange,
 }) => {
+  const onChange = (e) => {
+    const newValue = e.target.value;
+    // 부모 컴포넌트로 변경된 값을 전달.
+    if (onValueChange) {
+      onValueChange(newValue);
+    }
+  };
+
   return (
     <InfoInputBox>
       <InputTitle>{title}</InputTitle>
       <InputContainer textArea={textArea}>
         {textArea ? (
           <TextAreaBox>
-            <TextArea type="text" value={value} />
+            <TextArea type="text" value={value} onChange={onChange} />
             <LimitMsg>({value.length} / 60)</LimitMsg>
           </TextAreaBox>
         ) : (
@@ -24,6 +33,7 @@ const InfoInput = ({
             placeHolder={placeHolder}
             disabled={disabled}
             value={value}
+            onChange={onChange}
           />
         )}
       </InputContainer>

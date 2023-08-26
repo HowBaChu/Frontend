@@ -3,24 +3,45 @@ import { useState } from "react";
 import InfoInput from "../components/InfoInput";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
+import CurPwd from "../components/CurPwd";
 import NewPwd from "../components/NewPwd";
 
-const ProfileEditPage = ({ ableEdit }) => {
+const ProfileEditPage = () => {
   const [selectedImage, setSelectedImage] = useState(DEFAULT_IMG);
+  const [profileData, setProfileData] = useState({
+    nickname: "하우바츄",
+    MBTI: "INTJ",
+    msg: "안녕하세요 이메일 수정은 불가합니다. 글자수 60자 제한 있습니다.",
+  });
+  const [editingData, setEditingData] = useState({ ...profileData });
 
   const handleImageChange = (e) => {
+    e.preventDefault();
     const file = e.target.files[0];
     if (file) {
       const imageURL = URL.createObjectURL(file); // URL로 변환해서 state에 저장 -> 렌더링 위함
       setSelectedImage(imageURL);
-      // // 필요없어진 후에 URL을 해제하는 코드
+      // TODO 필요없어진 후에 URL을 해제하는 코드
       // URL.revokeObjectURL(imageURL);
     }
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // TODO 폼 데이터를 서버로 POST
+    setProfileData(editingData); // 저장 버튼 클릭 시
+  };
+  const handleCancel = () => {
+    setEditingData(profileData); // 취소 버튼 클릭 시
+    setSelectedImage(DEFAULT_IMG);
+  };
+  const handleInputChange = (field, value) => {
+    setEditingData((prevData) => ({ ...prevData, [field]: value }));
+  };
+
   return (
     <PageWrapper>
-      <Form>
+      <Form onSubmit={handleFormSubmit}>
         <ProfileContainer>
           <ProfileImgContainer>
             <ProfileImgBox>
@@ -39,10 +60,10 @@ const ProfileEditPage = ({ ableEdit }) => {
           </ProfileImgContainer>
           <InfoContainer>
             <InfoTxt>
-              <UserName>하우바츄</UserName>
+              <UserName>{profileData.nickname}</UserName>
             </InfoTxt>
-            <Email>howbachu@naver.com</Email>
-            <ProfileMsgBox>안뇽</ProfileMsgBox>
+            <Email>{profileData.MBTI}</Email>
+            <ProfileMsgBox>{profileData.msg}</ProfileMsgBox>
           </InfoContainer>
         </ProfileContainer>
         <hr />
@@ -52,18 +73,36 @@ const ProfileEditPage = ({ ableEdit }) => {
             placeHolder="howbachu@gmail.com"
             disabled={true}
           />
-          <NewPwd />
-          <InfoInput title="nickname" name="nickname" value="하우바츄" />
-          <InfoInput title="MBTI" name="MBTI" value="INTJ" />
+          <PwdInputBox>
+            <CurPwd />
+            <NewPwd />
+          </PwdInputBox>
+          <InfoInput
+            title="nickname"
+            name="nickname"
+            value={editingData.nickname}
+            onValueChange={(newValue) =>
+              handleInputChange("nickname", newValue)
+            }
+          />
+          <InfoInput
+            title="MBTI"
+            name="MBTI"
+            value={editingData.MBTI}
+            onValueChange={(newValue) => handleInputChange("MBTI", newValue)}
+          />
           <InfoInput
             title="상태메세지"
             name="msg"
-            value="안녕하세요 이메일 수정은 불가합니다. 글자수 60자 제한 있습니다."
+            value={editingData.msg}
             textArea={true}
+            onValueChange={(newValue) => handleInputChange("msg", newValue)}
           />
         </InputWrapper>
         <Buttons>
-          <Btn type="cancel">취소</Btn>
+          <Btn onClick={handleCancel} type="button">
+            취소
+          </Btn>
           <Btn type="submit">저장</Btn>
         </Buttons>
       </Form>
@@ -163,8 +202,9 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
 `;
+const PwdInputBox = styled.div``;
 const Buttons = styled.div`
   margin-top: 30px;
   display: flex;

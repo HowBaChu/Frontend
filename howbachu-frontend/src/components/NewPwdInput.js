@@ -18,7 +18,6 @@ const NewPwdInput = ({
 
   useEffect(() => {
     setIsValid(!valid); // 유효성 검사
-    console.log(valid?.message);
   }, [valid]);
 
   useEffect(() => {
@@ -67,14 +66,15 @@ const Input = styled.input`
   width: 100%;
   margin: 5px 10px;
   border: none;
-  font-size: 18px;
+  font-size: 15px;
+  line-height: 15px;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const HelperTextBox = styled.p`
   padding: 3px 0 0 10px;
   font-size: 10px;
-  font-weight: 400;
+  font-weight: 600;
   color: tomato;
 `;
 

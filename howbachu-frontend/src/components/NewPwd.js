@@ -20,10 +20,8 @@ const schema = yup.object().shape({
 const NewPwd = () => {
   const [isSame, setIsSame] = useState(false); // 새로운 비밀번호 재확인 -> 일치 여부 관리 state
   const [isAble, setIsAble] = useState(false); // 유효성 검사, 일치 여부 확인
-
   const {
     register,
-    handleSubmit,
     watch,
     setValue,
     formState: { errors },
@@ -34,10 +32,18 @@ const NewPwd = () => {
   });
   const value = watch();
 
-  const onSubmit = (data) => {
-    // PostNewPwd(data, loginToggle, () => navigate("/")); //TODO Axios POST New Pwd
-    setValue("newPwd", "");
-    setValue("reConfirm", "");
+  const onSubmit = () => {
+    //TODO Axios POST New Pwd
+    const formData = {
+      newPwd: value.newPwd,
+      reConfirm: value.reConfirm
+    };
+    // PostNewPwd(formData);
+  };
+  const handleButtonClick = () => {
+    if (isAble) {
+      onSubmit();
+    }
   };
   useEffect(() => {
     setIsSame(
@@ -50,8 +56,8 @@ const NewPwd = () => {
 
   return (
     <ConfirmContainer>
-      <InputTitle>비밀번호 변경</InputTitle>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form>
+        <SmallTitle>새로운 비밀번호</SmallTitle>
         {/*새로운 비밀번호*/}
         <PwdInput
           value={value}
@@ -73,7 +79,12 @@ const NewPwd = () => {
           errorMsg={PWD_ERROR_MSG}
           register={register}
         />
-        <ChangeBtn disabled={!isAble} $isAble={isAble} type="submit">
+        {/*<ChangeBtn disabled={!isAble} $isAble={isAble} type="submit">*/}
+        <ChangeBtn
+          onClick={handleButtonClick}
+          disabled={!isAble}
+          $isAble={isAble}
+        >
           비밀번호 변경하기
         </ChangeBtn>
       </Form>
@@ -84,15 +95,15 @@ const NewPwd = () => {
 const ConfirmContainer = styled.div`
   width: 280px;
 `;
-const InputTitle = styled.div`
-  margin-bottom: 2px;
-  font-weight: 700;
-  font-size: 20px;
-  color: ${({ theme }) => theme.colors.PURPLE3};
-`;
-const Form = styled.form``;
+const Form = styled.div``;
 const PwdInput = styled(NewPwdInput)`
   margin-bottom: 3px;
+`;
+const SmallTitle = styled.p`
+  margin: 4px 0 2px 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const ChangeBtn = styled.button`
   margin-top: 10px;
