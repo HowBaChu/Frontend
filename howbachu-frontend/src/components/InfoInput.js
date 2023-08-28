@@ -46,6 +46,8 @@ const InfoInputBox = styled.div`
   width: 280px;
   flex-direction: column;
   align-items: start;
+
+  //background-color: cornflowerblue;
 `;
 const InputTitle = styled.div`
   margin-bottom: 2px;
@@ -54,7 +56,7 @@ const InputTitle = styled.div`
   color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const InputContainer = styled.div`
-  height: ${({ textArea }) => (textArea ? `120px` : `30px`)};
+  height: ${({ textArea }) => (textArea ? `120px` : `40px`)};
   display: flex;
   justify-content: center;
   align-items: center;

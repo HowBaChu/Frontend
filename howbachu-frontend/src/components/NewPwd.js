@@ -23,7 +23,7 @@ const NewPwd = () => {
   const {
     register,
     watch,
-    setValue,
+    // setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),

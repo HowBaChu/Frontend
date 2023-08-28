@@ -20,7 +20,9 @@ const CurPwd = () => {
       <SmallTitle>현재 비밀번호</SmallTitle>
       <InputBox>
         <Input placeholder="현재 비밀번호" type="password" />
-        <Btn type="submit" $isVerified={isVerified}>확인</Btn>
+        <Btn type="submit" $isVerified={isVerified}>
+          확인
+        </Btn>
       </InputBox>
       <HelperTextBox $isVerified={isVerified}>{helperMsg}</HelperTextBox>
     </InputForm>
@@ -47,7 +49,7 @@ const SmallTitle = styled.p`
 `;
 const InputBox = styled.div`
   padding: 0 10px;
-  height: 30px;
+  height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -65,13 +67,13 @@ const Input = styled.input`
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const Btn = styled.button`
-  visibility: ${({$isVerified}) => $isVerified ? `hidden` : `visible`};
+  visibility: ${({ $isVerified }) => ($isVerified ? `hidden` : `visible`)};
   width: 50px;
-  height: 20px;
+  height: 25px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.PURPLE3};
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 `;
 const HelperTextBox = styled.p`

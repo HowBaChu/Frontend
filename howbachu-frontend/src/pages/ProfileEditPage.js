@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
 import InfoInput from "../components/InfoInput";
-import DEFAULT_IMG from "../assets/imgs/logo.png";
-import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
 import CurPwd from "../components/CurPwd";
 import NewPwd from "../components/NewPwd";
+import DEFAULT_IMG from "../assets/imgs/logo.png";
+import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
+import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
+import SAVE_ICON from "../assets/imgs/save_icon.svg";
 
 const ProfileEditPage = () => {
   const [selectedImage, setSelectedImage] = useState(DEFAULT_IMG);
@@ -62,14 +64,14 @@ const ProfileEditPage = () => {
             <InfoTxt>
               <UserName>{profileData.nickname}</UserName>
             </InfoTxt>
-            <Email>{profileData.MBTI}</Email>
+            <MBTI>{profileData.MBTI}</MBTI>
             <ProfileMsgBox>{profileData.msg}</ProfileMsgBox>
           </InfoContainer>
         </ProfileContainer>
         <hr />
         <InputWrapper>
           <InfoInput
-            title="email"
+            title="이메일"
             placeHolder="howbachu@gmail.com"
             disabled={true}
           />
@@ -100,10 +102,14 @@ const ProfileEditPage = () => {
           />
         </InputWrapper>
         <Buttons>
-          <Btn onClick={handleCancel} type="button">
-            취소
+          <Btn onClick={handleCancel} type="button" $mode="cancel">
+            <Icon src={CANCEL_ICON} />
+            <Txt>취소</Txt>
           </Btn>
-          <Btn type="submit">저장</Btn>
+          <Btn type="submit">
+            <Icon src={SAVE_ICON} />
+            <Txt>저장</Txt>
+          </Btn>
         </Buttons>
       </Form>
     </PageWrapper>
@@ -114,6 +120,7 @@ const PageWrapper = styled.div`
   width: 345px;
   height: 690px;
   margin: 110px auto 0 auto;
+  overflow: scroll;
 `;
 const ProfileContainer = styled.div`
   margin-bottom: 30px;
@@ -170,10 +177,10 @@ const InfoTxt = styled.div`
   align-items: center;
   gap: 6px;
 `;
-const Email = styled.p`
-  font-size: 10px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.GRAY};
+const MBTI = styled.p`
+  font-size: 12px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const UserName = styled.p`
   font-size: 20px;
@@ -193,9 +200,7 @@ const ProfileMsgBox = styled.div`
   font-weight: 600;
 `;
 const Form = styled.form`
-  height: 670px;
-  padding-top: 5px;
-  overflow: scroll;
+  padding: 5px 0 40px 0;
 `;
 const InputWrapper = styled.div`
   margin-top: 30px;
@@ -218,7 +223,20 @@ const Btn = styled.button`
   font-size: 18px;
   font-weight: 400;
   border-radius: 5px;
-  background-color: ${({ theme, type }) =>
-    type === "cancel" ? theme.colors.GRAY : theme.colors.PURPLE3};
+  background-color: ${({ theme, $mode }) =>
+    $mode === "cancel" ? theme.colors.GRAY : theme.colors.PURPLE3};
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+`;
+const Icon = styled.img`
+  width: 25px;
+  height: 25px;
+`;
+const Txt = styled.p`
+  font-size: 18px;
+  font-weight: 400;
+  color: white;
 `;
 export default ProfileEditPage;

@@ -53,7 +53,7 @@ const InputContainer = styled.div`
   flex-direction: column;
 `;
 const InputBox = styled.div`
-  height: ${({ textArea }) => (textArea ? `120px` : `30px`)};
+  height: ${({ textArea }) => (textArea ? `120px` : `40px`)};
   display: flex;
   justify-content: center;
   align-items: center;

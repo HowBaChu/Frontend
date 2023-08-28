@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
-import COMMENT_ICON from "../assets/imgs/comment_icon.png";
+import COMMENT_ICON from "../assets/imgs/my-opins_icon.svg";
 import EDIT_ICON from "../assets/imgs/edit_icon.svg";
 import REPORT_ICON from "../assets/imgs/siren_big_icon.svg";
 
@@ -29,7 +29,7 @@ const MyPage = () => {
           </Button>
           <Button onClick={() => navigate("/my-opinions")}>
             내가 쓴 글
-            <BtnIcon src={COMMENT_ICON} />
+            <BtnIcon src={COMMENT_ICON} $comment={true} />
           </Button>
           <Button onClick={() => navigate("/reports")}>
             신고내역
@@ -131,7 +131,8 @@ const ButtonContainer = styled.div`
   margin-top: 7px;
 `;
 const BtnIcon = styled.img`
-  width: 35px;
+  width: ${({ $comment }) => ($comment ? `25px` : `35px`)};
+  margin-right: ${({ $comment }) => $comment && `5px`};
   height: 35px;
 `;
 
