@@ -2,10 +2,10 @@ import styled from "styled-components";
 import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import { useState } from "react";
-import OpinionInput from "../components/OpinionInput";
 import { useNavigate } from "react-router-dom";
+import OpinionInput from "../components/OpinionInput";
 
-const MainPage = () => {
+const MainPage = ({ openModal }) => {
   const [isSmall, setIsSmall] = useState(false);
 
   const handleOpinionScroll = (event) => {
@@ -22,16 +22,53 @@ const MainPage = () => {
             isMine={false}
             isHot={true}
             onClick={() => navigate("/test")}
+            toggleModal={openModal}
           />
-          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
-          <OpinionBox isMine={false} onClick={() => navigate("/test")} />
-          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
-          <OpinionBox isMine={false} onClick={() => navigate("/test")} />
-          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
-          <OpinionBox isMine={false} onClick={() => navigate("/test")} />
-          <OpinionBox isMine={false} onClick={() => navigate("/test")} />
-          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
-          <OpinionBox isMine={true} onClick={() => navigate("/test")} />
+          <OpinionBox
+            isMine={true}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
+          <OpinionBox
+            isMine={false}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
+          <OpinionBox
+            isMine={true}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
+          <OpinionBox
+            isMine={false}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
+          <OpinionBox
+            isMine={true}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
+          <OpinionBox
+            isMine={false}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
+          <OpinionBox
+            isMine={false}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
+          <OpinionBox
+            isMine={true}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
+          <OpinionBox
+            isMine={true}
+            onClick={() => navigate("/test")}
+            toggleModal={openModal}
+          />
         </OpinionContainer>
       </OpinionArea>
       <Input />
