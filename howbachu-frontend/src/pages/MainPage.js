@@ -22,52 +22,52 @@ const MainPage = ({ openModal }) => {
             isMine={false}
             isHot={true}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={false}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={false}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={false}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={false}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
-            toggleModal={openModal}
+            openModal={openModal}
           />
         </OpinionContainer>
       </OpinionArea>

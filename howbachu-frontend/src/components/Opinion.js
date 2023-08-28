@@ -6,7 +6,7 @@ import HEART_FULL from "../assets/imgs/full_heart_icon.svg";
 import SIREN from "../assets/imgs/siren_icon.svg";
 import default_profile_icon from "../assets/imgs/default-profile-img_icon.svg";
 
-const Opinion = ({ isMine, isHot, isList, toggleModal, ...attrProps }) => {
+const Opinion = ({ isMine, isHot, isList, openModal, ...attrProps }) => {
   const [isLikeClicked, setIsLikeClicked] = useState(false);
 
   const onClickHeart = (e, isHot) => {
@@ -20,7 +20,7 @@ const Opinion = ({ isMine, isHot, isList, toggleModal, ...attrProps }) => {
 
   const onClickReport = (e) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
-    toggleModal();
+    openModal();
   };
 
   return (

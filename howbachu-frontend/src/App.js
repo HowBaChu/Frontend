@@ -38,8 +38,8 @@ function App() {
               path="/"
               element={<MainPage openModal={handleModalOpen} />}
             />
-            <Route path="/:opinId" element={<Threadpage />} />
-            <Route path="/test" element={<Threadpage />} />
+            <Route path="/:opinId" element={<Threadpage openModal={handleModalOpen} />} />
+            <Route path="/test" element={<Threadpage openModal={handleModalOpen} />} />
             <Route path="/serch" element={<SearchPage />} />
             <Route path="/profile" element={<MyPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
