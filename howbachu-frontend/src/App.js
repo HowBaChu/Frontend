@@ -2,8 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./styles/GlobalStyle";
 import { Theme } from "./styles/Theme";
 import { ThemeProvider } from "styled-components";
-import TextLogo from "./components/TextLogo";
+import { useState } from "react";
 
+import TextLogo from "./components/TextLogo";
 import MainPage from "./pages/MainPage";
 import SearchPage from "./pages/SearchPage";
 import MyPage from "./pages/MyPage";
@@ -14,18 +15,31 @@ import ReportPage from "./pages/ReportPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 import Threadpage from "./pages/Threadpage";
+import ReportModal from "./components/ReportModal";
 
 function App() {
+  const [isModal, setIsModal] = useState(false);
+  const handleModalOpen = () => {
+    setIsModal(true);
+  };
+  const handleModalClose = () => {
+    setIsModal(false);
+  };
+
   return (
     <div className="App">
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
+        {isModal && <ReportModal closeModal={handleModalClose} />}
         <BrowserRouter>
           <TextLogo />
           <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/:opinId" element={<Threadpage />} />
-            <Route path="/test" element={<Threadpage />} />
+            <Route
+              path="/"
+              element={<MainPage openModal={handleModalOpen} />}
+            />
+            <Route path="/:opinId" element={<Threadpage openModal={handleModalOpen} />} />
+            <Route path="/test" element={<Threadpage openModal={handleModalOpen} />} />
             <Route path="/serch" element={<SearchPage />} />
             <Route path="/profile" element={<MyPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />

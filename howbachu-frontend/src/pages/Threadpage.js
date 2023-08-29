@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import Opinion from "../components/Opinion";
 
-const Threadpage = () => {
+const Threadpage = ({ openModal }) => {
+
   return (
     <ThreadWrapper>
-      <ThreadOpinion />
+      <ThreadOpinion openModal={openModal} />
       <Hr />
       <OpinList>
-        <ReOpin isMine={true} />
-        <ReOpin isMine={false} />
-        <ReOpin isMine={true} />
+        <ReOpin isMine={true} openModal={openModal} />
+        <ReOpin isMine={false} openModal={openModal} />
+        <ReOpin isMine={true} openModal={openModal} />
       </OpinList>
     </ThreadWrapper>
   );
