@@ -19,11 +19,11 @@ const MyOpinionPage = () => {
       </InfoContainer>
       <MyOpinList>
         <MyOpin isMine={true} isList={true} />
-        <MyOpin isMine={true} />
-        <MyOpin isMine={true} />
-        <MyOpin isMine={true} />
-        <MyOpin isMine={true} />
-        <MyOpin isMine={true} />
+        <MyOpin isMine={true} isList={true} />
+        <MyOpin isMine={true} isList={true} />
+        <MyOpin isMine={true} isList={true} />
+        <MyOpin isMine={true} isList={true} />
+        <MyOpin isMine={true} isList={true} />
       </MyOpinList>
     </PageWrapper>
   );

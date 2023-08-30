@@ -96,7 +96,7 @@ const HelperTextBox = styled.p`
   margin: 5px 0 0 30px;
   font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
-  color: ${({ theme }) => theme.fontweight.TOMATO};
+  color: ${({ theme }) => theme.colors.TOMATO};
 `;
 
 export default CurPwd;

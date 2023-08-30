@@ -24,12 +24,7 @@ const Opinion = ({ isMine, isHot, isList, openModal, ...attrProps }) => {
   };
 
   return (
-    <OpinionWrapper
-      $isMine={isMine}
-      $isHot={isHot}
-      {...attrProps}
-      $isList={isList}
-    >
+    <OpinionWrapper $isMine={isMine} $isHot={isHot} {...attrProps}>
       <OpinionBox $isMine={isMine}>
         <TopBox $isMine={isMine}>
           <ProfileImgBox>
@@ -48,7 +43,7 @@ const Opinion = ({ isMine, isHot, isList, openModal, ...attrProps }) => {
           <LikeCount>24</LikeCount>
         </IconBtn>
       </OpinionBox>
-      <UserActionBtn $isMine={isMine}>
+      <UserActionBtn $isMine={isMine} $isList={isList}>
         <ReOpinTxt>답글달기</ReOpinTxt>
         <SirenIcon onClick={(e) => onClickReport(e)}>
           <img src={SIREN} />
@@ -141,7 +136,7 @@ const LikeCount = styled.p`
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
 const UserActionBtn = styled.div`
-  display: flex;
+  display: ${({ $isList }) => ($isList ? `none` : `flex`)};
   align-items: center;
   gap: 6px;
 `;
