@@ -16,6 +16,7 @@ import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 import Threadpage from "./pages/Threadpage";
 import ReportModal from "./components/ReportModal";
+import CurPwdCheckPage from "./pages/CurPwdCheckPage";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
@@ -38,11 +39,18 @@ function App() {
               path="/"
               element={<MainPage openModal={handleModalOpen} />}
             />
-            <Route path="/:opinId" element={<Threadpage openModal={handleModalOpen} />} />
-            <Route path="/test" element={<Threadpage openModal={handleModalOpen} />} />
+            <Route
+              path="/:opinId"
+              element={<Threadpage openModal={handleModalOpen} />}
+            />
+            <Route
+              path="/test"
+              element={<Threadpage openModal={handleModalOpen} />}
+            />
             <Route path="/serch" element={<SearchPage />} />
             <Route path="/profile" element={<MyPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
+            <Route path="/profile/pwdcheck" element={<CurPwdCheckPage />} />
             <Route path="/my-opinions" element={<MyOpinionPage />} />
             <Route path="/popular-posts" element={<TopicHistoryPage />} />
             <Route path="/reports" element={<ReportPage />} />

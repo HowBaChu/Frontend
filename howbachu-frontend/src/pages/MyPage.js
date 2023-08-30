@@ -23,7 +23,7 @@ const MyPage = () => {
           <ProfileMsgBox>안뇽</ProfileMsgBox>
         </InfoContainer>
         <ButtonContainer>
-          <Button onClick={() => navigate("/profile/edit")}>
+          <Button onClick={() => navigate("/profile/pwdcheck")}>
             프로필수정
             <BtnIcon src={EDIT_ICON} />
           </Button>
