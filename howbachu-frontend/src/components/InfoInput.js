@@ -52,8 +52,10 @@ const InfoInputBox = styled.div`
 `;
 const InputTitle = styled.div`
   margin-bottom: 2px;
-  font-weight: 700;
-  font-size: 20px;
+
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+
   color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const InputContainer = styled.div`
@@ -68,16 +70,16 @@ const InputContainer = styled.div`
 `;
 const NotiMsg = styled.p`
   padding: 5px 0 0 10px;
-  font-size: 10px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const Input = styled.input`
   width: 100%;
   margin: 5px 10px;
   border: none;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const TextAreaBox = styled.div`
@@ -91,7 +93,7 @@ const TextAreaBox = styled.div`
 const TextArea = styled.textarea`
   padding: 7px;
   height: 135px;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
   border: none;
   overflow: hidden;
   resize: none;
@@ -101,8 +103,8 @@ const LimitMsg = styled.div`
   padding: 5px;
   align-self: end;
   color: ${({ theme }) => theme.colors.TXT_GRAY};
-  font-size: 18px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   white-space: nowrap;
 `;
 

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import HOME_ICON from "../assets/imgs/home_icon.png";
-import SERCH_ICON from "../assets/imgs/search_icon.png";
-import MYPAGE_ICON from "../assets/imgs/mypage_icon.png";
-import CROWN_ICON from "../assets/imgs/crown_icon.png";
+import HOME_ICON from "../assets/imgs/home_icon.svg";
+import SERCH_ICON from "../assets/imgs/search_nav_icon.svg";
+import MYPAGE_ICON from "../assets/imgs/person_icon.svg";
+import CROWN_ICON from "../assets/imgs/crown_nav_icon.svg";
 
 const NavBar = ({ className }) => {
   const navigate = useNavigate();
@@ -45,8 +45,6 @@ const Menu = styled.button`
   align-items: center;
 `;
 const Icon = styled.img`
-  width: 22px;
-  height: 22px;
 `;
 
 export default NavBar;

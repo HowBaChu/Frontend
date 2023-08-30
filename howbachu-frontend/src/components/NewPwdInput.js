@@ -66,16 +66,16 @@ const Input = styled.input`
   width: 100%;
   margin: 5px 10px;
   border: none;
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   line-height: 15px;
-  font-weight: 500;
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const HelperTextBox = styled.p`
   padding: 3px 0 0 10px;
-  font-size: 10px;
-  font-weight: 600;
-  color: tomato;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  color: ${({ theme }) => theme.colors.TOMATO};
 `;
 
 export default NewPwdInput;

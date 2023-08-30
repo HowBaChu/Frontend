@@ -41,6 +41,7 @@ const InputForm = styled.div`
   margin: 0 auto;
   width: 300px;
   height: 215px;
+  background-color: white;
   box-shadow: 0 0 1px gray;
   border-radius: 8px;
   display: flex;
@@ -48,8 +49,8 @@ const InputForm = styled.div`
 `;
 const InputTitle = styled.div`
   margin: 25px 0 20px 20px;
-  font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const Buttons = styled.div`
@@ -62,8 +63,10 @@ const Btn = styled.button`
   width: 80px;
   height: 34px;
   color: white;
-  font-size: 18px;
-  font-weight: 400;
+
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+
   border-radius: 5px;
   background-color: ${({ theme, type }) =>
     type === "cancel" ? theme.colors.GRAY : theme.colors.PURPLE3};
@@ -82,18 +85,18 @@ const InputBox = styled.div`
   background-color: white;
 `;
 const Input = styled.input`
-  width: 190px;
+  width: 100%;
   margin: 5px 10px 5px 0;
   border: none;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const HelperTextBox = styled.p`
   margin: 5px 0 0 30px;
-  font-size: 10px;
-  font-weight: 600;
-  color: ${({ $isVerified }) => ($isVerified ? `#4ECB71` : `tomato`)};
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  color: ${({ theme }) => theme.fontweight.TOMATO};
 `;
 
 export default CurPwd;

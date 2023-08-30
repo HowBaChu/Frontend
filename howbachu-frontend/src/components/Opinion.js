@@ -107,19 +107,20 @@ const InfoBox = styled.div`
   gap: 5px;
 `;
 const UserName = styled.div`
-  font-size: 15px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const OpinTitle = styled.div`
-  font-size: 10px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.DARK_PURPLE};
 `;
 const Content = styled.div`
   max-width: 230px;
+  margin-left: 5px;
   padding: 0 1px;
-  font-size: 11px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   text-align: start;
   line-height: 1.1;
   word-break: break-all;
@@ -136,8 +137,8 @@ const IconImg = styled.img.attrs((props) => ({
 `;
 const LikeCount = styled.p`
   margin-top: -5px;
-  font-size: 6px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
 const UserActionBtn = styled.div`
   display: flex;
@@ -145,8 +146,8 @@ const UserActionBtn = styled.div`
   gap: 6px;
 `;
 const ReOpinTxt = styled.button`
-  font-size: 10px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ theme }) => theme.colors.TXT_GRAY};
   white-space: nowrap;
 `;

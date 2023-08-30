@@ -81,9 +81,9 @@ const Modal = styled.div`
   overflow: scroll;
 `;
 const Title = styled.p`
-  padding: 13px;
-  font-size: 22px;
-  font-weight: 600;
+  padding: 20px;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const ReasonList = styled.div``;
 const ReasonInputBox = styled.div`
@@ -94,9 +94,9 @@ const ReasonInputBox = styled.div`
 `;
 const InputBox = styled.div`
   width: 330px;
-  margin-left: 15px;
+  margin: -1px 0 0 15px;
   padding: 0 10px;
-  height: 35px;
+  height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -109,14 +109,13 @@ const Input = styled.input`
   width: 190px;
   margin: 5px 10px 5px 0;
   border: none;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const Reason = styled.div`
   padding: 15px;
   width: 100%;
-  min-height: 55px;
   cursor: pointer;
   background-color: ${({ $selected, index, theme }) => {
     if ($selected === index) {
@@ -129,19 +128,20 @@ const Reason = styled.div`
   }};
 `;
 const Content = styled.div`
+  height: 30px;
   display: flex;
   align-items: center;
   gap: 18px;
 `;
 const ReasonTxt = styled.p`
-  font-size: 16px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ $selected, index, theme }) =>
     $selected === index ? `white` : theme.colors.DARK_GRAY};
 `;
 const DetailTxt = styled.p`
-  font-size: 14px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ $selected, index, theme }) =>
     $selected === index ? theme.colors.BG_GRAY : theme.colors.GRAY};
 `;
@@ -152,8 +152,8 @@ const SubmitBtn = styled.button`
   height: 40px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.PURPLE3};
-  font-size: 15px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: white;
   &:disabled {
     cursor: not-allowed;

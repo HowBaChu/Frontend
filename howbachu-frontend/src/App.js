@@ -4,7 +4,7 @@ import { Theme } from "./styles/Theme";
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 
-import TextLogo from "./components/TextLogo";
+import Logo from "./components/Logo";
 import MainPage from "./pages/MainPage";
 import SearchPage from "./pages/SearchPage";
 import MyPage from "./pages/MyPage";
@@ -33,7 +33,7 @@ function App() {
         <GlobalStyle />
         {isModal && <ReportModal closeModal={handleModalClose} />}
         <BrowserRouter>
-          <TextLogo />
+          <Logo />
           <Routes>
             <Route
               path="/"

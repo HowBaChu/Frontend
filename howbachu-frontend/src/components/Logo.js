@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/imgs/text_logo.svg";
 
-const TextLogo = () => {
+const Logo = () => {
   const navigate = useNavigate();
   return (
     <LogoBox>
@@ -22,9 +22,9 @@ const LogoBox = styled.div`
   padding: 30px 0 30px 16px;
 `;
 const Button = styled.button`
-  font-weight: bold;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   text-align: left;
 `;
 
-export default TextLogo;
+export default Logo;

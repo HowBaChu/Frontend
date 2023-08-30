@@ -37,8 +37,9 @@ const Title = styled.h2`
       return $isSmall ? `10px` : `5px`;
     }
   }};
-  font-size: ${({ $isSmall }) => ($isSmall ? `12px` : `20px`)};
-  font-weight: 700;
+  font-size: ${({ $isSmall, theme }) =>
+    $isSmall ? theme.fontsize.S_TOPIC_TITLE : theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const LeftTime = styled.div`
   display: flex;
@@ -52,9 +53,9 @@ const TimeIcon = styled.img`
 `;
 const TimeTxt = styled.p`
   margin-top: 3px;
-  font-weight: 100;
-  font-size: 12px;
   height: 15px;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
 
 export default Topic;

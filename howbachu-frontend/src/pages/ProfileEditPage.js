@@ -152,8 +152,8 @@ const LabelBtn = styled.label`
   align-items: center;
   position: relative;
   top: -20px;
-  font-weight: bold;
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   background-color: white;
   border: 2px solid ${({ theme }) => theme.colors.TXT_GRAY};
   border-radius: 50%;
@@ -179,13 +179,13 @@ const InfoTxt = styled.div`
   gap: 6px;
 `;
 const MBTI = styled.p`
-  font-size: 12px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const UserName = styled.p`
-  font-size: 20px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const ProfileMsgBox = styled.div`
   width: 180px;
@@ -197,8 +197,8 @@ const ProfileMsgBox = styled.div`
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   color: ${({ theme }) => theme.colors.DARK_GRAY};
   text-align: center;
-  font-size: 8px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const Form = styled.form`
   padding: 5px 0 40px 0;
@@ -220,8 +220,8 @@ const Btn = styled.button`
   width: 80px;
   height: 34px;
   color: white;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   border-radius: 5px;
   background-color: ${({ theme, $mode }) =>
     $mode === "cancel" ? theme.colors.GRAY : theme.colors.PURPLE3};
@@ -235,8 +235,8 @@ const Icon = styled.img`
   height: 25px;
 `;
 const Txt = styled.p`
-  font-size: 18px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: white;
 `;
 export default ProfileEditPage;

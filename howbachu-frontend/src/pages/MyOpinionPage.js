@@ -44,7 +44,7 @@ const MyOpin = styled(Opinion)`
 const InfoContainer = styled.div`
   width: 100%;
   border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.colors.TXT_GRAY};
+  box-shadow: 0 0 1px ${({ theme }) => theme.colors.DARK_GRAY};
   padding: 10px;
   display: flex;
   gap: 20px;
@@ -73,17 +73,17 @@ const InfoBox = styled.div`
   gap: 2px;
 `;
 const UserName = styled.p`
-  font-size: 20px;
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const MBTI = styled.p`
-  font-size: 13px;
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.DARK_PURPLE};
 `;
 const Email = styled.p`
-  font-size: 10px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.GRAY};
 `;
 const MyOpinList = styled.div`

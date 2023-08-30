@@ -1,13 +1,14 @@
 export const Theme = {
   colors: {
     BG_GRAY: "#F7F7F7",
-    GRAY: "#757575",
     LIGHT_GRAY: "#D9D9D9",
     TXT_GRAY: "#999999",
+    GRAY: "#757575",
     DARK_GRAY: "#3a3a3a",
     HOT_PINK: "#FFCCCC",
     YELLOW1: "#ffe9a9",
     YELLOW2: "#ffd86e",
+    TOMATO: "#FF6347FF",
     BG_PURPLE: "#fafaff",
     LIGHT_PURPLE: "#eeeeff",
     DIV_BG_LIGHT_PURPLE: "#F4F0FF",
@@ -18,5 +19,14 @@ export const Theme = {
     TOPIC_PURPLE2: "#AD5AFFFF",
     DARK_PURPLE: "#633075",
     BLUE: "#59A4FB",
+  },
+  fontsize: {
+    B_TOPIC_TITLE: "20px",
+    S_TOPIC_TITLE: "16px",
+    SMALL_TXT: "12px",
+  },
+  fontweight: {
+    SEMIBOLD: "600",
+    REGULAR: "400",
   },
 };
