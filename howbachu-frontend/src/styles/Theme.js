@@ -10,6 +10,7 @@ export const Theme = {
     YELLOW2: "#ffd86e",
     BG_PURPLE: "#fafaff",
     LIGHT_PURPLE: "#eeeeff",
+    DIV_BG_LIGHT_PURPLE: "#F4F0FF",
     PURPLE1: "#D4C4FF",
     PURPLE2: "#9F8AD7",
     PURPLE3: "#A586F8",

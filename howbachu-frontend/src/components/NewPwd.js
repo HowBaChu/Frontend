@@ -32,19 +32,6 @@ const NewPwd = () => {
   });
   const value = watch();
 
-  const onSubmit = () => {
-    //TODO Axios POST New Pwd
-    const formData = {
-      newPwd: value.newPwd,
-      reConfirm: value.reConfirm
-    };
-    // PostNewPwd(formData);
-  };
-  const handleButtonClick = () => {
-    if (isAble) {
-      onSubmit();
-    }
-  };
   useEffect(() => {
     setIsSame(
       value.newPwd && value.reConfirm && value.newPwd === value.reConfirm,
@@ -56,38 +43,28 @@ const NewPwd = () => {
 
   return (
     <ConfirmContainer>
-      <Form>
-        <SmallTitle>새로운 비밀번호</SmallTitle>
-        {/*새로운 비밀번호*/}
-        <PwdInput
-          value={value}
-          placeholder="새로운 비밀번호를 입력해 주세요."
-          type="password"
-          name={"newPwd"}
-          valid={errors.newPwd}
-          errorMsg={PWD_VALID_MSG}
-          register={register}
-          autoFocus
-        />
-        {/*재확인*/}
-        <PwdInput
-          value={value}
-          placeholder="한번 더 입력해주세요."
-          type="password"
-          name={"reConfirm"}
-          isSame={isSame}
-          errorMsg={PWD_ERROR_MSG}
-          register={register}
-        />
-        {/*<ChangeBtn disabled={!isAble} $isAble={isAble} type="submit">*/}
-        <ChangeBtn
-          onClick={handleButtonClick}
-          disabled={!isAble}
-          $isAble={isAble}
-        >
-          비밀번호 변경하기
-        </ChangeBtn>
-      </Form>
+      <InputTitle>비밀번호 변경</InputTitle>
+      {/*새로운 비밀번호*/}
+      <PwdInput
+        value={value}
+        placeholder="새로운 비밀번호를 입력해 주세요."
+        type="password"
+        name={"newPwd"}
+        valid={errors.newPwd}
+        errorMsg={PWD_VALID_MSG}
+        register={register}
+        autoFocus
+      />
+      {/*재확인*/}
+      <PwdInput
+        value={value}
+        placeholder="한번 더 입력해주세요."
+        type="password"
+        name={"reConfirm"}
+        isSame={isSame}
+        errorMsg={PWD_ERROR_MSG}
+        register={register}
+      />
     </ConfirmContainer>
   );
 };
@@ -95,29 +72,14 @@ const NewPwd = () => {
 const ConfirmContainer = styled.div`
   width: 280px;
 `;
-const Form = styled.div``;
 const PwdInput = styled(NewPwdInput)`
   margin-bottom: 3px;
 `;
-const SmallTitle = styled.p`
-  margin: 4px 0 2px 8px;
-  font-size: 14px;
+const InputTitle = styled.div`
+  margin-bottom: 2px;
   font-weight: 700;
+  font-size: 20px;
   color: ${({ theme }) => theme.colors.PURPLE3};
-`;
-const ChangeBtn = styled.button`
-  margin-top: 10px;
-  width: 100%;
-  height: 33px;
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  background-color: ${({ $isAble, theme }) =>
-    $isAble ? theme.colors.PURPLE3 : theme.colors.LIGHT_GRAY};
-  &:disabled {
-    cursor: not-allowed;
-  }
 `;
 
 export default NewPwd;

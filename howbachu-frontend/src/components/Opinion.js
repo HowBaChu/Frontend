@@ -6,7 +6,7 @@ import HEART_FULL from "../assets/imgs/full_heart_icon.svg";
 import SIREN from "../assets/imgs/siren_icon.svg";
 import default_profile_icon from "../assets/imgs/default-profile-img_icon.svg";
 
-const Opinion = ({ isMine, isHot, isList, ...attrProps }) => {
+const Opinion = ({ isMine, isHot, isList, openModal, ...attrProps }) => {
   const [isLikeClicked, setIsLikeClicked] = useState(false);
 
   const onClickHeart = (e, isHot) => {
@@ -16,6 +16,11 @@ const Opinion = ({ isMine, isHot, isList, ...attrProps }) => {
       // 하트(좋아요)일 경우
       setIsLikeClicked((prev) => !prev);
     }
+  };
+
+  const onClickReport = (e) => {
+    e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
+    openModal();
   };
 
   return (
@@ -45,7 +50,7 @@ const Opinion = ({ isMine, isHot, isList, ...attrProps }) => {
       </OpinionBox>
       <UserActionBtn $isMine={isMine}>
         <ReOpinTxt>답글달기</ReOpinTxt>
-        <SirenIcon>
+        <SirenIcon onClick={(e) => onClickReport(e)}>
           <img src={SIREN} />
         </SirenIcon>
       </UserActionBtn>
