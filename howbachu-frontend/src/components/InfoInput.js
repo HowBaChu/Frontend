@@ -1,4 +1,5 @@
 import styled from "styled-components";
+const MAX_CONTENT = 60;
 
 const InfoInput = ({
   title,
@@ -10,7 +11,7 @@ const InfoInput = ({
   onValueChange,
 }) => {
   const onChange = (e) => {
-    const newValue = e.target.value;
+    const newValue = e.target.value.slice(0, MAX_CONTENT);
     // 부모 컴포넌트로 변경된 값을 전달.
     if (onValueChange) {
       onValueChange(newValue);

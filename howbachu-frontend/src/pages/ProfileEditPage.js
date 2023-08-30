@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import InfoInput from "../components/InfoInput";
+import NewPwd from "../components/NewPwd";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
-import CurPwd from "../components/CurPwd";
-import NewPwd from "../components/NewPwd";
 
 const ProfileEditPage = () => {
   const [selectedImage, setSelectedImage] = useState(DEFAULT_IMG);
@@ -25,11 +24,16 @@ const ProfileEditPage = () => {
       // URL.revokeObjectURL(imageURL);
     }
   };
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // TODO 폼 데이터를 서버로 POST
     setProfileData(editingData); // 저장 버튼 클릭 시
+
+    //TODO 폼 데이터 전송 Axios POST formData
+    // const formData = {
+    //   nickname: editingData.nickname,
+    //   MBTI: value.MBTI,
+    // };
+    // PostEditForm(formData);
   };
   const handleCancel = () => {
     setEditingData(profileData); // 취소 버튼 클릭 시
@@ -69,14 +73,11 @@ const ProfileEditPage = () => {
         <hr />
         <InputWrapper>
           <InfoInput
-            title="email"
+            title="이메일"
             placeHolder="howbachu@gmail.com"
             disabled={true}
           />
-          <PwdInputBox>
-            <CurPwd />
-            <NewPwd />
-          </PwdInputBox>
+          <NewPwd />
           <InfoInput
             title="nickname"
             name="nickname"
@@ -202,9 +203,8 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 25px;
 `;
-const PwdInputBox = styled.div``;
 const Buttons = styled.div`
   margin-top: 30px;
   display: flex;
