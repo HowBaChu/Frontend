@@ -31,7 +31,7 @@ const CircleGraph = styled(CirCle_Graph)`
   height: 130px;
 `;
 const StickGraph = styled.div`
-  width: 300px;
+  width: 90%;
   height: 20px;
   line-height: 20px;
   border-radius: 15px;

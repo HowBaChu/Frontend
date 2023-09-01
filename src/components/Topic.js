@@ -2,13 +2,15 @@ import styled from "styled-components";
 import Graph from "./Graph";
 import time_icon from "../assets/imgs/hourglass_icon.svg";
 
-const Topic = ({ $isSmall, history, ...attrProps }) => {
+const Topic = ({ isSmall, history, ...attrProps }) => {
+  // console.log($isSmall)
+
   return (
-    <TopicWrapper $isSmall={$isSmall} $history={history} {...attrProps}>
-      <Title $isSmall={$isSmall} $history={history} {...attrProps}>
+    <TopicWrapper $isSmall={isSmall} $history={history} {...attrProps}>
+      <Title $isSmall={isSmall} $history={history} {...attrProps}>
         탕수육은 부먹이다? 찍먹이다?
       </Title>
-      <Graph $isSmall={$isSmall} {...attrProps} />
+      <Graph $isSmall={isSmall} {...attrProps} />
       <LeftTime>
         <TimeIcon src={time_icon} />
         <TimeTxt>13 : 05 : 14</TimeTxt>
@@ -18,7 +20,7 @@ const Topic = ({ $isSmall, history, ...attrProps }) => {
 };
 
 const TopicWrapper = styled.div`
-  width: ${({ $history }) => ($history ? `275px` : `345px`)};
+  //width: ${({ $history }) => ($history ? `275px` : `345px`)};
   box-shadow: 0 0 2px gray;
   border-radius: 8px;
   display: flex;
@@ -26,7 +28,7 @@ const TopicWrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: ${({ $history }) => ($history ? `static` : `fixed`)};
-  top: 100px;
+  top: 70px;
   background-color: white;
 `;
 const Title = styled.h2`
