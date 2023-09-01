@@ -23,7 +23,7 @@ const NewPwd = () => {
   const {
     register,
     watch,
-    setValue,
+    // setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -77,8 +77,8 @@ const PwdInput = styled(NewPwdInput)`
 `;
 const InputTitle = styled.div`
   margin-bottom: 2px;
-  font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 

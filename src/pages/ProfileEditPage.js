@@ -4,6 +4,8 @@ import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
+import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
+import SAVE_ICON from "../assets/imgs/save_icon.svg";
 
 const ProfileEditPage = () => {
   const [selectedImage, setSelectedImage] = useState(DEFAULT_IMG);
@@ -66,7 +68,7 @@ const ProfileEditPage = () => {
             <InfoTxt>
               <UserName>{profileData.nickname}</UserName>
             </InfoTxt>
-            <Email>{profileData.MBTI}</Email>
+            <MBTI>{profileData.MBTI}</MBTI>
             <ProfileMsgBox>{profileData.msg}</ProfileMsgBox>
           </InfoContainer>
         </ProfileContainer>
@@ -101,10 +103,14 @@ const ProfileEditPage = () => {
           />
         </InputWrapper>
         <Buttons>
-          <Btn onClick={handleCancel} type="button">
-            취소
+          <Btn onClick={handleCancel} type="button" $mode="cancel">
+            <Icon src={CANCEL_ICON} />
+            <Txt>취소</Txt>
           </Btn>
-          <Btn type="submit">저장</Btn>
+          <Btn type="submit">
+            <Icon src={SAVE_ICON} />
+            <Txt>저장</Txt>
+          </Btn>
         </Buttons>
       </Form>
     </PageWrapper>
@@ -115,6 +121,7 @@ const PageWrapper = styled.div`
   width: 345px;
   height: 690px;
   margin: 110px auto 0 auto;
+  overflow: scroll;
 `;
 const ProfileContainer = styled.div`
   margin-bottom: 30px;
@@ -145,8 +152,8 @@ const LabelBtn = styled.label`
   align-items: center;
   position: relative;
   top: -20px;
-  font-weight: bold;
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   background-color: white;
   border: 2px solid ${({ theme }) => theme.colors.TXT_GRAY};
   border-radius: 50%;
@@ -171,14 +178,14 @@ const InfoTxt = styled.div`
   align-items: center;
   gap: 6px;
 `;
-const Email = styled.p`
-  font-size: 10px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.GRAY};
+const MBTI = styled.p`
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const UserName = styled.p`
-  font-size: 20px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const ProfileMsgBox = styled.div`
   width: 180px;
@@ -190,13 +197,11 @@ const ProfileMsgBox = styled.div`
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   color: ${({ theme }) => theme.colors.DARK_GRAY};
   text-align: center;
-  font-size: 8px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const Form = styled.form`
-  height: 670px;
-  padding-top: 5px;
-  overflow: scroll;
+  padding: 5px 0 40px 0;
 `;
 const InputWrapper = styled.div`
   margin-top: 30px;
@@ -215,10 +220,23 @@ const Btn = styled.button`
   width: 80px;
   height: 34px;
   color: white;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   border-radius: 5px;
-  background-color: ${({ theme, type }) =>
-    type === "cancel" ? theme.colors.GRAY : theme.colors.PURPLE3};
+  background-color: ${({ theme, $mode }) =>
+    $mode === "cancel" ? theme.colors.GRAY : theme.colors.PURPLE3};
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+`;
+const Icon = styled.img`
+  width: 25px;
+  height: 25px;
+`;
+const Txt = styled.p`
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
+  color: white;
 `;
 export default ProfileEditPage;

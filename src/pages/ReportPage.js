@@ -34,17 +34,18 @@ const PageContainer = styled.div`
   margin: 110px auto 0 auto;
 `;
 const TitleBox = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 `;
 const Title = styled.h3`
   color: ${({ theme }) => theme.colors.DARK_GRAY};
-  font-size: 20px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const WarningMsg = styled.p`
+  margin-top: 5px;
   color: ${({ theme }) => theme.colors.TXT_GRAY};
-  font-size: 10px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
 const ReportItemWrapper = styled.div`
   padding: 20px;
@@ -57,13 +58,13 @@ const Report = styled.div`
   justify-content: space-between;
 `;
 const Date = styled.p`
-  font-size: 14px;
-  font-weight: 700;
-  color: tomato;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  color: ${({ theme }) => theme.colors.TOMATO};
 `;
 const Msg = styled.p`
-  font-size: 14px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.TXT_GRAY};
 `;
 const Count = styled.div`
@@ -72,8 +73,8 @@ const Count = styled.div`
   background-color: ${({ theme }) => theme.colors.PURPLE3};
   border-radius: 5px;
   color: white;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   line-height: 20px;
   text-align: center;
 `;

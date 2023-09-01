@@ -29,14 +29,14 @@ const SearchBar = styled.div`
   align-items: center;
 `;
 const Bull = styled.p`
-  font-size: 20px;
-  font-weight: 500;
+    font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+    font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.LIGHT_GRAY};
 `;
 const SearchInput = styled.input`
   width: 80%;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   border: none;
   background-color: transparent;
 `;

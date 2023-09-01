@@ -35,8 +35,8 @@ const InputContainer = styled.div`
 `;
 const UserName = styled.p`
   padding: 11px 0 10px 0;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   white-space: nowrap;
 `;
 const Form = styled.form``;
