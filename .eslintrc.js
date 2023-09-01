@@ -3,7 +3,11 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended"],
+  extends: [
+    "react-app", // CRA 기본 설정 추가
+    "eslint:recommended",
+    "plugin:react/recommended",
+  ],
   overrides: [
     {
       env: {
@@ -23,5 +27,6 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "no-unused-vars": "off",
   },
 };
