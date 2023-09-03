@@ -32,7 +32,7 @@ const CircleGraph = styled(CirCle_Graph)`
 `;
 const StickGraph = styled.div`
   width: 90%;
-  height: 20px;
+  height: 18px;
   line-height: 20px;
   border-radius: 15px;
   margin: 5px 0;

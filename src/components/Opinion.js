@@ -50,9 +50,13 @@ const Opinion = ({
           <LikeCount>24</LikeCount>
         </IconBtn>
       </OpinionBox>
-      <UserActionBtn $isMine={isMine} $isList={isList}>
-        <ReOpinTxt>답글달기</ReOpinTxt>
-        <SirenIcon onClick={(e) => onClickReport(e)}>
+      <UserActionBtn
+        $isMine={isMine}
+        $isList={isList}
+        onClick={(e) => onClickReport(e)}
+      >
+        <ReOpinTxt>신고하기</ReOpinTxt>
+        <SirenIcon>
           <img src={SIREN} />
         </SirenIcon>
       </UserActionBtn>
@@ -144,8 +148,10 @@ const LikeCount = styled.p`
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
 const UserActionBtn = styled.div`
+  width: auto;
   height: 20px;
-  display: ${({ $isList }) => ($isList ? `none` : `flex`)};
+  margin-right: auto;
+  display: ${({ $isList }) => ($isList ? `none` : `inline-flex`)};
   align-items: center;
   gap: 6px;
 `;

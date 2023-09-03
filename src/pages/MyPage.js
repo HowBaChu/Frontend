@@ -42,23 +42,27 @@ const MyPage = () => {
 };
 
 const Div = styled.div`
-  width: 345px;
-  height: 690px;
-  margin: 110px auto 0 auto;
+  width: calc(100vw - 44px);
+  height: calc(100vh - 70px - 50px); // 헤더, Nav
+  margin: 70px auto 0 auto;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 `;
 const ProfileImgBox = styled.div`
-  width: 250px;
-  height: 250px;
+  width: calc(100vw - 140px); // 좌우 마진
+  height: calc(100vw - 140px); // 좌우 마진
+  margin-top: 5px;
   box-shadow: 0 0 2px ${({ theme }) => theme.colors.DARK_GRAY};
   border-radius: 25px;
   overflow: hidden;
+  flex-shrink: 0;
 `;
 const ProfileImg = styled.img`
-  width: 250px;
+  width: 100%;
+  height: 100%;
 `;
 const BottomWrapper = styled.div`
   display: flex;
@@ -68,7 +72,7 @@ const BottomWrapper = styled.div`
   gap: 45px;
 `;
 const InfoContainer = styled.div`
-  width: 250px;
+  width: calc(100vw - 140px); // 좌우 마진
   margin-top: 10px;
   padding: 5px;
   display: flex;
@@ -95,10 +99,10 @@ const MBTI = styled.p`
   color: ${({ theme }) => theme.colors.DARK_PURPLE};
 `;
 const Button = styled.button`
-  width: 320px;
+  width: calc(100vw - 44px);
   height: 60px;
-  margin-bottom: 15px;
-  padding: 0 15px 0 40px;
+  margin: 0 auto 15px;
+  padding: 0 8%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -109,6 +113,7 @@ const Button = styled.button`
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   line-height: 60px;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.TXT_GRAY};
 `;
 const Email = styled.p`
@@ -117,7 +122,7 @@ const Email = styled.p`
   color: ${({ theme }) => theme.colors.GRAY};
 `;
 const ProfileMsgBox = styled.div`
-  width: 250px;
+  width: calc(100vw - 140px); // 좌우 마진
   margin-top: 12px;
   padding: 10px;
   background-color: white;

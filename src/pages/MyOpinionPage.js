@@ -91,7 +91,7 @@ const PageWrapper = styled.div`
 `;
 
 const MyOpin = styled(Opinion)`
-  //margin: 0 auto 10px auto;
+  margin: 0 auto;
   width: 98%;
   align-self: center;
   justify-self: center;

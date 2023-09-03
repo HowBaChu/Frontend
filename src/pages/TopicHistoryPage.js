@@ -47,7 +47,6 @@ const PageWrapper = styled.div`
   overflow: scroll;
 `;
 const HistoryList = styled.div`
-  margin: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
