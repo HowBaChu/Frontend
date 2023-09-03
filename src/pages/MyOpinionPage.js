@@ -18,25 +18,80 @@ const MyOpinionPage = () => {
         </InfoTxt>
       </InfoContainer>
       <MyOpinList>
-        <MyOpin isMine={true} isList={true} />
-        <MyOpin isMine={true} isList={true} />
-        <MyOpin isMine={true} isList={true} />
-        <MyOpin isMine={true} isList={true} />
-        <MyOpin isMine={true} isList={true} />
-        <MyOpin isMine={true} isList={true} />
+        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
+        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕"
+        />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
+        />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="탕 수 육 맛 있 겠 다 !!!!!!!! ! ! ! !! !  !"
+        />
+        <MyOpin isMine={true} isList={true} content="탕 수 육" />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="나는 찍어먹는게 좋아 !!~!~!!!!!!!!!!!!~!~~~~~~~~~~~~~~~~~~~~~"
+        />
+        <MyOpin isMine={true} isList={true} content="부어서 먹기" />
+        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
+        />
+        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
+        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕"
+        />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
+        />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="탕 수 육 맛 있 겠 다 !!!!!!!! ! ! ! !! !  !"
+        />
+        <MyOpin isMine={true} isList={true} content="탕 수 육" />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="나는 찍어먹는게 좋아 !!~!~!!!!!!!!!!!!~!~~~~~~~~~~~~~~~~~~~~~"
+        />
+        <MyOpin isMine={true} isList={true} content="부어서 먹기" />
+        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
+        <MyOpin
+          isMine={true}
+          isList={true}
+          content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
+        />
       </MyOpinList>
     </PageWrapper>
   );
 };
 
 const PageWrapper = styled.div`
-  width: 345px;
-  height: 690px;
-  margin: 110px auto 0 auto;
+  width: calc(100vw - 44px);
+  height: calc(100vh - 70px - 50px); // 헤더, Nav
+  margin: 70px auto 0 auto;
+  padding-top: 10px;
 `;
 
 const MyOpin = styled(Opinion)`
-  margin: 10px auto 0 auto;
+  //margin: 0 auto 10px auto;
   width: 98%;
   align-self: center;
   justify-self: center;
@@ -47,7 +102,7 @@ const InfoContainer = styled.div`
   box-shadow: 0 0 1px ${({ theme }) => theme.colors.DARK_GRAY};
   padding: 10px;
   display: flex;
-  gap: 20px;
+  gap: 6%;
 `;
 const ProfileImgBox = styled.div`
   width: 80px;
@@ -56,6 +111,7 @@ const ProfileImgBox = styled.div`
   box-shadow: 0 0 1px ${({ theme }) => theme.colors.DARK_GRAY};
   border-radius: 25px;
   overflow: hidden;
+  flex-shrink: 0;
 `;
 const ProfileImg = styled.img`
   width: 80px;
@@ -71,6 +127,7 @@ const InfoBox = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
+  //flex-wrap: wrap;
 `;
 const UserName = styled.p`
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
@@ -85,13 +142,18 @@ const Email = styled.p`
   font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.GRAY};
+  word-break: break-all;
 `;
 const MyOpinList = styled.div`
-  margin-top: 20px;
-  height: 550px;
+  margin: 10px 0;
+  //height: 550px;
+
+  height: calc(100vh - 70px - 50px - 130px); // 헤더, Nav, 상단 요소
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   overflow: scroll;
 `;
 

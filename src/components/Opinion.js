@@ -61,15 +61,10 @@ const Opinion = ({
 };
 
 const OpinionWrapper = styled.div`
-  //width: ${({ $isHot }) => ($isHot ? `100%` : `80%`)};
-
-  width: ${({ $isHot }) => $isHot && `100%`};
-  max-width: ${({ $isHot }) => !$isHot && ` 80%`};
-  min-width: ${({ $isHot }) => !$isHot && `60%`};
-
+  width: ${({ $isHot }) => ($isHot ? `100%` : `80%`)};
   box-shadow: 0 0 1px gray;
   border-radius: 15px;
-  padding: 10px 10px 7px 9px;
+  padding: 5px 10px;
   background-color: ${({ $isMine, theme }) =>
     $isMine ? `white` : theme.colors.PURPLE1};
   background-color: ${({ $isHot, theme }) => $isHot && theme.colors.HOT_PINK};
@@ -140,8 +135,8 @@ const IconImg = styled.img.attrs((props) => ({
   src: props.$isHot ? FIRE : props.isLikeClicked ? HEART_FULL : HEART_EMPTY,
   alt: "icon",
 }))`
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
 `;
 const LikeCount = styled.p`
   margin-top: -5px;
@@ -149,6 +144,7 @@ const LikeCount = styled.p`
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
 const UserActionBtn = styled.div`
+  height: 20px;
   display: ${({ $isList }) => ($isList ? `none` : `flex`)};
   align-items: center;
   gap: 6px;

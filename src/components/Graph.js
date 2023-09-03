@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CirCle_Graph from "./Circle_Graph";
 import graph_data from "../assets/data/graph_data";
 
-const Graph = ({ $isSmall }) => {
+const Graph = ({ $isSmall, $isList }) => {
   const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
@@ -20,15 +20,15 @@ const Graph = ({ $isSmall }) => {
           </StickBackground>
         </StickGraph>
       ) : (
-        <CircleGraph />
+        <CircleGraph $isList={$isList} />
       )}
     </>
   );
 };
 
 const CircleGraph = styled(CirCle_Graph)`
-  width: 130px;
-  height: 130px;
+  width: ${({ $isList }) => $isList && `80px`};
+  height: ${({ $isList }) => $isList && `80px`};
 `;
 const StickGraph = styled.div`
   width: 90%;
