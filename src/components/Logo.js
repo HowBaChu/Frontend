@@ -7,7 +7,7 @@ const Logo = () => {
   return (
     <LogoBox>
       <Button onClick={() => navigate("/")}>
-        <img src={logo} alt={logo} />
+        <Img src={logo} alt={logo} />
       </Button>
     </LogoBox>
   );
@@ -15,16 +15,19 @@ const Logo = () => {
 
 const LogoBox = styled.div`
   width: 100%;
-  height: 100px;
+  height: 70px;
   position: fixed;
   top: 0;
   background-color: ${({ theme }) => theme.colors.BG_PURPLE};
-  padding: 30px 0 30px 16px;
+  padding: 15px;
 `;
 const Button = styled.button`
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   text-align: left;
+`;
+const Img = styled.img`
+  height: 40px;
 `;
 
 export default Logo;

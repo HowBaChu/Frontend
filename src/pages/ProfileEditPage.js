@@ -118,30 +118,32 @@ const ProfileEditPage = () => {
 };
 
 const PageWrapper = styled.div`
-  width: 345px;
-  height: 690px;
-  margin: 110px auto 0 auto;
+  width: calc(100vw - 44px);
+  height: calc(100vh - 70px - 50px); // 헤더, Nav
+  margin: 70px auto 0 auto;
+  padding: 2%;
   overflow: scroll;
 `;
 const ProfileContainer = styled.div`
-  margin-bottom: 30px;
+  width: 100%;
+  justify-content: space-between;
   display: flex;
-  justify-content: space-around;
+  gap: 20px;
   align-items: center;
 `;
 const ProfileImgContainer = styled.div`
   height: 100px;
 `;
 const ProfileImgBox = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   box-shadow: 0 0 3px ${({ theme }) => theme.colors.DARK_GRAY};
   border-radius: 25px;
   overflow: hidden;
   position: relative;
 `;
 const ProfileImg = styled.img`
-  width: 110px;
+  width: 110%;
 `;
 const LabelBtn = styled.label`
   width: 37px;
@@ -170,7 +172,6 @@ const InfoContainer = styled.div`
   border-radius: 8px;
 `;
 const InfoTxt = styled.div`
-  width: 200px;
   margin: 3px 0;
   display: flex;
   flex-direction: row;
@@ -188,7 +189,6 @@ const UserName = styled.p`
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const ProfileMsgBox = styled.div`
-  width: 180px;
   margin-top: 7px;
   padding: 10px;
   box-shadow: 0 0 2px gray;

@@ -73,8 +73,8 @@ const ModalContainer = styled.div`
   z-index: 1;
 `;
 const Modal = styled.div`
-  width: 360px;
-  height: 560px;
+  width: calc(100vw - 30px);
+  height: 60vh;
   margin: 150px auto 0 auto;
   background-color: white;
   border-radius: 8px;
@@ -82,6 +82,7 @@ const Modal = styled.div`
 `;
 const Title = styled.p`
   padding: 20px;
+  white-space: pre-line;
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
@@ -93,7 +94,7 @@ const ReasonInputBox = styled.div`
   animation: ${expandScale} 0.4s forwards;
 `;
 const InputBox = styled.div`
-  width: 330px;
+  width: calc(100vw - 60px);
   margin: -1px 0 0 15px;
   padding: 0 10px;
   height: 40px;
@@ -106,7 +107,7 @@ const InputBox = styled.div`
   background-color: white;
 `;
 const Input = styled.input`
-  width: 190px;
+  width: calc(100vw - 60px - 20px);
   margin: 5px 10px 5px 0;
   border: none;
   font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
@@ -114,7 +115,7 @@ const Input = styled.input`
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const Reason = styled.div`
-  padding: 15px;
+  padding: 10px;
   width: 100%;
   cursor: pointer;
   background-color: ${({ $selected, index, theme }) => {
@@ -128,14 +129,16 @@ const Reason = styled.div`
   }};
 `;
 const Content = styled.div`
+  width: 100%;
   height: 30px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 5%;
 `;
 const ReasonTxt = styled.p`
   font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  white-space: nowrap;
   color: ${({ $selected, index, theme }) =>
     $selected === index ? `white` : theme.colors.DARK_GRAY};
 `;

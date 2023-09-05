@@ -19,19 +19,19 @@ const OpinionInput = ({ ...attrProps }) => {
 
 const InputWrapper = styled.div`
   width: 100%;
-  height: 50px;
+  height: 45px;
 `;
 const InputContainer = styled.div`
-  margin: 10px auto 5px auto;
+  margin: 5px auto 0;
   padding: 10px;
   width: 90%;
-  height: 35px;
-
+  height: 40px;
   border: 1px solid rgb(196, 196, 196);
   border-radius: 8px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  gap: 5px;
 `;
 const UserName = styled.p`
   padding: 11px 0 10px 0;
@@ -41,7 +41,7 @@ const UserName = styled.p`
 `;
 const Form = styled.form``;
 const Input = styled.input`
-  width: 290px;
+  width: 100%;
   height: 30px;
   padding-left: 10px;
   border: none;

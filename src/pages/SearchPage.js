@@ -16,9 +16,9 @@ const SearchPage = () => {
 };
 
 const PageWrapper = styled.div`
-  width: 345px;
-  height: 690px;
-  margin: 110px auto 0 auto;
+  width: calc(100vw - 44px);
+  height: calc(100vh - 70px - 50px); // 헤더, Nav
+  margin: 70px auto 0 auto;
 `;
 const SearchBar = styled.div`
   width: 100%;
@@ -29,8 +29,8 @@ const SearchBar = styled.div`
   align-items: center;
 `;
 const Bull = styled.p`
-    font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
-    font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.LIGHT_GRAY};
 `;
 const SearchInput = styled.input`

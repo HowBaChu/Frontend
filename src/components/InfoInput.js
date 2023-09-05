@@ -44,18 +44,14 @@ const InfoInput = ({
 };
 
 const InfoInputBox = styled.div`
-  width: 280px;
+  width: 100%;
   flex-direction: column;
   align-items: start;
-
-  //background-color: cornflowerblue;
 `;
 const InputTitle = styled.div`
   margin-bottom: 2px;
-
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
-
   color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const InputContainer = styled.div`

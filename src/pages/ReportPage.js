@@ -10,7 +10,9 @@ const ReportPage = () => {
       <ReportItemWrapper>
         <Report>
           <Date>2023.05.02</Date>
-          <Msg>바보야</Msg>
+          <Msg>
+            바보야ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+          </Msg>
           <Count>1회</Count>
         </Report>
         <Report>
@@ -29,9 +31,9 @@ const ReportPage = () => {
 };
 
 const PageContainer = styled.div`
-  width: 345px;
-  height: 690px;
-  margin: 110px auto 0 auto;
+  width: calc(100vw - 44px);
+  height: calc(100vh - 70px - 50px); // 헤더, Nav
+  margin: 70px auto 0 auto;
 `;
 const TitleBox = styled.div`
   margin-bottom: 30px;
@@ -48,7 +50,7 @@ const WarningMsg = styled.p`
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
 const ReportItemWrapper = styled.div`
-  padding: 20px;
+  //padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 17px;
@@ -63,6 +65,8 @@ const Date = styled.p`
   color: ${({ theme }) => theme.colors.TOMATO};
 `;
 const Msg = styled.p`
+  max-width: 50vw;
+  padding: 0 2vw;
   font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.TXT_GRAY};
@@ -70,6 +74,7 @@ const Msg = styled.p`
 const Count = styled.div`
   width: 50px;
   height: 20px;
+  flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.PURPLE3};
   border-radius: 5px;
   color: white;

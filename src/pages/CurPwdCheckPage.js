@@ -10,9 +10,10 @@ const CurPwdCheckPage = () => {
 };
 
 const PageWrapper = styled.div`
-  width: 345px;
-  height: 690px;
-  margin: 110px auto 0 auto;
+  width: calc(100vw - 44px);
+  height: calc(100vh - 70px - 50px); // 헤더, Nav
+  margin: 70px auto 0 auto;
+  padding-top: 20vh;
 `;
 
 export default CurPwdCheckPage;

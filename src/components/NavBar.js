@@ -45,6 +45,7 @@ const Menu = styled.button`
   align-items: center;
 `;
 const Icon = styled.img`
+  scale: 0.8;
 `;
 
 export default NavBar;
