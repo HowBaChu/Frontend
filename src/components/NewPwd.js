@@ -70,7 +70,7 @@ const NewPwd = () => {
 };
 
 const ConfirmContainer = styled.div`
-  width: 280px;
+  width: 100%;
 `;
 const PwdInput = styled(NewPwdInput)`
   margin-bottom: 3px;

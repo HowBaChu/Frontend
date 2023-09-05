@@ -19,65 +19,73 @@ const CurPwd = () => {
   return (
     <InputForm onSubmit={(e) => onSubmit(e)}>
       <InputTitle>현재 비밀번호</InputTitle>
-      <div>
-        <InputBox>
-          <Input placeholder="현재 비밀번호를 입력해주세요." type="password" />
-        </InputBox>
-        <HelperTextBox $isVerified={isVerified}>{helperMsg}</HelperTextBox>
-      </div>
-      <Buttons>
-        <Btn type="cancel" onClick={() => navigate("/profile")}>
-          취소
-        </Btn>
-        <Btn type="submit" onClick={() => navigate("/profile/edit")}>
-          확인
-        </Btn>
-      </Buttons>
+      <ContentBox>
+        <div>
+          <InputBox>
+            <Input
+              placeholder="현재 비밀번호를 입력해주세요."
+              type="password"
+              autoFocus
+            />
+          </InputBox>
+          <HelperTextBox $isVerified={isVerified}>{helperMsg}</HelperTextBox>
+        </div>
+        <Buttons>
+          <Btn type="cancel" onClick={() => navigate("/profile")}>
+            취소
+          </Btn>
+          <Btn type="submit" onClick={() => navigate("/profile/edit")}>
+            확인
+          </Btn>
+        </Buttons>
+      </ContentBox>
     </InputForm>
   );
 };
 
 const InputForm = styled.div`
   margin: 0 auto;
-  width: 300px;
-  height: 215px;
-  background-color: white;
+  width: 90vw;
+  height: 30vh;
   box-shadow: 0 0 1px gray;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 `;
 const InputTitle = styled.div`
-  margin: 25px 0 20px 20px;
+  margin: 25px 0 0 20px;
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.PURPLE3};
+`;
+const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
 `;
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 45px;
 `;
 const Btn = styled.button`
-  width: 80px;
+  width: 30%;
   height: 34px;
   color: white;
-
   font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
-
   border-radius: 5px;
   background-color: ${({ theme, type }) =>
     type === "cancel" ? theme.colors.GRAY : theme.colors.PURPLE3};
 `;
 const InputBox = styled.div`
-  width: 260px;
+  width: 80vw;
   margin: 0 auto;
   padding: 0 10px;
   height: 30px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   border: 1px solid ${({ theme }) => theme.colors.TXT_GRAY};
   border-radius: 15px;
