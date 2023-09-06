@@ -81,7 +81,7 @@ const ProfileEditPage = () => {
           />
           <NewPwd />
           <InfoInput
-            title="nickname"
+            title="닉네임"
             name="nickname"
             value={editingData.nickname}
             onValueChange={(newValue) =>

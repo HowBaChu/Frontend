@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Pie } from "react-chartjs-2";
-import graph_data from "../assets/data/graph_data";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -14,10 +13,10 @@ const options = {
     },
   },
 };
-const CirCle_Graph = ({ ...attrProps }) => {
+const CirCle_Graph = ({ graphData, ...attrProps }) => {
   return (
     <Container {...attrProps}>
-      <Pie type="pie" data={graph_data} options={options} />
+      <Pie type="pie" data={graphData} options={options} />
     </Container>
   );
 };

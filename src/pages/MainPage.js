@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import OpinionInput from "../components/OpinionInput";
 
 const MainPage = ({ openModal }) => {
@@ -12,6 +13,10 @@ const MainPage = ({ openModal }) => {
     setIsSmall(event.target.scrollTop > 30);
   };
   const navigate = useNavigate();
+
+  useEffect(() => {
+    GetOpin();
+  }, []);
 
   return (
     <MainPageLayout>

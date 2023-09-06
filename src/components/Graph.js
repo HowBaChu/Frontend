@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import CirCle_Graph from "./Circle_Graph";
-import graph_data from "../assets/data/graph_data";
 
-const Graph = ({ $isSmall, $isList }) => {
+const Graph = ({ $isSmall, $isList, graphData }) => {
   const [percentage, setPercentage] = useState(0);
+  const voteInfo = graphData?.datasets?.[0] || { data: [0, 0] };
 
+  // StickGraph에 사용하는 퍼센트
   useEffect(() => {
-    const data = graph_data?.datasets[0];
-    setPercentage((data.data[0] * 100) / (data.data[0] + data.data[1]) || 0);
-  }, [percentage]);
+    if (voteInfo?.data) {
+      setPercentage(
+        (voteInfo.data[0] * 100) / (voteInfo.data[0] + voteInfo.data[1]) || 0,
+      );
+    }
+  }, []);
 
   return (
     <>
@@ -20,7 +24,7 @@ const Graph = ({ $isSmall, $isList }) => {
           </StickBackground>
         </StickGraph>
       ) : (
-        <CircleGraph $isList={$isList} />
+        <CircleGraph $isList={$isList} graphData={graphData} />
       )}
     </>
   );
