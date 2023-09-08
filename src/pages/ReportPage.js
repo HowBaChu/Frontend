@@ -1,6 +1,14 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { GetReport } from "../api/GetReport";
 
 const ReportPage = () => {
+  const [reportsData, setReportsData] = useState([]);
+
+  useEffect(() => {
+    GetReport((reportList) => setReportsData(reportList));
+  }, []);
+
   return (
     <PageContainer>
       <TitleBox>
