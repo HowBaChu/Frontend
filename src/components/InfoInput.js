@@ -25,7 +25,7 @@ const InfoInput = ({
         {textArea ? (
           <TextAreaBox>
             <TextArea type="text" value={value} onChange={onChange} />
-            <LimitMsg>({value.length} / 60)</LimitMsg>
+            <LimitMsg>({value && value.length} / 60)</LimitMsg>
           </TextAreaBox>
         ) : (
           <Input

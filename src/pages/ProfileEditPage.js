@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { GetProfileDetail } from "../api/GetProfileDetail";
 import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
@@ -8,111 +9,140 @@ import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
 import SAVE_ICON from "../assets/imgs/save_icon.svg";
 
 const ProfileEditPage = () => {
-  const [selectedImage, setSelectedImage] = useState(DEFAULT_IMG);
   const [profileData, setProfileData] = useState({
-    nickname: "하우바츄",
-    MBTI: "INTJ",
-    msg: "안녕하세요 이메일 수정은 불가합니다. 글자수 60자 제한 있습니다.",
+    username: "",
+    mbti: "",
+    msg: "",
   });
-  const [editingData, setEditingData] = useState({ ...profileData });
+  const [editingData, setEditingData] = useState({
+    ...profileData,
+  });
+
+  const [selectedImage, setSelectedImage] = useState("");
+  const [editingImage, setEditingImage] = useState(selectedImage);
+
+  //profileData.avatar 설정, 없으면 default img
+  useEffect(() => {
+    if (selectedImage === "" && profileData.avatar) {
+      setSelectedImage(profileData.avatar);
+      setEditingImage(profileData.avatar);
+    } else setEditingData(DEFAULT_IMG);
+  }, [profileData, selectedImage, editingImage]);
 
   const handleImageChange = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
     if (file) {
       const imageURL = URL.createObjectURL(file); // URL로 변환해서 state에 저장 -> 렌더링 위함
-      setSelectedImage(imageURL);
+      setEditingImage(imageURL);
       // TODO 필요없어진 후에 URL을 해제하는 코드
       // URL.revokeObjectURL(imageURL);
     }
   };
+  const handleInputChange = (field, value) => {
+    setEditingData((prevData) => ({ ...prevData, [field]: value }));
+  };
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setProfileData(editingData); // 저장 버튼 클릭 시
+    setProfileData(editingData); // 저장 버튼 클릭 시 수정 중이던 내용 저장
+    setSelectedImage(editingImage);
 
     //TODO 폼 데이터 전송 Axios POST formData
     // const formData = {
-    //   nickname: editingData.nickname,
+    //   username: editingData.username,
     //   MBTI: value.MBTI,
     // };
     // PostEditForm(formData);
   };
   const handleCancel = () => {
     setEditingData(profileData); // 취소 버튼 클릭 시
-    setSelectedImage(DEFAULT_IMG);
+    setEditingImage(selectedImage); // 취소 버튼 클릭 시
   };
-  const handleInputChange = (field, value) => {
-    setEditingData((prevData) => ({ ...prevData, [field]: value }));
-  };
+
+  useEffect(() => {
+    GetProfileDetail((profileDetail) => setProfileData(profileDetail));
+  }, []);
+
+  // profileData가 처음으로 업데이트될 때, 그 값을 editingData의 초기 값으로 설정하기 위함
+  useEffect(() => {
+    if (
+      editingData.username === "" &&
+      editingData.mbti === "" &&
+      editingData.msg === ""
+    ) {
+      setEditingData({ ...profileData });
+    }
+  }, [profileData]);
 
   return (
     <PageWrapper>
-      <Form onSubmit={handleFormSubmit}>
-        <ProfileContainer>
-          <ProfileImgContainer>
-            <ProfileImgBox>
-              <ProfileImg type="file" src={selectedImage} />
-              <ImgInput
-                className="profileImg-input"
-                type="file"
-                accept="image/*"
-                id="profileImg"
-                onChange={handleImageChange}
-              />
-            </ProfileImgBox>
-            <LabelBtn className="profileImg-label" htmlFor="profileImg">
-              <Edit_icon src={EDIT_ICON} />
-            </LabelBtn>
-          </ProfileImgContainer>
-          <InfoContainer>
-            <InfoTxt>
-              <UserName>{profileData.nickname}</UserName>
-            </InfoTxt>
-            <MBTI>{profileData.MBTI}</MBTI>
-            <ProfileMsgBox>{profileData.msg}</ProfileMsgBox>
-          </InfoContainer>
-        </ProfileContainer>
-        <hr />
-        <InputWrapper>
-          <InfoInput
-            title="이메일"
-            placeHolder="howbachu@gmail.com"
-            disabled={true}
-          />
-          <NewPwd />
-          <InfoInput
-            title="닉네임"
-            name="nickname"
-            value={editingData.nickname}
-            onValueChange={(newValue) =>
-              handleInputChange("nickname", newValue)
-            }
-          />
-          <InfoInput
-            title="MBTI"
-            name="MBTI"
-            value={editingData.MBTI}
-            onValueChange={(newValue) => handleInputChange("MBTI", newValue)}
-          />
-          <InfoInput
-            title="상태메세지"
-            name="msg"
-            value={editingData.msg}
-            textArea={true}
-            onValueChange={(newValue) => handleInputChange("msg", newValue)}
-          />
-        </InputWrapper>
-        <Buttons>
-          <Btn onClick={handleCancel} type="button" $mode="cancel">
-            <Icon src={CANCEL_ICON} />
-            <Txt>취소</Txt>
-          </Btn>
-          <Btn type="submit">
-            <Icon src={SAVE_ICON} />
-            <Txt>저장</Txt>
-          </Btn>
-        </Buttons>
-      </Form>
+      {profileData && editingData && (
+        <Form onSubmit={handleFormSubmit}>
+          <ProfileContainer>
+            <ProfileImgContainer>
+              <ProfileImgBox>
+                {selectedImage && <ProfileImg type="file" src={editingImage} />}
+                <ImgInput
+                  className="profileImg-input"
+                  type="file"
+                  accept="image/*"
+                  id="profileImg"
+                  onChange={handleImageChange}
+                />
+              </ProfileImgBox>
+              <LabelBtn className="profileImg-label" htmlFor="profileImg">
+                <Edit_icon src={EDIT_ICON} />
+              </LabelBtn>
+            </ProfileImgContainer>
+            <InfoContainer>
+              <InfoTxt>
+                <UserName>{profileData.username}</UserName>
+              </InfoTxt>
+              <MBTI>{profileData.mbti}</MBTI>
+              <ProfileMsgBox>{profileData.statusMessage}</ProfileMsgBox>
+            </InfoContainer>
+          </ProfileContainer>
+          <hr />
+          <InputWrapper>
+            <InfoInput
+              title="이메일"
+              placeHolder="howbachu@gmail.com"
+              disabled={true}
+            />
+            <NewPwd />
+            <InfoInput
+              title="닉네임"
+              value={editingData.username}
+              onValueChange={(newValue) =>
+                handleInputChange("username", newValue)
+              }
+            />
+            <InfoInput
+              title="MBTI"
+              value={editingData.mbti}
+              onValueChange={(newValue) => handleInputChange("mbti", newValue)}
+            />
+            <InfoInput
+              title="상태메세지"
+              value={editingData.statusMessage}
+              textArea={true}
+              onValueChange={(newValue) =>
+                handleInputChange("statusMessage", newValue)
+              }
+            />
+          </InputWrapper>
+          <Buttons>
+            <Btn onClick={handleCancel} type="button" $mode="cancel">
+              <Icon src={CANCEL_ICON} />
+              <Txt>취소</Txt>
+            </Btn>
+            <Btn type="submit">
+              <Icon src={SAVE_ICON} />
+              <Txt>저장</Txt>
+            </Btn>
+          </Buttons>
+        </Form>
+      )}
     </PageWrapper>
   );
 };
@@ -239,4 +269,5 @@ const Txt = styled.p`
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: white;
 `;
+
 export default ProfileEditPage;

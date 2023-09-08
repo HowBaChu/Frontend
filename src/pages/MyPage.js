@@ -4,23 +4,35 @@ import DEFAULT_IMG from "../assets/imgs/logo.png";
 import COMMENT_ICON from "../assets/imgs/my-opins_icon.svg";
 import EDIT_ICON from "../assets/imgs/edit_icon.svg";
 import REPORT_ICON from "../assets/imgs/siren_big_icon.svg";
+import { useEffect, useState } from "react";
+import { GetProfileDetail } from "../api/GetProfileDetail";
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const [profileData, setProfileData] = useState([]);
+
+  useEffect(() => {
+    GetProfileDetail((profileDetail) => setProfileData(profileDetail));
+  }, []);
+  useEffect(() => {
+    console.log(profileData);
+  }, [profileData]);
+
+  const { avatar, email, mbti, statusMessage, username } = profileData;
 
   return (
     <Div>
       <ProfileImgBox>
-        <ProfileImg src={DEFAULT_IMG} />
+        <ProfileImg src={avatar || DEFAULT_IMG} />
       </ProfileImgBox>
       <BottomWrapper>
         <InfoContainer>
           <InfoTxt>
-            <UserName>하우바츄</UserName>
-            <MBTI>INTJ</MBTI>
+            <UserName>{username}</UserName>
+            <MBTI>{mbti}</MBTI>
           </InfoTxt>
-          <Email>howbachu@naver.com</Email>
-          <ProfileMsgBox>안뇽</ProfileMsgBox>
+          <Email>{email}</Email>
+          <ProfileMsgBox>{statusMessage}</ProfileMsgBox>
         </InfoContainer>
         <ButtonContainer>
           <Button onClick={() => navigate("/profile/pwdcheck")}>
@@ -54,6 +66,8 @@ const Div = styled.div`
 const ProfileImgBox = styled.div`
   width: calc(100vw - 140px); // 좌우 마진
   height: calc(100vw - 140px); // 좌우 마진
+  max-width: 250px;
+  max-height: 250px;
   margin-top: 5px;
   box-shadow: 0 0 2px ${({ theme }) => theme.colors.DARK_GRAY};
   border-radius: 25px;
