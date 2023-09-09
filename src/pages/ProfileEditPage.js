@@ -17,17 +17,15 @@ const ProfileEditPage = () => {
   const [editingData, setEditingData] = useState({
     ...profileData,
   });
-
-  const [selectedImage, setSelectedImage] = useState("");
-  const [editingImage, setEditingImage] = useState(selectedImage);
-
-  //profileData.avatar 설정, 없으면 default img
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [editingImage, setEditingImage] = useState(null);
+``
   useEffect(() => {
-    if (selectedImage === "" && profileData.avatar) {
-      setSelectedImage(profileData.avatar);
-      setEditingImage(profileData.avatar);
-    } else setEditingData(DEFAULT_IMG);
-  }, [profileData, selectedImage, editingImage]);
+    // profileData.avatar 설정, avatar 없으면 default img
+    const avatarSrc = profileData.avatar || DEFAULT_IMG;
+    setSelectedImage(avatarSrc);
+    setEditingImage(avatarSrc);
+  }, [profileData]);
 
   const handleImageChange = (e) => {
     e.preventDefault();

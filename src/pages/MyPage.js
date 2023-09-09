@@ -10,20 +10,21 @@ import { GetProfileDetail } from "../api/GetProfileDetail";
 const MyPage = () => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState([]);
+  const { avatar, email, mbti, statusMessage, username } = profileData;
+
+  let avatarImg;
+  if (avatar === undefined) {
+    avatarImg = DEFAULT_IMG;
+  } else avatarImg = avatar;
 
   useEffect(() => {
     GetProfileDetail((profileDetail) => setProfileData(profileDetail));
   }, []);
-  useEffect(() => {
-    console.log(profileData);
-  }, [profileData]);
-
-  const { avatar, email, mbti, statusMessage, username } = profileData;
 
   return (
     <Div>
       <ProfileImgBox>
-        <ProfileImg src={avatar || DEFAULT_IMG} />
+        <ProfileImg src={avatarImg} />
       </ProfileImgBox>
       <BottomWrapper>
         <InfoContainer>

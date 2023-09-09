@@ -7,6 +7,7 @@ import time_icon from "../assets/imgs/hourglass_icon.svg";
 const Topic = ({ isSmall, history, isList, ...attrProps }) => {
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [graphData, setGraphData] = useState({
+    //chart.js에 들어가는 data
     datasets: [
       {
         data: [1, 2],
@@ -35,10 +36,6 @@ const Topic = ({ isSmall, history, isList, ...attrProps }) => {
         });
       }
     });
-  }, [data]);
-
-  useEffect(() => {
-    console.log(graphData);
   }, [data]);
 
   return (
