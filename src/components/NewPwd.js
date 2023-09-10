@@ -5,16 +5,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import NewPwdInput from "./NewPwdInput";
 
-export const PWD_VALID_MSG = "영문과 숫자, 특수기호를 조합하여 8~14 글자 미만";
-export const PWD_ERROR_MSG = "비밀번호가 일치하지 않습니다.";
+const MIN_PWD = 8;
+const MAX_PWD = 15;
+
+export const PWD_VALID_MSG = `영문과 숫자, 특수기호를 조합하여 ${MIN_PWD}~${MAX_PWD} 글자 미만`;
+export const PWD_ERROR_MSG = `비밀번호가 일치하지 않습니다.`;
+
+const regexPattern = new RegExp(
+  "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[~!@#$%^&*_+=`|\\\\(){}[\\]:;\"'<>,.?])[a-zA-Z\\d~!@#$%^&*_+=`|\\\\(){}[\\]:;\"'<>,.?]{" +
+    MIN_PWD +
+    "," +
+    MAX_PWD +
+    "}$",
+);
 
 const schema = yup.object().shape({
-  newPwd: yup
-    .string()
-    .matches(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*_+=`|\\(){}[\]:;"'<>,.?])[a-zA-Z\d~!@#$%^&*_+=`|\\(){}[\]:;"'<>,.?]{8,14}$/,
-      PWD_VALID_MSG,
-    ),
+  newPwd: yup.string().matches(
+    regexPattern,
+    PWD_VALID_MSG,
+  ),
 });
 
 const NewPwd = () => {

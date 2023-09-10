@@ -1,16 +1,56 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import Graph from "./Graph";
+import { GetTopic } from "../api/GetTopic";
 import time_icon from "../assets/imgs/hourglass_icon.svg";
 
 const Topic = ({ isSmall, history, isList, ...attrProps }) => {
-  // console.log($isSmall)
+  const [topicData, setTopicData] = useState({}); // GetTopic response
+  const [graphData, setGraphData] = useState({
+    //chart.js에 들어가는 data
+    datasets: [
+      {
+        data: [1, 2],
+        backgroundColor: ["rgb(196,168,255)", "rgb(173,90,255)"],
+      },
+    ],
+    labels: ["", ""],
+  });
+
+  const { data, id, subTitle, title, votingStatus } = topicData || {};
+
+  useEffect(() => {
+    GetTopic((data) => {
+      if (data && data?.subTitle && data?.votingStatus) {
+        setTopicData(data);
+
+        setGraphData({
+          ...graphData,
+          datasets: [
+            {
+              ...(graphData?.datasets?.[0] || {}), // 모든 프로퍼티를 유지하면서 data 프로퍼티만 새로운 값으로 설정
+              data: [data.votingStatus.a, data.votingStatus.b],
+            },
+          ],
+          labels: [data.subTitle.sub_A, data.subTitle.sub_B],
+        });
+      }
+    });
+  }, [data]);
 
   return (
     <TopicWrapper $isSmall={isSmall} $history={history} {...attrProps}>
       <Title $isSmall={isSmall} $history={history} {...attrProps}>
-        탕수육은 부먹이다? 찍먹이다?
+        {title}
       </Title>
-      <Graph $isSmall={isSmall} $isList={isList} {...attrProps} />
+      {graphData && (
+        <Graph
+          $isSmall={isSmall}
+          $isList={isList}
+          graphData={graphData}
+          {...attrProps}
+        />
+      )}
       <LeftTime>
         <TimeIcon src={time_icon} />
         <TimeTxt>13 : 05 : 14</TimeTxt>
