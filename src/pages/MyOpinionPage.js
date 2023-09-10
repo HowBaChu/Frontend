@@ -146,10 +146,7 @@ const Email = styled.p`
 `;
 const MyOpinList = styled.div`
   margin: 10px 0;
-  //height: 550px;
-
   height: calc(100vh - 70px - 50px - 130px); // 헤더, Nav, 상단 요소
-
   display: flex;
   flex-direction: column;
   align-items: center;

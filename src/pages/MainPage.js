@@ -6,7 +6,7 @@ import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
 
-const MainPage = ({ openModal }) => {
+const MainPage = ({ openModal, openDelModal }) => {
   const [isSmall, setIsSmall] = useState(false);
 
   const handleOpinionScroll = (event) => {
@@ -28,6 +28,7 @@ const MainPage = ({ openModal }) => {
             isHot={true}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="탕수육 맛있겠다"
           />
           <OpinionBox
@@ -35,53 +36,62 @@ const MainPage = ({ openModal }) => {
             onClick={() => navigate("/test")}
             openModal={openModal}
             content="탕수육 맛있겠다"
+            openDelModal={openDelModal}
           />
           <OpinionBox
             isMine={false}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕"
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
           />
           <OpinionBox
             isMine={false}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="탕 수 육 맛 있 겠 다 !!!!!!!! ! ! ! !! !  !"
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="탕 수 육"
           />
           <OpinionBox
             isMine={false}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="나는 찍어먹는게 좋아 !!~!~!!!!!!!!!!!!~!~~~~~~~~~~~~~~~~~~~~~"
           />
           <OpinionBox
             isMine={false}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="부어서 먹기"
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="탕수육 맛있겠다"
           />
           <OpinionBox
             isMine={true}
             onClick={() => navigate("/test")}
             openModal={openModal}
+            openDelModal={openDelModal}
             content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
           />
         </OpinionContainer>

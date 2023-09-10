@@ -12,6 +12,7 @@ const Opinion = ({
   isList,
   content,
   openModal,
+  openDelModal,
   ...attrProps
 }) => {
   const [isLikeClicked, setIsLikeClicked] = useState(false);
@@ -28,6 +29,10 @@ const Opinion = ({
   const onClickReport = (e) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
     openModal();
+  };
+  const onClickDelete = (e) => {
+    e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
+    openDelModal();
   };
 
   return (
@@ -50,15 +55,14 @@ const Opinion = ({
           <LikeCount>24</LikeCount>
         </IconBtn>
       </OpinionBox>
-      <UserActionBtn
-        $isMine={isMine}
-        $isList={isList}
-        onClick={(e) => onClickReport(e)}
-      >
-        <ReOpinTxt>신고하기</ReOpinTxt>
-        <SirenIcon>
+      <UserActionBtn>
+        <ReportBtn $isList={isList} onClick={(e) => onClickReport(e)}>
+          신고하기
           <img src={SIREN} />
-        </SirenIcon>
+        </ReportBtn>
+        <DeleteBtn $isMine={isMine} onClick={(e) => onClickDelete(e)}>
+          삭제하기
+        </DeleteBtn>
       </UserActionBtn>
     </OpinionWrapper>
   );
@@ -68,7 +72,7 @@ const OpinionWrapper = styled.div`
   width: ${({ $isHot }) => ($isHot ? `100%` : `80%`)};
   box-shadow: 0 0 1px gray;
   border-radius: 15px;
-  padding: 5px 10px;
+  padding: 5px 10px 2px 10px;
   background-color: ${({ $isMine, theme }) =>
     $isMine ? `white` : theme.colors.PURPLE1};
   background-color: ${({ $isHot, theme }) => $isHot && theme.colors.HOT_PINK};
@@ -76,6 +80,7 @@ const OpinionWrapper = styled.div`
   align-self: ${({ $isHot }) => $isHot && `center`};
   display: flex;
   flex-direction: column;
+  gap: 2px;
 `;
 const OpinionBox = styled.div`
   display: flex;
@@ -150,19 +155,23 @@ const LikeCount = styled.p`
 const UserActionBtn = styled.div`
   width: auto;
   height: 20px;
-  margin-right: auto;
-  display: ${({ $isList }) => ($isList ? `none` : `inline-flex`)};
+  display: ${({ $isList }) => ($isList ? `none` : `flex`)};
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
+  & > button {
+    font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+    font-weight: ${({ theme }) => theme.fontweight.REGULAR};
+    color: ${({ theme }) => theme.colors.TXT_GRAY};
+    white-space: nowrap;
+  }
 `;
-const ReOpinTxt = styled.button`
-  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
-  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
-  color: ${({ theme }) => theme.colors.TXT_GRAY};
-  white-space: nowrap;
+const ReportBtn = styled.button`
+  display: flex;
+  gap: 1px;
+  align-items: center;
 `;
-const SirenIcon = styled.button`
-  padding-top: 2px;
+const DeleteBtn = styled.button`
+  visibility: ${({ $isMine }) => ($isMine ? `visible` : `hidden`)};
 `;
 
 export default Opinion;

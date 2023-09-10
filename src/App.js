@@ -17,14 +17,23 @@ import NavBar from "./components/NavBar";
 import Threadpage from "./pages/Threadpage";
 import ReportModal from "./components/ReportModal";
 import CurPwdCheckPage from "./pages/CurPwdCheckPage";
+import OpinDeleteModal from "./components/OpinDeleteModal";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
+  const [isDelModal, setIsDelModal] = useState(false);
+
   const handleModalOpen = () => {
     setIsModal(true);
   };
   const handleModalClose = () => {
     setIsModal(false);
+  };
+  const handleDelModalOpen = () => {
+    setIsDelModal(true);
+  };
+  const handleDelModalClose = () => {
+    setIsDelModal(false);
   };
 
   return (
@@ -32,20 +41,36 @@ function App() {
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
         {isModal && <ReportModal closeModal={handleModalClose} />}
+        {isDelModal && <OpinDeleteModal closeDelModal={handleDelModalClose} />}
         <BrowserRouter>
           <Logo />
           <Routes>
             <Route
               path="/"
-              element={<MainPage openModal={handleModalOpen} />}
+              element={
+                <MainPage
+                  openModal={handleModalOpen}
+                  openDelModal={handleDelModalOpen}
+                />
+              }
             />
             <Route
               path="/:opinId"
-              element={<Threadpage openModal={handleModalOpen} />}
+              element={
+                <Threadpage
+                  openModal={handleModalOpen}
+                  openDelModal={handleDelModalOpen}
+                />
+              }
             />
             <Route
               path="/test"
-              element={<Threadpage openModal={handleModalOpen} />}
+              element={
+                <Threadpage
+                  openModal={handleModalOpen}
+                  openDelModal={handleDelModalOpen}
+                />
+              }
             />
             <Route path="/serch" element={<SearchPage />} />
             <Route path="/profile" element={<MyPage />} />

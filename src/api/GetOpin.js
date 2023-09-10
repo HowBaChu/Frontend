@@ -9,7 +9,7 @@ export const GetOpin = () => {
     },
   })
     .then((res) => {
-      console.log(res);
+      console.log(res.data.data);
     })
     .catch((errors) => {
       console.log(errors);
