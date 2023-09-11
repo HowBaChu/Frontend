@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GetProfileDetail } from "../api/GetProfileDetail";
+import { PostAvatar } from "../api/PostAvatar";
 import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
@@ -19,13 +20,17 @@ const ProfileEditPage = () => {
   });
   const [selectedImage, setSelectedImage] = useState(null);
   const [editingImage, setEditingImage] = useState(null);
-``
-  useEffect(() => {
-    // profileData.avatar 설정, avatar 없으면 default img
-    const avatarSrc = profileData.avatar || DEFAULT_IMG;
-    setSelectedImage(avatarSrc);
-    setEditingImage(avatarSrc);
-  }, [profileData]);
+
+  const imgFormDataRef = useRef(new FormData());
+
+  // handleImageChange에서 파일을 변경할 때마다 새로운 FormData 인스턴스를 생성하여 imgFormData를 업데이트
+  const updateFormData = (newFile) => {
+    let newFormData = new FormData();
+    newFormData.append("file", newFile);
+    imgFormDataRef.current = newFormData; // useRef의 current 속성을 업데이트
+
+    return newFormData;
+  };
 
   const handleImageChange = (e) => {
     e.preventDefault();
@@ -33,25 +38,33 @@ const ProfileEditPage = () => {
     if (file) {
       const imageURL = URL.createObjectURL(file); // URL로 변환해서 state에 저장 -> 렌더링 위함
       setEditingImage(imageURL);
-      // TODO 필요없어진 후에 URL을 해제하는 코드
-      // URL.revokeObjectURL(imageURL);
+      updateFormData(file);
+      console.log(imgFormDataRef.current.getAll("file")[0]); // useRef의 current를 사용하여 접근
     }
   };
+
   const handleInputChange = (field, value) => {
     setEditingData((prevData) => ({ ...prevData, [field]: value }));
   };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setProfileData(editingData); // 저장 버튼 클릭 시 수정 중이던 내용 저장
     setSelectedImage(editingImage);
 
-    //TODO 폼 데이터 전송 Axios POST formData
+    // TODO 폼 데이터 전송 Axios POST formData
     // const formData = {
     //   username: editingData.username,
     //   MBTI: value.MBTI,
     // };
     // PostEditForm(formData);
+
+    // TODO 필요없어진 후에 URL을 해제하는 코드
+    // URL.revokeObjectURL(editingImage);
+    PostAvatar(imgFormDataRef.current);
+    console.log(imgFormDataRef.current.getAll("file")[0]);
   };
+
   const handleCancel = () => {
     setEditingData(profileData); // 취소 버튼 클릭 시
     setEditingImage(selectedImage); // 취소 버튼 클릭 시
@@ -70,6 +83,13 @@ const ProfileEditPage = () => {
     ) {
       setEditingData({ ...profileData });
     }
+  }, [profileData]);
+
+  useEffect(() => {
+    // profileData.avatar 설정, avatar 없으면 default img
+    const avatarSrc = profileData.avatar || DEFAULT_IMG;
+    setSelectedImage(avatarSrc);
+    setEditingImage(avatarSrc);
   }, [profileData]);
 
   return (
@@ -154,7 +174,7 @@ const PageWrapper = styled.div`
 `;
 const ProfileContainer = styled.div`
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   display: flex;
   gap: 20px;
   align-items: center;
