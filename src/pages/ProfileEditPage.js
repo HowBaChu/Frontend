@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import { GetProfileDetail } from "../api/GetProfileDetail";
 import { PostAvatar } from "../api/PostAvatar";
+import { PatchProfileDetail } from "../api/PatchProfileDetail";
 import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
@@ -10,17 +11,37 @@ import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
 import SAVE_ICON from "../assets/imgs/save_icon.svg";
 
 const ProfileEditPage = () => {
+  /* 초기 api response */
+  const [apiData, setApiData] = useState({});
+  /* '저장'한 데이터 */
   const [profileData, setProfileData] = useState({
-    username: "",
+    avatar: "",
+    email: "",
     mbti: "",
-    msg: "",
+    statusMessage: "",
+    username: "",
   });
+  /* '수정 중'인 데이터 */
   const [editingData, setEditingData] = useState({
     ...profileData,
   });
+  /* '취소'할 때 되돌릴 이미지 */
   const [selectedImage, setSelectedImage] = useState(null);
+  /* '저장'전 수정중인 이미지 */
   const [editingImage, setEditingImage] = useState(null);
 
+  /* API response에서 avatar, id를 제외한 객체를 반환*/
+  const filterOutKeys = (data, keysToExclude) => {
+    let filteredData = { ...data };
+    keysToExclude.forEach((key) => {
+      delete filteredData[key];
+    });
+    return filteredData;
+  };
+  /* avatar, id를 제외한 값만 profile edit data로 관리하기 위함 */
+  const filteredState = filterOutKeys(apiData, ["avatar", "id"]);
+
+  // submit 될 때 마다 초기화 되는 문제 useRef 사용해서 해결
   const imgFormDataRef = useRef(new FormData());
 
   // handleImageChange에서 파일을 변경할 때마다 새로운 FormData 인스턴스를 생성하여 imgFormData를 업데이트
@@ -39,7 +60,7 @@ const ProfileEditPage = () => {
       const imageURL = URL.createObjectURL(file); // URL로 변환해서 state에 저장 -> 렌더링 위함
       setEditingImage(imageURL);
       updateFormData(file);
-      console.log(imgFormDataRef.current.getAll("file")[0]); // useRef의 current를 사용하여 접근
+      // console.log(imgFormDataRef.current.getAll("file")[0]); // useRef의 current를 사용하여 접근
     }
   };
 
@@ -52,17 +73,20 @@ const ProfileEditPage = () => {
     setProfileData(editingData); // 저장 버튼 클릭 시 수정 중이던 내용 저장
     setSelectedImage(editingImage);
 
-    // TODO 폼 데이터 전송 Axios POST formData
+    /* TODO 폼 데이터 전송 Axios PATCH formData */
     // const formData = {
     //   username: editingData.username,
     //   MBTI: value.MBTI,
     // };
     // PostEditForm(formData);
 
-    // TODO 필요없어진 후에 URL을 해제하는 코드
+    /* TODO 필요없어진 후에 URL을 해제하는 코드 */
     // URL.revokeObjectURL(editingImage);
+
+    /* API */
+    PatchProfileDetail(editingData);
     PostAvatar(imgFormDataRef.current);
-    console.log(imgFormDataRef.current.getAll("file")[0]);
+    // console.log(imgFormDataRef.current.getAll("file")[0]);
   };
 
   const handleCancel = () => {
@@ -71,26 +95,24 @@ const ProfileEditPage = () => {
   };
 
   useEffect(() => {
-    GetProfileDetail((profileDetail) => setProfileData(profileDetail));
+    GetProfileDetail((apidata) => setApiData(apidata));
   }, []);
 
-  // profileData가 처음으로 업데이트될 때, 그 값을 editingData의 초기 값으로 설정하기 위함
   useEffect(() => {
-    if (
-      editingData.username === "" &&
-      editingData.mbti === "" &&
-      editingData.msg === ""
-    ) {
-      setEditingData({ ...profileData });
-    }
+    setEditingData({ ...profileData });
+    // console.log(profileData);
   }, [profileData]);
 
   useEffect(() => {
     // profileData.avatar 설정, avatar 없으면 default img
-    const avatarSrc = profileData.avatar || DEFAULT_IMG;
+    const avatarSrc = apiData.avatar || DEFAULT_IMG;
     setSelectedImage(avatarSrc);
     setEditingImage(avatarSrc);
   }, [profileData]);
+
+  useEffect(() => {
+    setProfileData(filteredState);
+  }, [apiData]);
 
   return (
     <PageWrapper>
