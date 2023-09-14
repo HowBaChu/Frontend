@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GetTopic } from "../api/GetTopic";
 import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
@@ -8,6 +9,7 @@ import OpinionInput from "../components/OpinionInput";
 
 const MainPage = ({ openModal }) => {
   const [isSmall, setIsSmall] = useState(false);
+  const [topicData, setTopicData] = useState({}); // GetTopic response
 
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
@@ -18,9 +20,15 @@ const MainPage = ({ openModal }) => {
     GetOpin();
   }, []);
 
+  useEffect(() => {
+    GetTopic((data) => {
+      setTopicData(data);
+    });
+  }, []);
+
   return (
     <MainPageLayout>
-      <TopicBox id="topic" isSmall={isSmall} />
+      <TopicBox id="topic" isSmall={isSmall} topicData={topicData} />
       <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
         <OpinionContainer $isSmall={isSmall}>
           <OpinionBox

@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import NewPwdInput from "./NewPwdInput";
+import * as yup from "yup";
 
 const MIN_PWD = 8;
 const MAX_PWD = 15;

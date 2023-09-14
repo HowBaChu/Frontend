@@ -19,7 +19,7 @@ const ProfileEditPage = () => {
   });
   const [selectedImage, setSelectedImage] = useState(null);
   const [editingImage, setEditingImage] = useState(null);
-``
+  ``;
   useEffect(() => {
     // profileData.avatar 설정, avatar 없으면 default img
     const avatarSrc = profileData.avatar || DEFAULT_IMG;
