@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Topic from "../components/Topic";
 import { useEffect, useState } from "react";
 import { GetHonor } from "../api/GetHonor";
+import Topic from "../components/Topic";
 import CROWN_1 from "../assets/imgs/crown_1.svg";
 import CROWN_2 from "../assets/imgs/crown_2.svg";
 import CROWN_3 from "../assets/imgs/crown_3.svg";

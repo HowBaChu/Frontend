@@ -1,11 +1,11 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GetProfileDetail } from "../api/GetProfileDetail";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import COMMENT_ICON from "../assets/imgs/my-opins_icon.svg";
 import EDIT_ICON from "../assets/imgs/edit_icon.svg";
 import REPORT_ICON from "../assets/imgs/siren_big_icon.svg";
-import { useEffect, useState } from "react";
-import { GetProfileDetail } from "../api/GetProfileDetail";
 
 const MyPage = () => {
   const navigate = useNavigate();

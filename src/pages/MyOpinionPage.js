@@ -89,7 +89,6 @@ const PageWrapper = styled.div`
   margin: 70px auto 0 auto;
   padding-top: 10px;
 `;
-
 const MyOpin = styled(Opinion)`
   margin: 0 auto;
   width: 98%;
@@ -127,7 +126,6 @@ const InfoBox = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
-  //flex-wrap: wrap;
 `;
 const UserName = styled.p`
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
@@ -146,10 +144,7 @@ const Email = styled.p`
 `;
 const MyOpinList = styled.div`
   margin: 10px 0;
-  //height: 550px;
-
   height: calc(100vh - 70px - 50px - 130px); // 헤더, Nav, 상단 요소
-
   display: flex;
   flex-direction: column;
   align-items: center;

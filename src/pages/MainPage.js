@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GetTopic } from "../api/GetTopic";
 import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
-import { GetTopic } from "../api/GetTopic";
 
 const MainPage = ({ openModal }) => {
   const [isSmall, setIsSmall] = useState(false);

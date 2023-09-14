@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Graph from "./Graph";
-import { GetTopic } from "../api/GetTopic";
 import time_icon from "../assets/imgs/hourglass_icon.svg";
 
 const Topic = ({ isSmall, history, isList, topicData, ...attrProps }) => {
@@ -68,7 +67,7 @@ const TopicWrapper = styled.div`
 const Title = styled.h2`
   padding: ${({ $history, $isSmall }) => {
     if ($history) {
-      return `25px 0 10px 0`;
+      return `25px 15px 10px`;
     } else {
       return $isSmall ? `10px` : `5px`;
     }
