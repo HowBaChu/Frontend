@@ -2,6 +2,7 @@ import styled from "styled-components";
 const MAX_CONTENT = 60;
 
 const InfoInput = ({
+  name,
   title,
   autoFocus,
   placeHolder,
@@ -24,11 +25,12 @@ const InfoInput = ({
       <InputContainer textArea={textArea}>
         {textArea ? (
           <TextAreaBox>
-            <TextArea type="text" value={value} onChange={onChange} />
+            <TextArea name={name} type="text" value={value} onChange={onChange} />
             <LimitMsg>({value && value.length} / 60)</LimitMsg>
           </TextAreaBox>
         ) : (
           <Input
+            name={name}
             type="text"
             autoFocus={autoFocus}
             placeHolder={placeHolder}
@@ -55,6 +57,7 @@ const InputTitle = styled.div`
   color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const InputContainer = styled.div`
+  padding: 0 15px;
   height: ${({ textArea }) => (textArea ? `120px` : `40px`)};
   display: flex;
   justify-content: center;
@@ -62,7 +65,6 @@ const InputContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.TXT_GRAY};
   border-radius: 15px;
   overflow: hidden;
-  background-color: white;
 `;
 const NotiMsg = styled.p`
   padding: 5px 0 0 10px;
@@ -72,7 +74,6 @@ const NotiMsg = styled.p`
 `;
 const Input = styled.input`
   width: 100%;
-  margin: 5px 10px;
   border: none;
   font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
