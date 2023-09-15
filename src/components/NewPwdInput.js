@@ -53,6 +53,7 @@ const InputContainer = styled.div`
   flex-direction: column;
 `;
 const InputBox = styled.div`
+  padding: 0 15px;
   height: ${({ textArea }) => (textArea ? `120px` : `40px`)};
   display: flex;
   justify-content: center;
@@ -64,7 +65,6 @@ const InputBox = styled.div`
 `;
 const Input = styled.input`
   width: 100%;
-  margin: 5px 10px;
   border: none;
   font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};

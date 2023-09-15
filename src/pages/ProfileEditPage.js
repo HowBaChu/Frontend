@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { GetProfileDetail } from "../api/GetProfileDetail";
 import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
+import DropDown from "../components/DropDown";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
 import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
@@ -103,24 +104,23 @@ const ProfileEditPage = () => {
           <hr />
           <InputWrapper>
             <InfoInput
+              name="email"
               title="이메일"
               placeHolder="howbachu@gmail.com"
               disabled={true}
             />
             <NewPwd />
             <InfoInput
+              name="username"
               title="닉네임"
               value={editingData.username}
               onValueChange={(newValue) =>
                 handleInputChange("username", newValue)
               }
             />
+            <DropDown />
             <InfoInput
-              title="MBTI"
-              value={editingData.mbti}
-              onValueChange={(newValue) => handleInputChange("mbti", newValue)}
-            />
-            <InfoInput
+              name="statusMessage"
               title="상태메세지"
               value={editingData.statusMessage}
               textArea={true}
