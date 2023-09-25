@@ -6,19 +6,13 @@ import HEART_FULL from "../assets/imgs/full_heart_icon.svg";
 import SIREN from "../assets/imgs/siren_icon.svg";
 import default_profile_icon from "../assets/imgs/default-profile-img_icon.svg";
 
-const Opinion = ({
-  isMine,
-  isHot,
-  isList,
-  content,
-  openModal,
-  ...attrProps
-}) => {
+const Opinion = ({ isHot, isList, opinContent, openModal, ...attrProps }) => {
+  const { nickname, content, selection, topicSubTitle, likeCnt } = opinContent;
   const [isLikeClicked, setIsLikeClicked] = useState(false);
+  const isMine = selection === "B";
 
   const onClickHeart = (e, isHot) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
-
     if (!isHot) {
       // 하트(좋아요)일 경우
       setIsLikeClicked((prev) => !prev);
@@ -39,15 +33,15 @@ const Opinion = ({
           </ProfileImgBox>
           <ContentContainer $isMine={isMine}>
             <InfoBox $isMine={isMine}>
-              <UserName>말랑카우</UserName>
-              <OpinTitle $isMine={isMine}>찍먹이다!</OpinTitle>
+              <UserName>{nickname}</UserName>
+              <OpinTitle $isMine={isMine}>{topicSubTitle}</OpinTitle>
             </InfoBox>
             <Content $isHot={isHot}>{content}</Content>
           </ContentContainer>
         </TopBox>
         <IconBtn isHot={isHot} onClick={(e, isHot) => onClickHeart(e, isHot)}>
           <IconImg $isHot={isHot} isLikeClicked={isLikeClicked} />
-          <LikeCount>24</LikeCount>
+          <LikeCount>{likeCnt}</LikeCount>
         </IconBtn>
       </OpinionBox>
       <UserActionBtn
