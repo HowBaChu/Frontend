@@ -11,25 +11,19 @@ const MainPage = ({ openModal }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
+  const navigate = useNavigate();
 
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
-  const navigate = useNavigate();
-
   useEffect(() => {
     GetOpin((opinListdata) => setOpinList(opinListdata));
   }, []);
-
   useEffect(() => {
     GetTopic((data) => {
       setTopicData(data);
     });
   }, []);
-
-  useEffect(() => {
-    console.log(opinList);
-  }, [opinList]);
 
   return (
     <MainPageLayout>
@@ -42,7 +36,7 @@ const MainPage = ({ openModal }) => {
                 <OpinionBox
                   key={opin.id}
                   opinContent={opin}
-                  onClick={() => navigate("/test")}
+                  onClick={() => navigate(`/${opin.id}`)}
                   openModal={openModal}
                 />
               );
