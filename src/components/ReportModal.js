@@ -10,10 +10,6 @@ const ReportModal = ({ closeModal }) => {
     setIsOther(selectReport === REPORT_LIST.length - 1);
   }, [selectReport]);
 
-  useEffect(() => {
-    console.log(isOther);
-  }, [isOther]);
-
   return (
     <ModalContainer onClick={() => closeModal()}>
       <Modal onClick={(e) => e.stopPropagation()}>

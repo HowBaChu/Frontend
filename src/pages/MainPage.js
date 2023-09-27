@@ -10,16 +10,15 @@ import OpinionInput from "../components/OpinionInput";
 const MainPage = ({ openModal }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
+  const [opinList, setOpinList] = useState([]); // GetOpin response
+  const navigate = useNavigate();
 
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
-  const navigate = useNavigate();
-
   useEffect(() => {
-    GetOpin();
+    GetOpin((opinListdata) => setOpinList(opinListdata));
   }, []);
-
   useEffect(() => {
     GetTopic((data) => {
       setTopicData(data);
@@ -30,69 +29,20 @@ const MainPage = ({ openModal }) => {
     <MainPageLayout>
       <TopicBox id="topic" isSmall={isSmall} topicData={topicData} />
       <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
-        <OpinionContainer $isSmall={isSmall}>
-          <OpinionBox
-            isMine={false}
-            isHot={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕수육 맛있겠다"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕수육 맛있겠다"
-          />
-          <OpinionBox
-            isMine={false}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
-          />
-          <OpinionBox
-            isMine={false}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕 수 육 맛 있 겠 다 !!!!!!!! ! ! ! !! !  !"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕 수 육"
-          />
-          <OpinionBox
-            isMine={false}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="나는 찍어먹는게 좋아 !!~!~!!!!!!!!!!!!~!~~~~~~~~~~~~~~~~~~~~~"
-          />
-          <OpinionBox
-            isMine={false}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="부어서 먹기"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕수육 맛있겠다"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
-          />
-        </OpinionContainer>
+        {opinList && (
+          <OpinionContainer $isSmall={isSmall}>
+            {opinList?.map((opin) => {
+              return (
+                <OpinionBox
+                  key={opin.id}
+                  opinContent={opin}
+                  onClick={() => navigate(`/${opin.id}`)}
+                  openModal={openModal}
+                />
+              );
+            })}
+          </OpinionContainer>
+        )}
       </OpinionArea>
       <Input />
     </MainPageLayout>

@@ -6,25 +6,18 @@ import HEART_FULL from "../assets/imgs/full_heart_icon.svg";
 import SIREN from "../assets/imgs/siren_icon.svg";
 import default_profile_icon from "../assets/imgs/default-profile-img_icon.svg";
 
-const Opinion = ({
-  isMine,
-  isHot,
-  isList,
-  content,
-  openModal,
-  ...attrProps
-}) => {
+const Opinion = ({ isHot, isList, opinContent, openModal, ...attrProps }) => {
+  const { nickname, content, selection, topicSubTitle, likeCnt } = opinContent;
   const [isLikeClicked, setIsLikeClicked] = useState(false);
+  const isMine = selection === "B";
 
   const onClickHeart = (e, isHot) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
-
     if (!isHot) {
       // 하트(좋아요)일 경우
       setIsLikeClicked((prev) => !prev);
     }
   };
-
   const onClickReport = (e) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
     openModal();
@@ -32,40 +25,47 @@ const Opinion = ({
 
   return (
     <OpinionWrapper $isMine={isMine} $isHot={isHot} {...attrProps}>
-      <OpinionBox $isMine={isMine}>
-        <TopBox $isMine={isMine}>
-          <ProfileImgBox>
-            <ProfileImg src={default_profile_icon} />
-          </ProfileImgBox>
-          <ContentContainer $isMine={isMine}>
-            <InfoBox $isMine={isMine}>
-              <UserName>말랑카우</UserName>
-              <OpinTitle $isMine={isMine}>찍먹이다!</OpinTitle>
-            </InfoBox>
-            <Content $isHot={isHot}>{content}</Content>
-          </ContentContainer>
-        </TopBox>
-        <IconBtn isHot={isHot} onClick={(e, isHot) => onClickHeart(e, isHot)}>
-          <IconImg $isHot={isHot} isLikeClicked={isLikeClicked} />
-          <LikeCount>24</LikeCount>
-        </IconBtn>
-      </OpinionBox>
-      <UserActionBtn
-        $isMine={isMine}
-        $isList={isList}
-        onClick={(e) => onClickReport(e)}
-      >
-        <ReOpinTxt>신고하기</ReOpinTxt>
-        <SirenIcon>
-          <img src={SIREN} />
-        </SirenIcon>
-      </UserActionBtn>
+      {opinContent && (
+        <>
+          <OpinionBox $isMine={isMine}>
+            <TopBox $isMine={isMine}>
+              <ProfileImgBox>
+                <ProfileImg src={default_profile_icon} />
+              </ProfileImgBox>
+              <ContentContainer $isMine={isMine}>
+                <InfoBox $isMine={isMine}>
+                  <UserName>{nickname}</UserName>
+                  <OpinTitle $isMine={isMine}>{topicSubTitle}</OpinTitle>
+                </InfoBox>
+                <Content $isHot={isHot}>{content}</Content>
+              </ContentContainer>
+            </TopBox>
+            <IconBtn
+              isHot={isHot}
+              onClick={(e, isHot) => onClickHeart(e, isHot)}
+            >
+              <IconImg $isHot={isHot} $isLikeClicked={isLikeClicked} />
+              <LikeCount>{likeCnt}</LikeCount>
+            </IconBtn>
+          </OpinionBox>
+          <UserActionBtn
+            $isMine={isMine}
+            $isList={isList}
+            onClick={(e) => onClickReport(e)}
+          >
+            <ReOpinTxt>신고하기</ReOpinTxt>
+            <SirenIcon>
+              <img src={SIREN} />
+            </SirenIcon>
+          </UserActionBtn>
+        </>
+      )}
     </OpinionWrapper>
   );
 };
 
 const OpinionWrapper = styled.div`
-  width: ${({ $isHot }) => ($isHot ? `100%` : `80%`)};
+  width: ${({ $isHot }) => ($isHot ? `100%` : `85%`)};
   box-shadow: 0 0 1px gray;
   border-radius: 15px;
   padding: 5px 10px;
@@ -102,14 +102,13 @@ const ProfileImg = styled.img`
   height: 30px;
 `;
 const ContentContainer = styled.div`
-  padding: 0 7px;
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const InfoBox = styled.div`
   display: flex;
   flex-direction: ${({ isMine }) => (isMine ? `row-reverse` : `row`)};
   align-items: end;
-  margin: 5px;
+  margin: 5px 5px 5px 8px;
   gap: 5px;
 `;
 const UserName = styled.div`
@@ -124,7 +123,7 @@ const OpinTitle = styled.div`
   white-space: nowrap;
 `;
 const Content = styled.div`
-  margin-left: 5px;
+  margin-left: 8px;
   padding: 0 1px;
   font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
@@ -136,7 +135,7 @@ const IconBtn = styled.button`
   height: 42px;
 `;
 const IconImg = styled.img.attrs((props) => ({
-  src: props.$isHot ? FIRE : props.isLikeClicked ? HEART_FULL : HEART_EMPTY,
+  src: props.$isHot ? FIRE : props.$isLikeClicked ? HEART_FULL : HEART_EMPTY,
   alt: "icon",
 }))`
   width: 30px;

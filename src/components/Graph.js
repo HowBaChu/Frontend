@@ -13,15 +13,13 @@ const Graph = ({ $isSmall, $isList, graphData }) => {
         (voteInfo.data[0] * 100) / (voteInfo.data[0] + voteInfo.data[1]) || 0,
       );
     }
-  }, []);
+  }, [voteInfo]);
 
   return (
     <>
       {$isSmall ? (
         <StickGraph>
-          <StickBackground percentage={percentage}>
-            {/*{parseInt(percentage)}*/}
-          </StickBackground>
+          <StickBackground percentage={percentage} />
         </StickGraph>
       ) : (
         <CircleGraph $isList={$isList} graphData={graphData} />
@@ -36,7 +34,7 @@ const CircleGraph = styled(CirCle_Graph)`
 `;
 const StickGraph = styled.div`
   width: 90%;
-  height: 18px;
+  height: 20px;
   line-height: 20px;
   border-radius: 15px;
   margin: 5px 0;
