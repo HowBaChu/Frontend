@@ -10,7 +10,6 @@ export const GetTopic = (callbackFunctions) => {
   })
     .then((res) => {
       callbackFunctions(res.data.data);
-      console.log(res.data.data);
     })
     .catch((errors) => {
       console.log(errors);

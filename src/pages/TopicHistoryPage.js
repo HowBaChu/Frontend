@@ -1,40 +1,46 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { GetHonor } from "../api/GetHonor";
 import Topic from "../components/Topic";
 import CROWN_1 from "../assets/imgs/crown_1.svg";
 import CROWN_2 from "../assets/imgs/crown_2.svg";
 import CROWN_3 from "../assets/imgs/crown_3.svg";
 
 const TopicHistoryPage = () => {
+  const [honorData, setHonorData] = useState([]);
+  const CROWNS = [CROWN_1, CROWN_2, CROWN_3];
+
+  useEffect(() => {
+    GetHonor((honerList) => setHonorData(honerList));
+  }, []);
+
+  const CrownArr = honorData.slice(0, 3);
+  const NomalArr = honorData.slice(3);
+
   return (
     <PageWrapper>
       <HistoryList>
-        <TopicWrapper>
-          <Crown>
-            <CrownIcon src={CROWN_1} />
-          </Crown>
-          <HistoryTopic history={true} isList={true} />
-        </TopicWrapper>
-        <TopicWrapper>
-          <Crown>
-            <CrownIcon src={CROWN_2} />
-          </Crown>
-          <HistoryTopic history={true} isList={true} />
-        </TopicWrapper>
-        <TopicWrapper>
-          <Crown>
-            <CrownIcon src={CROWN_3} />
-          </Crown>
-          <HistoryTopic history={true} isList={true} />
-        </TopicWrapper>
-        <TopicWrapper>
-          <HistoryTopic history={true} isList={true} />
-        </TopicWrapper>
-        <TopicWrapper>
-          <HistoryTopic history={true} isList={true} />
-        </TopicWrapper>
-        <TopicWrapper>
-          <HistoryTopic history={true} isList={true} />
-        </TopicWrapper>
+        {CrownArr.map((crownTopic, index) => (
+          <TopicWrapper key={crownTopic.title}>
+            <Crown>
+              <CrownIcon src={CROWNS[index]} />
+            </Crown>
+            <HistoryTopic
+              history={true}
+              isList={true}
+              topicData={CrownArr[index]}
+            />
+          </TopicWrapper>
+        ))}
+        {NomalArr.map((nomalTopic, index) => (
+          <TopicWrapper key={nomalTopic.title}>
+            <HistoryTopic
+              history={true}
+              isList={true}
+              topicData={NomalArr[index]}
+            />
+          </TopicWrapper>
+        ))}
       </HistoryList>
     </PageWrapper>
   );

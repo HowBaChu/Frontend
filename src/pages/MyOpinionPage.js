@@ -89,7 +89,6 @@ const PageWrapper = styled.div`
   margin: 70px auto 0 auto;
   padding-top: 10px;
 `;
-
 const MyOpin = styled(Opinion)`
   margin: 0 auto;
   width: 98%;
@@ -127,7 +126,6 @@ const InfoBox = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
-  //flex-wrap: wrap;
 `;
 const UserName = styled.p`
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};

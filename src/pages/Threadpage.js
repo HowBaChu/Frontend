@@ -1,60 +1,37 @@
 import styled from "styled-components";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
+import { useEffect, useState } from "react";
+import { GetOpin } from "../api/GetOpin";
+import { useParams } from "react-router-dom";
 
-const Threadpage = ({ openModal }) => {
+const Threadpage = ({ openModal, openDelModal }) => {
+  const [opinList, setOpinList] = useState([]); // Get Thread Opin response
+  const { opinId } = useParams();
+
+  useEffect(() => {
+    GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
+  }, []);
+
   return (
     <ThreadWrapper>
-      <ThreadOpinion openModal={openModal} content="오늘 날씨가 정말 좋네요!" />
+      {/*<ThreadOpinion openModal={openModal} content="오늘 날씨가 정말 좋네요!" />*/}
       <Hr />
       <OpinionArea>
-        <OpinList>
-          <ReOpin
-            isMine={true}
-            openModal={openModal}
-            content="오늘 날씨가 정말 좋네요!"
-          />
-          <ReOpin
-            isMine={false}
-            openModal={openModal}
-            content="안녕하세요! 반갑습니다."
-          />
-          <ReOpin
-            isMine={true}
-            openModal={openModal}
-            content="이번 주말 계획이 있나요?"
-          />
-          <ReOpin
-            isMine={true}
-            openModal={openModal}
-            content="저는 새로운 책을 읽고 있어요."
-          />
-          <ReOpin
-            isMine={false}
-            openModal={openModal}
-            content="커피 좋아하세요?"
-          />
-          <ReOpin
-            isMine={true}
-            openModal={openModal}
-            content="영화 보러 가고 싶어요."
-          />
-          <ReOpin
-            isMine={true}
-            openModal={openModal}
-            content="요즘 어떻게 지내세요?"
-          />
-          <ReOpin
-            isMine={false}
-            openModal={openModal}
-            content="맛있는 음식 먹었어요!"
-          />
-          <ReOpin
-            isMine={true}
-            openModal={openModal}
-            content="여행 가고 싶어요."
-          />
-        </OpinList>
+        {opinList && (
+          <OpinList>
+            {opinList?.map((opin) => {
+              return (
+                <ReOpin
+                  key={opin.id}
+                  openModal={openModal}
+                  openDelModal={openDelModal}
+                  opinContent={opin}
+                />
+              );
+            })}
+          </OpinList>
+        )}
       </OpinionArea>
       <Input />
     </ThreadWrapper>
@@ -62,11 +39,8 @@ const Threadpage = ({ openModal }) => {
 };
 
 const ThreadWrapper = styled.div`
-  //width: 345px;
-  //height: 690px;
   width: calc(100vw - 44px);
   height: calc(100vh - 70px - 40px - 50px); // 헤더, 하단 입력창, Nav
-
   margin: 70px auto 0 auto;
 `;
 const ThreadOpinion = styled(Opinion)`

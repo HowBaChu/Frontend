@@ -20,7 +20,7 @@ const CurPwd = () => {
     <InputForm onSubmit={(e) => onSubmit(e)}>
       <InputTitle>현재 비밀번호</InputTitle>
       <ContentBox>
-        <div>
+        <InputWrapper>
           <InputBox>
             <Input
               placeholder="현재 비밀번호를 입력해주세요."
@@ -29,7 +29,7 @@ const CurPwd = () => {
             />
           </InputBox>
           <HelperTextBox $isVerified={isVerified}>{helperMsg}</HelperTextBox>
-        </div>
+        </InputWrapper>
         <Buttons>
           <Btn type="cancel" onClick={() => navigate("/profile")}>
             취소
@@ -65,6 +65,9 @@ const ContentBox = styled.div`
   justify-content: space-around;
   height: 100%;
 `;
+const InputWrapper = styled.div`
+  margin: 0 auto;
+`
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
@@ -82,26 +85,23 @@ const Btn = styled.button`
 `;
 const InputBox = styled.div`
   width: 80vw;
-  margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 15px;
   height: 30px;
   display: flex;
   align-items: center;
   border: 1px solid ${({ theme }) => theme.colors.TXT_GRAY};
   border-radius: 15px;
   overflow: hidden;
-  background-color: white;
 `;
 const Input = styled.input`
   width: 100%;
-  margin: 5px 10px 5px 0;
   border: none;
   font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const HelperTextBox = styled.p`
-  margin: 5px 0 0 30px;
+  margin: 5px 0 0 20px;
   font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.TOMATO};

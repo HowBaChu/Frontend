@@ -2,8 +2,8 @@ import { Axios } from "./Axios";
 
 const ACCESS_TOKEN = process.env.REACT_APP_TOKEN;
 
-export const GetOpin = (callbackFunctions, opinId) => {
-  Axios.get(`/api/v1/opin/${opinId ? opinId : ""}`, {
+export const GetHonor = (callbackFunctions) => {
+  Axios.get(`/api/v1/topic/honor`, {
     headers: {
       Authorization: `${ACCESS_TOKEN}`,
     },
