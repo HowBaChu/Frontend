@@ -12,7 +12,7 @@ const Opinion = ({ isHot, isList, opinContent,
   ...attrProps}) => {
   const { nickname, content, selection, topicSubTitle, likeCnt } = opinContent;
   const [isLikeClicked, setIsLikeClicked] = useState(false);
-  const isMine = selection === "B";
+  const isOur = selection === "B";
 
   const onClickHeart = (e, isHot) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
@@ -33,18 +33,18 @@ const Opinion = ({ isHot, isList, opinContent,
   };
 
   return (
-    <OpinionWrapper $isMine={isMine} $isHot={isHot} {...attrProps}>
+    <OpinionWrapper $isOur={isOur} $isHot={isHot} {...attrProps}>
       {opinContent && (
         <>
-          <OpinionBox $isMine={isMine}>
-            <TopBox $isMine={isMine}>
+          <OpinionBox $isOur={isOur}>
+            <TopBox $isOur={isOur}>
               <ProfileImgBox>
                 <ProfileImg src={default_profile_icon} />
               </ProfileImgBox>
-              <ContentContainer $isMine={isMine}>
-                <InfoBox $isMine={isMine}>
+              <ContentContainer $isOur={isOur}>
+                <InfoBox $isOur={isOur}>
                   <UserName>{nickname}</UserName>
-                  <OpinTitle $isMine={isMine}>{topicSubTitle}</OpinTitle>
+                  <OpinTitle $isOur={isOur}>{topicSubTitle}</OpinTitle>
                 </InfoBox>
                 <Content $isHot={isHot}>{content}</Content>
               </ContentContainer>
@@ -62,7 +62,7 @@ const Opinion = ({ isHot, isList, opinContent,
               신고하기
               <img src={SIREN} />
             </ReportBtn>
-            <DeleteBtn $isMine={isMine} onClick={(e) => onClickDelete(e)}>
+            <DeleteBtn $isOur={isOur} onClick={(e) => onClickDelete(e)}>
               삭제하기
             </DeleteBtn>
           </UserActionBtn>
@@ -77,10 +77,10 @@ const OpinionWrapper = styled.div`
   box-shadow: 0 0 1px gray;
   border-radius: 15px;
   padding: 5px 10px 2px 10px;
-  background-color: ${({ $isMine, theme }) =>
-    $isMine ? `white` : theme.colors.PURPLE1};
+  background-color: ${({ $isOur, theme }) =>
+      $isOur ? `white` : theme.colors.PURPLE1};
   background-color: ${({ $isHot, theme }) => $isHot && theme.colors.HOT_PINK};
-  align-self: ${({ $isMine }) => ($isMine ? `end` : `start`)};
+  align-self: ${({ $isOur }) => ($isOur ? `end` : `start`)};
   align-self: ${({ $isHot }) => $isHot && `center`};
   display: flex;
   flex-direction: column;
@@ -115,7 +115,7 @@ const ContentContainer = styled.div`
 `;
 const InfoBox = styled.div`
   display: flex;
-  flex-direction: ${({ isMine }) => (isMine ? `row-reverse` : `row`)};
+  flex-direction: ${({ isOur }) => (isOur ? `row-reverse` : `row`)};
   align-items: end;
   margin: 5px 5px 5px 8px;
   gap: 5px;
@@ -174,7 +174,7 @@ const ReportBtn = styled.button`
   align-items: center;
 `;
 const DeleteBtn = styled.button`
-  visibility: ${({ $isMine }) => ($isMine ? `visible` : `hidden`)};
+  visibility: ${({ $isOur }) => ($isOur ? `visible` : `hidden`)};
 `;
 
 export default Opinion;
