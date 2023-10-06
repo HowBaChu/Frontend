@@ -15,23 +15,28 @@ const Threadpage = ({ openModal }) => {
 
   return (
     <ThreadWrapper>
-      {/*<ThreadOpinion openModal={openModal} content="오늘 날씨가 정말 좋네요!" />*/}
-      <Hr />
-      <OpinionArea>
-        {opinList && (
-          <OpinList>
-            {opinList?.map((opin) => {
-              return (
-                <ReOpin
-                  key={opin.id}
-                  openModal={openModal}
-                  opinContent={opin}
-                />
-              );
-            })}
-          </OpinList>
-        )}
-      </OpinionArea>
+      {opinList?.parentOpin && opinList?.childOpinList && (
+        <>
+          <ThreadOpinion
+            openModal={openModal}
+            opinContent={opinList?.parentOpin}
+          />
+          <Hr />
+          <OpinionArea>
+            <OpinList>
+              {opinList?.childOpinList?.map((opin) => {
+                return (
+                  <ReOpin
+                    key={opin.id}
+                    openModal={openModal}
+                    opinContent={opin}
+                  />
+                );
+              })}
+            </OpinList>
+          </OpinionArea>
+        </>
+      )}
       <Input />
     </ThreadWrapper>
   );
