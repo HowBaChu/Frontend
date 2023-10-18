@@ -7,7 +7,7 @@ import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
 
-const MainPage = ({ openModal }) => {
+const MainPage = ({ openModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
@@ -31,13 +31,16 @@ const MainPage = ({ openModal }) => {
       <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>
-            {opinList?.map((opin) => {
+            {opinList.content?.map((opin) => {
               return (
                 <OpinionBox
                   key={opin.id}
                   opinContent={opin}
-                  onClick={() => navigate(`/${opin.id}`)}
+                  onClick={() => {
+                    navigate(`/${opin.id}`);
+                  }}
                   openModal={openModal}
+                  setCuropinId={setCuropinId}
                 />
               );
             })}

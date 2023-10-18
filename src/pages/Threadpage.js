@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Opinion from "../components/Opinion";
-import OpinionInput from "../components/OpinionInput";
 import { useEffect, useState } from "react";
 import { GetOpin } from "../api/GetOpin";
 import { useParams } from "react-router-dom";
+import Opinion from "../components/Opinion";
+import OpinionInput from "../components/OpinionInput";
 
-const Threadpage = ({ openModal }) => {
+const Threadpage = ({ openModal, setCuropinId }) => {
   const [opinList, setOpinList] = useState([]); // Get Thread Opin response
   const { opinId } = useParams();
 
@@ -20,6 +20,7 @@ const Threadpage = ({ openModal }) => {
           <ThreadOpinion
             openModal={openModal}
             opinContent={opinList?.parentOpin}
+            setCuropinId={setCuropinId}
           />
           <Hr />
           <OpinionArea>
@@ -28,8 +29,9 @@ const Threadpage = ({ openModal }) => {
                 return (
                   <ReOpin
                     key={opin.id}
-                    openModal={openModal}
                     opinContent={opin}
+                    openModal={openModal}
+                    setCuropinId={setCuropinId}
                   />
                 );
               })}

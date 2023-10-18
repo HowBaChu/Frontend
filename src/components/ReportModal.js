@@ -1,11 +1,26 @@
 import styled, { keyframes } from "styled-components";
 import { useEffect, useState } from "react";
+import { PostReport } from "../api/PostReport";
 import REPORT_LIST from "../assets/data/report_reasons_data";
 
-const ReportModal = ({ closeModal }) => {
+const ReportModal = ({ closeModal, opinId }) => {
   const [selectReport, setSelectReport] = useState(undefined);
   const [isOther, setIsOther] = useState(false);
+  const [reasonMsg, setReasonMsg] = useState("");
 
+  const onChange = (msg) => {
+    setReasonMsg(msg);
+  };
+  const onSubmit = () => {
+    let reportData = {
+      reportedOpinId: opinId,
+      type: REPORT_LIST[selectReport].type,
+    };
+    if (reportData.type === "ETC") {
+      reportData.reason = reasonMsg;
+    }
+    PostReport(reportData);
+  };
   useEffect(() => {
     setIsOther(selectReport === REPORT_LIST.length - 1);
   }, [selectReport]);
@@ -13,7 +28,7 @@ const ReportModal = ({ closeModal }) => {
   return (
     <ModalContainer onClick={() => closeModal()}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Title>신고 사유 선택</Title>
+        <Title>신고 사유 선택 {opinId}</Title>
         <ReasonList>
           {REPORT_LIST.map((reason, index) => (
             <Reason
@@ -37,12 +52,19 @@ const ReportModal = ({ closeModal }) => {
           {isOther && (
             <ReasonInputBox>
               <InputBox>
-                <Input placeholder="신고 사유를 입력해주세요." type="text" />
+                <Input
+                  placeholder="신고 사유를 입력해주세요."
+                  type="text"
+                  onChange={(e) => onChange(e.target.value)}
+                />
               </InputBox>
             </ReasonInputBox>
           )}
         </ReasonList>
-        <SubmitBtn disabled={selectReport === undefined} type="submit">
+        <SubmitBtn
+          disabled={selectReport === undefined}
+          onClick={() => onSubmit()}
+        >
           신고하기
         </SubmitBtn>
       </Modal>
