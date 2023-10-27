@@ -20,6 +20,7 @@ import CurPwdCheckPage from "./pages/CurPwdCheckPage";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
+  const [curopinId, setCuropinId] = useState(0);
   const handleModalOpen = () => {
     setIsModal(true);
   };
@@ -31,21 +32,29 @@ function App() {
     <div className="App">
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
-        {isModal && <ReportModal closeModal={handleModalClose} />}
+        {isModal && (
+          <ReportModal closeModal={handleModalClose} opinId={curopinId} />
+        )}
         <BrowserRouter>
           <Logo />
           <Routes>
             <Route
               path="/"
-              element={<MainPage openModal={handleModalOpen} />}
+              element={
+                <MainPage
+                  openModal={handleModalOpen}
+                  setCuropinId={(curId) => setCuropinId(curId)}
+                />
+              }
             />
             <Route
               path="/:opinId"
-              element={<Threadpage openModal={handleModalOpen} />}
-            />
-            <Route
-              path="/test"
-              element={<Threadpage openModal={handleModalOpen} />}
+              element={
+                <Threadpage
+                  openModal={handleModalOpen}
+                  setCuropinId={(curId) => setCuropinId(curId)}
+                />
+              }
             />
             <Route path="/serch" element={<SearchPage />} />
             <Route path="/profile" element={<MyPage />} />

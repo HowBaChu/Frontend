@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Opinion from "../components/Opinion";
-import OpinionInput from "../components/OpinionInput";
 import { useEffect, useState } from "react";
 import { GetOpin } from "../api/GetOpin";
 import { useParams } from "react-router-dom";
+import Opinion from "../components/Opinion";
+import OpinionInput from "../components/OpinionInput";
 
-const Threadpage = ({ openModal }) => {
+const Threadpage = ({ openModal, setCuropinId }) => {
   const [opinList, setOpinList] = useState([]); // Get Thread Opin response
   const { opinId } = useParams();
 
@@ -15,23 +15,30 @@ const Threadpage = ({ openModal }) => {
 
   return (
     <ThreadWrapper>
-      {/*<ThreadOpinion openModal={openModal} content="오늘 날씨가 정말 좋네요!" />*/}
-      <Hr />
-      <OpinionArea>
-        {opinList && (
-          <OpinList>
-            {opinList?.map((opin) => {
-              return (
-                <ReOpin
-                  key={opin.id}
-                  openModal={openModal}
-                  opinContent={opin}
-                />
-              );
-            })}
-          </OpinList>
-        )}
-      </OpinionArea>
+      {opinList?.parentOpin && opinList?.childOpinList && (
+        <>
+          <ThreadOpinion
+            openModal={openModal}
+            opinContent={opinList?.parentOpin}
+            setCuropinId={setCuropinId}
+          />
+          <Hr />
+          <OpinionArea>
+            <OpinList>
+              {opinList?.childOpinList?.map((opin) => {
+                return (
+                  <ReOpin
+                    key={opin.id}
+                    opinContent={opin}
+                    openModal={openModal}
+                    setCuropinId={setCuropinId}
+                  />
+                );
+              })}
+            </OpinList>
+          </OpinionArea>
+        </>
+      )}
       <Input />
     </ThreadWrapper>
   );
