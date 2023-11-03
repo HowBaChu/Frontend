@@ -17,6 +17,7 @@ import NavBar from "./components/NavBar";
 import Threadpage from "./pages/Threadpage";
 import ReportModal from "./components/ReportModal";
 import CurPwdCheckPage from "./pages/CurPwdCheckPage";
+import SignUpForm from "./pages/SignupPage";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
@@ -64,6 +65,7 @@ function App() {
             <Route path="/popular-posts" element={<TopicHistoryPage />} />
             <Route path="/reports" element={<ReportPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/join" element={<SignUpForm />} />
           </Routes>
           <NavBar />
         </BrowserRouter>
