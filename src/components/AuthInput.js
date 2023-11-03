@@ -8,13 +8,21 @@ const AuthInput = ({
   placeholder,
   toggleEye,
   eyeState,
+  value,
+  onChange,
 }) => {
   let hasHiddenBtn = ["password", "checkPwd"].includes(inputId);
   return (
     <StyledInput>
       <Label htmlFor={inputId}>{label}</Label>
       <InputWrapper>
-        <Input id={inputId} type={type} placeholder={placeholder} />
+        <Input
+          id={inputId}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          {...(onChange && { onChange: (e) => onChange(e) })}
+        />
         {hasHiddenBtn && (
           <HiddenBtn toggleEye={toggleEye} eyeState={eyeState} />
         )}

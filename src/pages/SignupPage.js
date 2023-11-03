@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
-import BACK_BTN_ICON from '../assets/imgs/back_icon.svg'
+import BACK_BTN_ICON from "../assets/imgs/back_icon.svg";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -29,10 +29,10 @@ const GoLogInBtn = styled.button`
 const Img = styled.img`
   width: 30px;
   height: 30px;
-`
+`;
 const Title = styled.p`
   margin: 30px 0 50px;
-  font-size: ${({ theme }) => theme.fontsize.TITLE};
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 

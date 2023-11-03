@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import OPEN_EYE from '../assets/imgs/eye_open.svg'
-import CLOSE_EYE from '../assets/imgs/eye_close.svg'
+import styled from "styled-components";
+import OPEN_EYE from "../assets/imgs/eye_open.svg";
+import CLOSE_EYE from "../assets/imgs/eye_close.svg";
 
 const HiddenBtn = ({ toggleEye, eyeState }) => {
   let eye = eyeState ? OPEN_EYE : CLOSE_EYE;
   return (
-    <StyledBtn>
+    <StyledBtn type="button">
       <BtnIcon src={eye} onClick={() => toggleEye()} />
     </StyledBtn>
   );
