@@ -7,7 +7,7 @@ import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
 
-const MainPage = ({ openModal, openDelModal }) => {
+const MainPage = ({ openModal, openDelModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
@@ -36,9 +36,12 @@ const MainPage = ({ openModal, openDelModal }) => {
                 <OpinionBox
                   key={opin.id}
                   opinContent={opin}
-                  onClick={() => {navigate(`/${opin.id}`)}}
+                  onClick={() => {
+                    navigate(`/${opin.id}`);
+                  }}
                   openModal={openModal}
                   openDelModal={openDelModal}
+                  setCuropinId={setCuropinId}
                 />
               );
             })}

@@ -17,12 +17,14 @@ import NavBar from "./components/NavBar";
 import Threadpage from "./pages/Threadpage";
 import ReportModal from "./components/ReportModal";
 import CurPwdCheckPage from "./pages/CurPwdCheckPage";
+import SignUpForm from "./pages/SignupPage";
 import OpinDeleteModal from "./components/OpinDeleteModal";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
   const [isDelModal, setIsDelModal] = useState(false);
 
+  const [curopinId, setCuropinId] = useState(0);
   const handleModalOpen = () => {
     setIsModal(true);
   };
@@ -40,7 +42,9 @@ function App() {
     <div className="App">
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
-        {isModal && <ReportModal closeModal={handleModalClose} />}
+        {isModal && (
+          <ReportModal closeModal={handleModalClose} opinId={curopinId} />
+        )}
         {isDelModal && <OpinDeleteModal closeDelModal={handleDelModalClose} />}
         <BrowserRouter>
           <Logo />
@@ -50,7 +54,7 @@ function App() {
               element={
                 <MainPage
                   openModal={handleModalOpen}
-                  openDelModal={handleDelModalOpen}
+                  setCuropinId={(curId) => setCuropinId(curId)}
                 />
               }
             />
@@ -59,15 +63,7 @@ function App() {
               element={
                 <Threadpage
                   openModal={handleModalOpen}
-                  openDelModal={handleDelModalOpen}
-                />
-              }
-            />
-            <Route
-              path="/test"
-              element={
-                <Threadpage
-                  openModal={handleModalOpen}
+                  setCuropinId={(curId) => setCuropinId(curId)}
                   openDelModal={handleDelModalOpen}
                 />
               }
@@ -80,6 +76,7 @@ function App() {
             <Route path="/popular-posts" element={<TopicHistoryPage />} />
             <Route path="/reports" element={<ReportPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/join" element={<SignUpForm />} />
           </Routes>
           <NavBar />
         </BrowserRouter>

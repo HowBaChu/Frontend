@@ -16,23 +16,16 @@ const ReportPage = () => {
         <WarningMsg>3회 누적 신고 시 영구 제한됩니다.</WarningMsg>
       </TitleBox>
       <ReportItemWrapper>
-        <Report>
-          <Date>2023.05.02</Date>
-          <Msg>
-            바보야ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-          </Msg>
-          <Count>1회</Count>
-        </Report>
-        <Report>
-          <Date>2023.05.14</Date>
-          <Msg>으악</Msg>
-          <Count>2회</Count>
-        </Report>
-        <Report>
-          <Date>2023.09.28</Date>
-          <Msg>바보</Msg>
-          <Count>정지</Count>
-        </Report>
+        {reportsData.map((report, index) => (
+          <Report key={report.content}>
+            <Date>{report.date.split("T")[0]}</Date>
+            <Msg>
+              <Reason>{report.reason}</Reason>
+              {report.content}
+            </Msg>
+            <Count>{index + 1}회</Count>
+          </Report>
+        ))}
       </ReportItemWrapper>
     </PageContainer>
   );
@@ -58,10 +51,9 @@ const WarningMsg = styled.p`
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
 const ReportItemWrapper = styled.div`
-  //padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 17px;
+  gap: 30px;
 `;
 const Report = styled.div`
   display: flex;
@@ -75,13 +67,20 @@ const Date = styled.p`
 const Msg = styled.p`
   max-width: 50vw;
   padding: 0 2vw;
-  font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.TXT_GRAY};
+`;
+const Reason = styled.p`
+  margin-bottom: 5px;
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const Count = styled.div`
   width: 50px;
   height: 20px;
+  align-self: center;
   flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.PURPLE3};
   border-radius: 5px;

@@ -6,11 +6,17 @@ import HEART_FULL from "../assets/imgs/full_heart_icon.svg";
 import SIREN from "../assets/imgs/siren_icon.svg";
 import default_profile_icon from "../assets/imgs/default-profile-img_icon.svg";
 
-const Opinion = ({ isHot, isList, opinContent,
+const Opinion = ({
+  isHot,
+  isList,
+  opinContent,
   openModal,
+  setCuropinId,
   openDelModal,
-  ...attrProps}) => {
-  const { nickname, content, selection, topicSubTitle, likeCnt } = opinContent;
+  ...attrProps
+}) => {
+  const { id, nickname, content, selection, topicSubTitle, likeCnt } =
+    opinContent;
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const isOur = selection === "B";
 
@@ -26,6 +32,7 @@ const Opinion = ({ isHot, isList, opinContent,
   const onClickReport = (e) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
     openModal();
+    setCuropinId(id);
   };
   const onClickDelete = (e) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
