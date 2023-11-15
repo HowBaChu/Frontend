@@ -18,7 +18,6 @@ import CurPwdCheckPage from "./pages/CurPwdCheckPage";
 import NavBar from "./components/NavBar";
 import ReportModal from "./components/ReportModal";
 import SignUpForm from "./pages/SignupPage";
-import useAuth from "./hooks/useAuth";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
