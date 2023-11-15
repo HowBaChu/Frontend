@@ -1,14 +1,27 @@
 import styled from "styled-components";
 import SEND_ICON from "../assets/imgs/send_icon.svg";
+import { useState } from "react";
+import { PostOpin } from "../api/PostOpin";
 
 const OpinionInput = ({ ...attrProps }) => {
+  const [opin, setOpin] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    PostOpin(opin);
+    setOpin("");
+  };
   return (
     <InputWrapper {...attrProps}>
-      <Form>
+      <Form onSubmit={(e) => onSubmit(e)}>
         <InputContainer>
           <UserName>하우바츄</UserName>
-          <Input placeHolder="댓글을 입력하세요" />
-          <SendBtn>
+          <Input
+            placeHolder="댓글을 입력하세요"
+            value={opin}
+            onChange={(e) => setOpin(e.target.value)}
+          />
+          <SendBtn type="submit">
             <SendIcon src={SEND_ICON} alt="send_icon" />
           </SendBtn>
         </InputContainer>
