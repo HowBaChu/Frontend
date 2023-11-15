@@ -15,13 +15,17 @@ const MainPage = ({ openModal, setCuropinId }) => {
   const navigate = useNavigate();
   const { setCookie, isVoted } = useVoteState();
 
-  useEffect(() => {
-    setCookie();
-  }, [topicData, opinList]);
-
+  const reloadOpinList = () => {
+    GetOpin((newOpinListData) => {
+      setOpinList(newOpinListData);
+    });
+  };
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
+  useEffect(() => {
+    setCookie();
+  }, [topicData, opinList]);
   useEffect(() => {
     GetOpin((opinListdata) => setOpinList(opinListdata));
   }, []);
@@ -53,7 +57,7 @@ const MainPage = ({ openModal, setCuropinId }) => {
           </OpinionContainer>
         )}
       </OpinionArea>
-      <Input />
+      <Input onOpinSubmit={() => reloadOpinList()} />
     </MainPageLayout>
   );
 };
