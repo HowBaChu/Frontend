@@ -1,14 +1,36 @@
 import styled from "styled-components";
 import SEND_ICON from "../assets/imgs/send_icon.svg";
+import { useState } from "react";
+import { PostOpin } from "../api/PostOpin";
+import { useParams } from "react-router-dom";
 
-const OpinionInput = ({ ...attrProps }) => {
+const OpinionInput = ({ onOpinSubmit, ...attrProps }) => {
+  const [opin, setOpin] = useState("");
+  const { opinId } = useParams();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await PostOpin(opin, opinId);
+      if (result) {
+        setOpin("");
+        onOpinSubmit();
+      }
+    } catch (error) {
+      console.error("댓글 등록 실패:", error);
+    }
+  };
   return (
     <InputWrapper {...attrProps}>
-      <Form>
+      <Form onSubmit={(e) => onSubmit(e)}>
         <InputContainer>
           <UserName>하우바츄</UserName>
-          <Input placeHolder="댓글을 입력하세요" />
-          <SendBtn>
+          <Input
+            placeholder="댓글을 입력하세요"
+            value={opin}
+            onChange={(e) => setOpin(e.target.value)}
+          />
+          <SendBtn type="submit">
             <SendIcon src={SEND_ICON} alt="send_icon" />
           </SendBtn>
         </InputContainer>
