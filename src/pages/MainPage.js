@@ -7,7 +7,7 @@ import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
 
-const MainPage = ({ openModal, openDelModal, setCuropinId }) => {
+const MainPage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
@@ -39,8 +39,8 @@ const MainPage = ({ openModal, openDelModal, setCuropinId }) => {
                   onClick={() => {
                     navigate(`/${opin.id}`);
                   }}
-                  openModal={openModal}
-                  openDelModal={openDelModal}
+                  toggleReportModal={toggleReportModal}
+                  toggleDeleteModal={toggleDeleteModal}
                   setCuropinId={setCuropinId}
                 />
               );

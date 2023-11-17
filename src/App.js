@@ -19,24 +19,17 @@ import NavBar from "./components/NavBar";
 import ReportModal from "./components/ReportModal";
 import DeleteModal from "./components/DeleteModal";
 import SignUpForm from "./pages/SignupPage";
-import useAuth from "./hooks/useAuth";
-import OpinDeleteModal from "./components/OpinDeleteModal";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
   const [isDelModal, setIsDelModal] = useState(false);
   const [curopinId, setCuropinId] = useState(undefined);
-  const handleModalOpen = () => {
-    setIsModal(true);
+
+  const toggleReportModal = () => {
+    setIsModal((prevState) => !prevState);
   };
-  const handleModalClose = () => {
-    setIsModal(false);
-  };
-  const handleDelModalOpen = () => {
-    setIsDelModal(true);
-  };
-  const handleDelModalClose = () => {
-    setIsDelModal(false);
+  const toggleDeleteModal = () => {
+    setIsDelModal((prevState) => !prevState);
   };
 
   return (
@@ -44,10 +37,16 @@ function App() {
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
         {isModal && (
-          <ReportModal closeModal={handleModalClose} opinId={curopinId} />
+          <ReportModal
+            toggleReportModal={toggleReportModal}
+            opinId={curopinId}
+          />
         )}
         {isDelModal && (
-          <DeleteModal closeModal={handleDelModalClose} opinId={curopinId} />
+          <DeleteModal
+            toggleDeleteModal={toggleDeleteModal}
+            opinId={curopinId}
+          />
         )}
         <BrowserRouter>
           <Logo />
@@ -57,8 +56,8 @@ function App() {
               element={
                 <MainPage
                   setCuropinId={(curId) => setCuropinId(curId)}
-                  openModal={handleModalOpen}
-                  openDelModal={handleDelModalOpen}
+                  toggleReportModal={toggleReportModal}
+                  toggleDeleteModal={toggleDeleteModal}
                 />
               }
             />
@@ -67,8 +66,8 @@ function App() {
               element={
                 <Threadpage
                   setCuropinId={(curId) => setCuropinId(curId)}
-                  openModal={handleModalOpen}
-                  openDelModal={handleDelModalOpen}
+                  toggleReportModal={toggleReportModal}
+                  toggleDeleteModal={toggleDeleteModal}
                 />
               }
             />

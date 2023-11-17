@@ -10,8 +10,8 @@ const Opinion = ({
   isHot,
   isList,
   opinContent,
-  openModal,
-  openDelModal,
+  toggleReportModal,
+  toggleDeleteModal,
   setCuropinId,
   ...attrProps
 }) => {
@@ -30,13 +30,13 @@ const Opinion = ({
   };
 
   const onClickReport = (e) => {
-    e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
-    openModal();
+    e.stopPropagation();
+    toggleReportModal();
     setCuropinId(id);
   };
   const onClickDelete = (e) => {
-    e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
-    openDelModal();
+    e.stopPropagation();
+    toggleDeleteModal();
     setCuropinId(id);
   };
 

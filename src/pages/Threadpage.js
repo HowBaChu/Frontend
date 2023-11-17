@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { GetOpin } from "../api/GetOpin";
 import { useParams } from "react-router-dom";
 
-const Threadpage = ({ openModal, openDelModal, setCuropinId }) => {
+const Threadpage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
   const [opinList, setOpinList] = useState([]); // Get Thread Opin response
   const { opinId } = useParams();
 
@@ -18,8 +18,8 @@ const Threadpage = ({ openModal, openDelModal, setCuropinId }) => {
       {opinList?.parentOpin && opinList?.childOpinList && (
         <>
           <ThreadOpinion
-            openModal={openModal}
-            openDelModal={openDelModal}
+            toggleReportModal={toggleReportModal}
+            toggleDeleteModal={toggleDeleteModal}
             opinContent={opinList?.parentOpin}
             setCuropinId={setCuropinId}
           />
@@ -31,8 +31,8 @@ const Threadpage = ({ openModal, openDelModal, setCuropinId }) => {
                   <ReOpin
                     key={opin.id}
                     opinContent={opin}
-                    openModal={openModal}
-                    openDelModal={openDelModal}
+                    toggleReportModal={toggleReportModal}
+                    toggleDeleteModal={toggleDeleteModal}
                     setCuropinId={setCuropinId}
                   />
                 );

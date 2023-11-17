@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { PostReport } from "../api/PostReport";
 import REPORT_LIST from "../assets/data/report_reasons_data";
 
-const ReportModal = ({ closeModal, opinId }) => {
+const ReportModal = ({ toggleReportModal, opinId }) => {
   const [selectReport, setSelectReport] = useState(undefined);
   const [isOther, setIsOther] = useState(false);
   const [reasonMsg, setReasonMsg] = useState("");
@@ -26,7 +26,7 @@ const ReportModal = ({ closeModal, opinId }) => {
   }, [selectReport]);
 
   return (
-    <ModalContainer onClick={() => closeModal()}>
+    <ModalContainer onClick={() => toggleReportModal()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>신고 사유 선택 {opinId}</Title>
         <ReasonList>
@@ -63,7 +63,10 @@ const ReportModal = ({ closeModal, opinId }) => {
         </ReasonList>
         <SubmitBtn
           disabled={selectReport === undefined}
-          onClick={() => onSubmit()}
+          onClick={() => {
+            onSubmit();
+            toggleReportModal();
+          }}
         >
           신고하기
         </SubmitBtn>

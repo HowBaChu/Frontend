@@ -1,17 +1,24 @@
 import styled from "styled-components";
 import { DeleteOpin } from "../api/DeleteOpin";
 
-const DeleteModal = ({ closeModal, opinId }) => {
+const DeleteModal = ({ toggleDeleteModal, opinId }) => {
   const onSubmit = () => {
     DeleteOpin(opinId);
   };
 
   return (
-    <ModalContainer onClick={() => closeModal()}>
+    <ModalContainer onClick={() => toggleDeleteModal()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>댓글 삭제 {opinId}</Title>
         <Content>댓글을 삭제할까요?</Content>
-        <SubmitBtn onClick={onSubmit}>삭제하기</SubmitBtn>
+        <SubmitBtn
+          onClick={() => {
+            onSubmit();
+            toggleDeleteModal();
+          }}
+        >
+          삭제하기
+        </SubmitBtn>
       </Modal>
     </ModalContainer>
   );
@@ -39,13 +46,11 @@ const Title = styled.p`
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
-
 const Content = styled.div`
   padding: 20px 20px 20px 10px;
   font-size: ${({ theme }) => theme.fontsize.S_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;
-
 const SubmitBtn = styled.button`
   display: block;
   margin: 0 auto;
