@@ -1,14 +1,13 @@
 import { Axios } from "./Axios";
 
-export const PostLogIn = (formData) => {
-  Axios.post(`/api/v1/auth/login`, {
-    email: formData.email,
-    password: formData.password,
-  })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
+export const PostLogIn = async (formData) => {
+  try {
+    const response = await Axios.post(`/api/v1/auth/login`, {
+      email: formData.email,
+      password: formData.password,
     });
+    return response.data.data.accessToken;
+  } catch (error) {
+    throw error;
+  }
 };

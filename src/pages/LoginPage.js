@@ -1,24 +1,45 @@
 import styled from "styled-components";
 import { PostLogIn } from "../api/PostLogIn";
-import { useState } from "react";
-import AuthInput from "../components/AuthInput";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AuthInput from "../components/AuthInput";
+import { useAuth } from "../hooks/useAuth";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const { login, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
   const toggleEye = () => {
     setIsOpen((prev) => !prev);
   };
-  const navigate = useNavigate();
-  const onSubmit = (event) => {
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      login();
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
+
+  const onSubmit = async (event) => {
     event.preventDefault();
     const formData = {
       email: email,
       password: password,
     };
-    PostLogIn(formData);
+
+    try {
+      const token = await PostLogIn(formData);
+      if (token) {
+        login();
+      } else {
+        console.error("Login failed: No token received");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (

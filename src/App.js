@@ -13,11 +13,12 @@ import MyOpinionPage from "./pages/MyOpinionPage";
 import TopicHistoryPage from "./pages/TopicHistoryPage";
 import ReportPage from "./pages/ReportPage";
 import LoginPage from "./pages/LoginPage";
-import NavBar from "./components/NavBar";
 import Threadpage from "./pages/Threadpage";
-import ReportModal from "./components/ReportModal";
 import CurPwdCheckPage from "./pages/CurPwdCheckPage";
+import NavBar from "./components/NavBar";
+import ReportModal from "./components/ReportModal";
 import SignUpForm from "./pages/SignupPage";
+import useAuth from "./hooks/useAuth";
 import OpinDeleteModal from "./components/OpinDeleteModal";
 
 function App() {
@@ -45,7 +46,6 @@ function App() {
         {isModal && (
           <ReportModal closeModal={handleModalClose} opinId={curopinId} />
         )}
-        {isDelModal && <OpinDeleteModal closeDelModal={handleDelModalClose} />}
         <BrowserRouter>
           <Logo />
           <Routes>
