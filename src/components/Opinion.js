@@ -37,7 +37,7 @@ const Opinion = ({
   const onClickDelete = (e) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
     openDelModal();
-    console.log("지우기");
+    setCuropinId(id);
   };
 
   return (

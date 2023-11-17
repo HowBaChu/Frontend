@@ -17,6 +17,7 @@ import Threadpage from "./pages/Threadpage";
 import CurPwdCheckPage from "./pages/CurPwdCheckPage";
 import NavBar from "./components/NavBar";
 import ReportModal from "./components/ReportModal";
+import DeleteModal from "./components/DeleteModal";
 import SignUpForm from "./pages/SignupPage";
 import useAuth from "./hooks/useAuth";
 import OpinDeleteModal from "./components/OpinDeleteModal";
@@ -24,7 +25,7 @@ import OpinDeleteModal from "./components/OpinDeleteModal";
 function App() {
   const [isModal, setIsModal] = useState(false);
   const [isDelModal, setIsDelModal] = useState(false);
-  const [curopinId, setCuropinId] = useState(0);
+  const [curopinId, setCuropinId] = useState(undefined);
   const handleModalOpen = () => {
     setIsModal(true);
   };
@@ -45,6 +46,9 @@ function App() {
         {isModal && (
           <ReportModal closeModal={handleModalClose} opinId={curopinId} />
         )}
+        {isDelModal && (
+          <DeleteModal closeModal={handleDelModalClose} opinId={curopinId} />
+        )}
         <BrowserRouter>
           <Logo />
           <Routes>
@@ -52,8 +56,8 @@ function App() {
               path="/"
               element={
                 <MainPage
-                  openModal={handleModalOpen}
                   setCuropinId={(curId) => setCuropinId(curId)}
+                  openModal={handleModalOpen}
                   openDelModal={handleDelModalOpen}
                 />
               }
@@ -62,8 +66,8 @@ function App() {
               path="/:opinId"
               element={
                 <Threadpage
-                  openModal={handleModalOpen}
                   setCuropinId={(curId) => setCuropinId(curId)}
+                  openModal={handleModalOpen}
                   openDelModal={handleDelModalOpen}
                 />
               }

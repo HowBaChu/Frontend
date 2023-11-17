@@ -5,9 +5,9 @@ export const PostReport = (reportData) => {
     reportData,
   )
     .then((res) => {
-      console.log(res.data.data);
+      console.log(res.data);
     })
     .catch((errors) => {
-      console.log(errors);
+      console.log(errors.response.data);
     });
 };
