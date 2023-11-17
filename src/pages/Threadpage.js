@@ -19,6 +19,7 @@ const Threadpage = ({ openModal, openDelModal, setCuropinId }) => {
         <>
           <ThreadOpinion
             openModal={openModal}
+            openDelModal={openDelModal}
             opinContent={opinList?.parentOpin}
             setCuropinId={setCuropinId}
           />

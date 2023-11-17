@@ -31,7 +31,7 @@ const MainPage = ({ openModal, openDelModal, setCuropinId }) => {
       <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>
-            {opinList?.map((opin) => {
+            {opinList?.content?.map((opin) => {
               return (
                 <OpinionBox
                   key={opin.id}

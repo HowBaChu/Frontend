@@ -11,8 +11,8 @@ const Opinion = ({
   isList,
   opinContent,
   openModal,
-  setCuropinId,
   openDelModal,
+  setCuropinId,
   ...attrProps
 }) => {
   const { id, nickname, content, selection, topicSubTitle, likeCnt } =
@@ -37,6 +37,7 @@ const Opinion = ({
   const onClickDelete = (e) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
     openDelModal();
+    console.log("지우기");
   };
 
   return (
@@ -85,7 +86,7 @@ const OpinionWrapper = styled.div`
   border-radius: 15px;
   padding: 5px 10px 2px 10px;
   background-color: ${({ $isOur, theme }) =>
-      $isOur ? `white` : theme.colors.PURPLE1};
+    $isOur ? `white` : theme.colors.PURPLE1};
   background-color: ${({ $isHot, theme }) => $isHot && theme.colors.HOT_PINK};
   align-self: ${({ $isOur }) => ($isOur ? `end` : `start`)};
   align-self: ${({ $isHot }) => $isHot && `center`};

@@ -24,7 +24,6 @@ import OpinDeleteModal from "./components/OpinDeleteModal";
 function App() {
   const [isModal, setIsModal] = useState(false);
   const [isDelModal, setIsDelModal] = useState(false);
-
   const [curopinId, setCuropinId] = useState(0);
   const handleModalOpen = () => {
     setIsModal(true);
@@ -55,6 +54,7 @@ function App() {
                 <MainPage
                   openModal={handleModalOpen}
                   setCuropinId={(curId) => setCuropinId(curId)}
+                  openDelModal={handleDelModalOpen}
                 />
               }
             />
