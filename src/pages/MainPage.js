@@ -12,6 +12,8 @@ const MainPage = ({ openModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
+  const [voteStatus, setVoteStatus] = useState(undefined);
+
   const navigate = useNavigate();
 
   const reloadOpinList = () => {
@@ -26,12 +28,23 @@ const MainPage = ({ openModal, setCuropinId }) => {
     GetOpin((opinListdata) => setOpinList(opinListdata));
   }, []);
   useEffect(() => {
-    GetVoteStatus();
-  }, []);
-  useEffect(() => {
     GetTopic((data) => {
       setTopicData(data);
     });
+  }, []);
+  useEffect(() => {
+    const fetchVoteStatus = async () => {
+      try {
+        const voteStatusData = await GetVoteStatus();
+
+        if (voteStatusData === "VOTING_SUCCESS") setVoteStatus(true);
+        else if (voteStatusData === "VOTE_NOT_FOUND") setVoteStatus(false);
+      } catch (error) {
+        console.error("vote status data fetching error", error);
+      }
+    };
+
+    fetchVoteStatus();
   }, []);
 
   return (

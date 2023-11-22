@@ -1,11 +1,10 @@
 import { Axios } from "./Axios";
 
-export const GetVoteStatus = () => {
-  Axios.get(`/api/v1/vote`)
-    .then((res) => {
-      console.log(res.data.data);
-    })
-    .catch((errors) => {
-      console.log(errors);
-    });
+export const GetVoteStatus = async () => {
+  try {
+    const response = await Axios.get(`/api/v1/vote`);
+    return response.data.responseCode;
+  } catch (error) {
+    return error.response.data.errorCode;
+  }
 };
