@@ -9,7 +9,7 @@ const MyOpinionPage = () => {
 
   const fetchMyOpins = async () => {
     try {
-      const response = await GetMyOpin(23);
+      const response = await GetMyOpin();
       setMyOpins(response?.data?.data || []);
     } catch (error) {
       console.error("error", error);

@@ -1,13 +1,8 @@
 import { Axios } from "./Axios";
 
-export const GetMyOpin = async (memberId) => {
+export const GetMyOpin = async () => {
   try {
-    const response = await Axios.get(`/api/v1/opin/member`, {
-      params: {
-        id: memberId,
-      },
-    });
-    return response;
+    return await Axios.get(`/api/v1/opin/member`);
   } catch (error) {
     console.log(error);
   }
