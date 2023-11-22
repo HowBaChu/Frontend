@@ -1,9 +1,9 @@
 import { Axios } from "./Axios";
 
-export const GetTopic = (callbackFunctions) => {
-  Axios.get(`/api/v1/topic`)
+export const GetVoteStatus = () => {
+  Axios.get(`/api/v1/vote`)
     .then((res) => {
-      callbackFunctions(res.data.data);
+      console.log(res.data.data);
     })
     .catch((errors) => {
       console.log(errors);

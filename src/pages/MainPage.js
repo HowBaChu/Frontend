@@ -6,14 +6,13 @@ import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
-import useVoteState from "../hooks/useVoteState";
+import { GetVoteStatus } from "../api/GetVoteStatus";
 
 const MainPage = ({ openModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
   const navigate = useNavigate();
-  const { setCookie, isVoted } = useVoteState();
 
   const reloadOpinList = () => {
     GetOpin((newOpinListData) => {
@@ -24,10 +23,10 @@ const MainPage = ({ openModal, setCuropinId }) => {
     setIsSmall(event.target.scrollTop > 30);
   };
   useEffect(() => {
-    setCookie();
-  }, [topicData, opinList]);
-  useEffect(() => {
     GetOpin((opinListdata) => setOpinList(opinListdata));
+  }, []);
+  useEffect(() => {
+    GetVoteStatus();
   }, []);
   useEffect(() => {
     GetTopic((data) => {
