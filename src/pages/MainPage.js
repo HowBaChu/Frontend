@@ -12,7 +12,7 @@ const MainPage = ({ openModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
-  const [voteStatus, setVoteStatus] = useState(undefined);
+  const [isVoted, setIsVoted] = useState(undefined);
 
   const navigate = useNavigate();
 
@@ -37,19 +37,23 @@ const MainPage = ({ openModal, setCuropinId }) => {
       try {
         const voteStatusData = await GetVoteStatus();
 
-        if (voteStatusData === "VOTING_SUCCESS") setVoteStatus(true);
-        else if (voteStatusData === "VOTE_NOT_FOUND") setVoteStatus(false);
+        if (voteStatusData === "VOTING_SUCCESS") setIsVoted(true);
+        else if (voteStatusData === "VOTE_NOT_FOUND") setIsVoted(false);
       } catch (error) {
         console.error("vote status data fetching error", error);
       }
     };
-
     fetchVoteStatus();
-  }, []);
+  }, [isVoted]);
 
   return (
     <MainPageLayout>
-      <TopicBox id="topic" isSmall={isSmall} topicData={topicData} />
+      <TopicBox
+        id="topic"
+        isVoted={isVoted}
+        isSmall={isSmall}
+        topicData={topicData}
+      />
       <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>

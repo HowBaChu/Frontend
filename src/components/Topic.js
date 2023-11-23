@@ -2,8 +2,16 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Graph from "./Graph";
 import time_icon from "../assets/imgs/hourglass_icon.svg";
+import BeforeVoteTopic from "./BeforeVoteTopic";
 
-const Topic = ({ isSmall, history, isList, topicData, ...attrProps }) => {
+const Topic = ({
+  isVoted,
+  isSmall,
+  history,
+  isList,
+  topicData,
+  ...attrProps
+}) => {
   const { subTitle, title, votingStatus } = topicData || {};
 
   /* chart.js에 들어가는 data */
@@ -34,16 +42,23 @@ const Topic = ({ isSmall, history, isList, topicData, ...attrProps }) => {
 
   return (
     <TopicWrapper $isSmall={isSmall} $history={history} {...attrProps}>
-      <Title $isSmall={isSmall} $history={history} {...attrProps}>
+      <Title
+        $isVoted={isVoted}
+        $isSmall={isSmall}
+        $history={history}
+        {...attrProps}
+      >
         {title}
       </Title>
-      {graphData && (
+      {isVoted ? (
         <Graph
           $isSmall={isSmall}
           $isList={isList}
           graphData={graphData}
           {...attrProps}
         />
+      ) : (
+        <BeforeVoteTopic subTitle={subTitle} />
       )}
       <LeftTime>
         <TimeIcon src={time_icon} />
@@ -65,15 +80,15 @@ const TopicWrapper = styled.div`
   background-color: white;
 `;
 const Title = styled.h2`
-  padding: ${({ $history, $isSmall }) => {
+  padding: ${({ $isVoted, $history, $isSmall }) => {
     if ($history) {
       return `25px 15px 10px`;
     } else {
-      return $isSmall ? `10px` : `5px`;
+      return $isVoted && $isSmall ? `10px` : `5px`;
     }
   }};
-  font-size: ${({ $isSmall, $history, theme }) =>
-    $isSmall || $history
+  font-size: ${({ $isVoted, $isSmall, $history, theme }) =>
+    ($isVoted && $isSmall) || $history
       ? theme.fontsize.S_TOPIC_TITLE
       : theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
