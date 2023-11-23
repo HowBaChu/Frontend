@@ -4,7 +4,7 @@ import { useState } from "react";
 import { PostOpin } from "../api/PostOpin";
 import { useParams } from "react-router-dom";
 
-const OpinionInput = ({ onOpinSubmit, ...attrProps }) => {
+const OpinionInput = ({ disabled, onOpinSubmit, ...attrProps }) => {
   const [opin, setOpin] = useState("");
   const { opinId } = useParams();
 
@@ -26,7 +26,10 @@ const OpinionInput = ({ onOpinSubmit, ...attrProps }) => {
         <InputContainer>
           <UserName>하우바츄</UserName>
           <Input
-            placeholder="댓글을 입력하세요"
+            disabled={disabled}
+            placeholder={
+              disabled ? "먼저 투표를 진행해주세요." : "댓글을 입력하세요"
+            }
             value={opin}
             onChange={(e) => setOpin(e.target.value)}
           />

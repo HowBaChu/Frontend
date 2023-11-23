@@ -6,15 +6,21 @@ import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
-import useVoteState from "../hooks/useVoteState";
+import { GetVoteStatus } from "../api/GetVoteStatus";
+import { PostVote } from "../api/PostVote";
 
 const MainPage = ({ openModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
-  const navigate = useNavigate();
-  const { setCookie, isVoted } = useVoteState();
+  const [isVoted, setIsVoted] = useState(undefined);
 
+  const navigate = useNavigate();
+
+  const handleVote = (selection) => {
+    PostVote(selection);
+    setIsVoted(true);
+  };
   const reloadOpinList = () => {
     GetOpin((newOpinListData) => {
       setOpinList(newOpinListData);
@@ -24,9 +30,6 @@ const MainPage = ({ openModal, setCuropinId }) => {
     setIsSmall(event.target.scrollTop > 30);
   };
   useEffect(() => {
-    setCookie();
-  }, [topicData, opinList]);
-  useEffect(() => {
     GetOpin((opinListdata) => setOpinList(opinListdata));
   }, []);
   useEffect(() => {
@@ -34,11 +37,34 @@ const MainPage = ({ openModal, setCuropinId }) => {
       setTopicData(data);
     });
   }, []);
+  useEffect(() => {
+    const fetchVoteStatus = async () => {
+      try {
+        const voteStatusData = await GetVoteStatus();
+
+        if (voteStatusData === "VOTING_SUCCESS") setIsVoted(true);
+        else if (voteStatusData === "VOTE_NOT_FOUND") setIsVoted(false);
+      } catch (error) {
+        console.error("vote status data fetching error", error);
+      }
+    };
+    fetchVoteStatus();
+  }, []);
 
   return (
     <MainPageLayout>
-      <TopicBox id="topic" isSmall={isSmall} topicData={topicData} />
-      <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
+      <TopicBox
+        id="topic"
+        isVoted={isVoted}
+        handleVote={handleVote}
+        isSmall={isSmall}
+        topicData={topicData}
+      />
+      <OpinionArea
+        $isVoted={isVoted}
+        $isSmall={isSmall}
+        onScroll={handleOpinionScroll}
+      >
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>
             {opinList.content?.map((opin) => {
@@ -57,7 +83,7 @@ const MainPage = ({ openModal, setCuropinId }) => {
           </OpinionContainer>
         )}
       </OpinionArea>
-      <Input onOpinSubmit={() => reloadOpinList()} />
+      <Input onOpinSubmit={() => reloadOpinList()} disabled={!isVoted} />
     </MainPageLayout>
   );
 };
@@ -73,10 +99,11 @@ const MainPageLayout = styled.div`
 `;
 const OpinionArea = styled.div`
   width: 100%;
-  margin-top: 100px;
-  padding: 100px 0 15px;
+  margin-top: ${({ $isVoted }) => ($isVoted ? `100px` : `200px`)};
+  padding: ${({ $isVoted }) => ($isVoted ? `100px 0 15px` : `0 15px`)};
   height: 100%;
   overflow: scroll;
+  filter: ${({ $isVoted }) => !$isVoted && `blur(5px)`};
 `;
 const OpinionContainer = styled.div`
   margin: 0 auto;
