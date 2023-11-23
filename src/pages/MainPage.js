@@ -7,6 +7,7 @@ import Topic from "../components/Topic";
 import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
 import { GetVoteStatus } from "../api/GetVoteStatus";
+import { PostVote } from "../api/PostVote";
 
 const MainPage = ({ openModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
@@ -16,6 +17,10 @@ const MainPage = ({ openModal, setCuropinId }) => {
 
   const navigate = useNavigate();
 
+  const handleVote = (selection) => {
+    PostVote(selection);
+    setIsVoted(true);
+  };
   const reloadOpinList = () => {
     GetOpin((newOpinListData) => {
       setOpinList(newOpinListData);
@@ -51,6 +56,7 @@ const MainPage = ({ openModal, setCuropinId }) => {
       <TopicBox
         id="topic"
         isVoted={isVoted}
+        handleVote={handleVote}
         isSmall={isSmall}
         topicData={topicData}
       />

@@ -1,18 +1,12 @@
 import styled from "styled-components";
-import { PostVote } from "../api/PostVote";
 
-const BeforeVoteTopic = ({ subTitle }) => {
-  const onClick = (selection) => {
-    PostVote(selection);
-    console.log(selection);
-  };
-
+const BeforeVoteTopic = ({ subTitle, handleVote }) => {
   return (
     <TopicBox>
-      <Section $type="A" onClick={() => onClick("A")}>
+      <Section $type="A" onClick={() => handleVote("A")}>
         {subTitle?.sub_A}
       </Section>
-      <Section $type="B" onClick={() => onClick("B")}>
+      <Section $type="B" onClick={() => handleVote("B")}>
         {subTitle?.sub_B}
       </Section>
     </TopicBox>

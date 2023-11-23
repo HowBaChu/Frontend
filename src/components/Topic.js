@@ -6,6 +6,7 @@ import BeforeVoteTopic from "./BeforeVoteTopic";
 
 const Topic = ({
   isVoted,
+  handleVote,
   isSmall,
   history,
   isList,
@@ -58,7 +59,7 @@ const Topic = ({
           {...attrProps}
         />
       ) : (
-        <BeforeVoteTopic subTitle={subTitle} />
+        <BeforeVoteTopic subTitle={subTitle} handleVote={handleVote} />
       )}
       <LeftTime>
         <TimeIcon src={time_icon} />
