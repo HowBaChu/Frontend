@@ -49,7 +49,7 @@ const MainPage = ({ openModal, setCuropinId }) => {
       }
     };
     fetchVoteStatus();
-  }, [isVoted]);
+  }, []);
 
   return (
     <MainPageLayout>
@@ -60,7 +60,11 @@ const MainPage = ({ openModal, setCuropinId }) => {
         isSmall={isSmall}
         topicData={topicData}
       />
-      <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
+      <OpinionArea
+        $isVoted={isVoted}
+        $isSmall={isSmall}
+        onScroll={handleOpinionScroll}
+      >
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>
             {opinList.content?.map((opin) => {
@@ -79,7 +83,7 @@ const MainPage = ({ openModal, setCuropinId }) => {
           </OpinionContainer>
         )}
       </OpinionArea>
-      <Input onOpinSubmit={() => reloadOpinList()} />
+      <Input onOpinSubmit={() => reloadOpinList()} disabled={!isVoted} />
     </MainPageLayout>
   );
 };
@@ -95,10 +99,11 @@ const MainPageLayout = styled.div`
 `;
 const OpinionArea = styled.div`
   width: 100%;
-  margin-top: 100px;
-  padding: 100px 0 15px;
+  margin-top: ${({ $isVoted }) => ($isVoted ? `100px` : `200px`)};
+  padding: ${({ $isVoted }) => ($isVoted ? `100px 0 15px` : `0 15px`)};
   height: 100%;
   overflow: scroll;
+  filter: ${({ $isVoted }) => !$isVoted && `blur(5px)`};
 `;
 const OpinionContainer = styled.div`
   margin: 0 auto;
