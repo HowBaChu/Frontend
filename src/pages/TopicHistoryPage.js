@@ -26,6 +26,7 @@ const TopicHistoryPage = () => {
               <CrownIcon src={CROWNS[index]} />
             </Crown>
             <HistoryTopic
+              isVoted={true}
               history={true}
               isList={true}
               topicData={CrownArr[index]}
@@ -35,6 +36,7 @@ const TopicHistoryPage = () => {
         {NomalArr.map((nomalTopic, index) => (
           <TopicWrapper key={nomalTopic.title}>
             <HistoryTopic
+              isVoted={true}
               history={true}
               isList={true}
               topicData={NomalArr[index]}

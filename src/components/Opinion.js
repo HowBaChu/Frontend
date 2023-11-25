@@ -10,41 +10,49 @@ const Opinion = ({
   isHot,
   isList,
   opinContent,
-  openModal,
+  toggleReportModal,
+  toggleDeleteModal,
   setCuropinId,
   ...attrProps
 }) => {
-  const { id, nickname, content, selection, topicSubTitle, likeCnt } =
+  const { id, nickname, owner, content, selection, topicSubTitle, likeCnt } =
     opinContent;
   const [isLikeClicked, setIsLikeClicked] = useState(false);
-  const isMine = selection === "B";
+  const isOur = selection === "B";
 
   const onClickHeart = (e, isHot) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
+
     if (!isHot) {
       // 하트(좋아요)일 경우
       setIsLikeClicked((prev) => !prev);
     }
   };
+
   const onClickReport = (e) => {
-    e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
-    openModal();
+    e.stopPropagation();
+    toggleReportModal();
+    setCuropinId(id);
+  };
+  const onClickDelete = (e) => {
+    e.stopPropagation();
+    toggleDeleteModal();
     setCuropinId(id);
   };
 
   return (
-    <OpinionWrapper $isMine={isMine} $isHot={isHot} {...attrProps}>
+    <OpinionWrapper $isOur={isOur} $isHot={isHot} {...attrProps}>
       {opinContent && (
         <>
-          <OpinionBox $isMine={isMine}>
-            <TopBox $isMine={isMine}>
+          <OpinionBox $isOur={isOur}>
+            <TopBox $isOur={isOur}>
               <ProfileImgBox>
                 <ProfileImg src={default_profile_icon} />
               </ProfileImgBox>
-              <ContentContainer $isMine={isMine}>
-                <InfoBox $isMine={isMine}>
+              <ContentContainer $isOur={isOur}>
+                <InfoBox $isOur={isOur}>
                   <UserName>{nickname}</UserName>
-                  <OpinTitle $isMine={isMine}>{topicSubTitle}</OpinTitle>
+                  <OpinTitle $isOur={isOur}>{topicSubTitle}</OpinTitle>
                 </InfoBox>
                 <Content $isHot={isHot}>{content}</Content>
               </ContentContainer>
@@ -57,15 +65,18 @@ const Opinion = ({
               <LikeCount>{likeCnt}</LikeCount>
             </IconBtn>
           </OpinionBox>
-          <UserActionBtn
-            $isMine={isMine}
-            $isList={isList}
-            onClick={(e) => onClickReport(e)}
-          >
-            <ReOpinTxt>신고하기</ReOpinTxt>
-            <SirenIcon>
+          <UserActionBtn>
+            <ReportBtn
+              $isList={isList}
+              $isOwner={owner}
+              onClick={(e) => onClickReport(e)}
+            >
+              신고하기
               <img src={SIREN} />
-            </SirenIcon>
+            </ReportBtn>
+            <DeleteBtn $isOwner={owner} onClick={(e) => onClickDelete(e)}>
+              삭제하기
+            </DeleteBtn>
           </UserActionBtn>
         </>
       )}
@@ -77,14 +88,15 @@ const OpinionWrapper = styled.div`
   width: ${({ $isHot }) => ($isHot ? `100%` : `85%`)};
   box-shadow: 0 0 1px gray;
   border-radius: 15px;
-  padding: 5px 10px;
-  background-color: ${({ $isMine, theme }) =>
-    $isMine ? `white` : theme.colors.PURPLE1};
+  padding: 5px 10px 2px 10px;
+  background-color: ${({ $isOur, theme }) =>
+    $isOur ? `white` : theme.colors.PURPLE1};
   background-color: ${({ $isHot, theme }) => $isHot && theme.colors.HOT_PINK};
-  align-self: ${({ $isMine }) => ($isMine ? `end` : `start`)};
+  align-self: ${({ $isOur }) => ($isOur ? `end` : `start`)};
   align-self: ${({ $isHot }) => $isHot && `center`};
   display: flex;
   flex-direction: column;
+  gap: 2px;
 `;
 const OpinionBox = styled.div`
   display: flex;
@@ -115,7 +127,7 @@ const ContentContainer = styled.div`
 `;
 const InfoBox = styled.div`
   display: flex;
-  flex-direction: ${({ isMine }) => (isMine ? `row-reverse` : `row`)};
+  flex-direction: ${({ isOur }) => (isOur ? `row-reverse` : `row`)};
   align-items: end;
   margin: 5px 5px 5px 8px;
   gap: 5px;
@@ -158,19 +170,24 @@ const LikeCount = styled.p`
 const UserActionBtn = styled.div`
   width: auto;
   height: 20px;
-  margin-right: auto;
-  display: ${({ $isList }) => ($isList ? `none` : `inline-flex`)};
+  display: ${({ $isList }) => ($isList ? `none` : `flex`)};
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
+  & > button {
+    font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+    font-weight: ${({ theme }) => theme.fontweight.REGULAR};
+    color: ${({ theme }) => theme.colors.TXT_GRAY};
+    white-space: nowrap;
+  }
 `;
-const ReOpinTxt = styled.button`
-  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
-  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
-  color: ${({ theme }) => theme.colors.TXT_GRAY};
-  white-space: nowrap;
+const ReportBtn = styled.button`
+  visibility: ${({ $isOwner }) => (!$isOwner ? `visible` : `hidden`)};
+  display: flex;
+  gap: 1px;
+  align-items: center;
 `;
-const SirenIcon = styled.button`
-  padding-top: 2px;
+const DeleteBtn = styled.button`
+  visibility: ${({ $isOwner }) => ($isOwner ? `visible` : `hidden`)};
 `;
 
 export default Opinion;

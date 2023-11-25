@@ -9,12 +9,11 @@ import OpinionInput from "../components/OpinionInput";
 import { GetVoteStatus } from "../api/GetVoteStatus";
 import { PostVote } from "../api/PostVote";
 
-const MainPage = ({ openModal, setCuropinId }) => {
+const MainPage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
   const [isVoted, setIsVoted] = useState(undefined);
-
   const navigate = useNavigate();
 
   const handleVote = (selection) => {
@@ -67,7 +66,7 @@ const MainPage = ({ openModal, setCuropinId }) => {
       >
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>
-            {opinList.content?.map((opin) => {
+            {opinList?.content?.map((opin) => {
               return (
                 <OpinionBox
                   key={opin.id}
@@ -75,7 +74,8 @@ const MainPage = ({ openModal, setCuropinId }) => {
                   onClick={() => {
                     navigate(`/${opin.id}`);
                   }}
-                  openModal={openModal}
+                  toggleReportModal={toggleReportModal}
+                  toggleDeleteModal={toggleDeleteModal}
                   setCuropinId={setCuropinId}
                 />
               );

@@ -17,16 +17,19 @@ import Threadpage from "./pages/Threadpage";
 import CurPwdCheckPage from "./pages/CurPwdCheckPage";
 import NavBar from "./components/NavBar";
 import ReportModal from "./components/ReportModal";
+import DeleteModal from "./components/DeleteModal";
 import SignUpForm from "./pages/SignupPage";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
-  const [curopinId, setCuropinId] = useState(0);
-  const handleModalOpen = () => {
-    setIsModal(true);
+  const [isDelModal, setIsDelModal] = useState(false);
+  const [curopinId, setCuropinId] = useState(undefined);
+
+  const toggleReportModal = () => {
+    setIsModal((prevState) => !prevState);
   };
-  const handleModalClose = () => {
-    setIsModal(false);
+  const toggleDeleteModal = () => {
+    setIsDelModal((prevState) => !prevState);
   };
 
   return (
@@ -34,7 +37,16 @@ function App() {
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
         {isModal && (
-          <ReportModal closeModal={handleModalClose} opinId={curopinId} />
+          <ReportModal
+            toggleReportModal={toggleReportModal}
+            opinId={curopinId}
+          />
+        )}
+        {isDelModal && (
+          <DeleteModal
+            toggleDeleteModal={toggleDeleteModal}
+            opinId={curopinId}
+          />
         )}
         <BrowserRouter>
           <Logo />
@@ -43,8 +55,9 @@ function App() {
               path="/"
               element={
                 <MainPage
-                  openModal={handleModalOpen}
                   setCuropinId={(curId) => setCuropinId(curId)}
+                  toggleReportModal={toggleReportModal}
+                  toggleDeleteModal={toggleDeleteModal}
                 />
               }
             />
@@ -52,8 +65,9 @@ function App() {
               path="/:opinId"
               element={
                 <Threadpage
-                  openModal={handleModalOpen}
                   setCuropinId={(curId) => setCuropinId(curId)}
+                  toggleReportModal={toggleReportModal}
+                  toggleDeleteModal={toggleDeleteModal}
                 />
               }
             />
