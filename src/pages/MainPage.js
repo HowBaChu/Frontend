@@ -14,7 +14,6 @@ const MainPage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [opinList, setOpinList] = useState([]); // GetOpin response
   const [isVoted, setIsVoted] = useState(undefined);
-
   const navigate = useNavigate();
 
   const handleVote = (selection) => {

@@ -15,7 +15,7 @@ const Opinion = ({
   setCuropinId,
   ...attrProps
 }) => {
-  const { id, nickname, content, selection, topicSubTitle, likeCnt } =
+  const { id, nickname, owner, content, selection, topicSubTitle, likeCnt } =
     opinContent;
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const isOur = selection === "B";
@@ -66,11 +66,15 @@ const Opinion = ({
             </IconBtn>
           </OpinionBox>
           <UserActionBtn>
-            <ReportBtn $isList={isList} onClick={(e) => onClickReport(e)}>
+            <ReportBtn
+              $isList={isList}
+              $isOwner={owner}
+              onClick={(e) => onClickReport(e)}
+            >
               신고하기
               <img src={SIREN} />
             </ReportBtn>
-            <DeleteBtn $isOur={isOur} onClick={(e) => onClickDelete(e)}>
+            <DeleteBtn $isOwner={owner} onClick={(e) => onClickDelete(e)}>
               삭제하기
             </DeleteBtn>
           </UserActionBtn>
@@ -177,12 +181,13 @@ const UserActionBtn = styled.div`
   }
 `;
 const ReportBtn = styled.button`
+  visibility: ${({ $isOwner }) => (!$isOwner ? `visible` : `hidden`)};
   display: flex;
   gap: 1px;
   align-items: center;
 `;
 const DeleteBtn = styled.button`
-  visibility: ${({ $isOur }) => ($isOur ? `visible` : `hidden`)};
+  visibility: ${({ $isOwner }) => ($isOwner ? `visible` : `hidden`)};
 `;
 
 export default Opinion;
