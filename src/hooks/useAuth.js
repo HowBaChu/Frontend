@@ -11,7 +11,6 @@ export const useAuth = () => {
 
   const login = () => {
     setIsLoggedIn(true);
-    console.log(isLoggedIn);
   };
 
   const logout = () => {

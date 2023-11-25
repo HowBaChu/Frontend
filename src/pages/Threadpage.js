@@ -9,6 +9,9 @@ const Threadpage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
   const [opinList, setOpinList] = useState([]); // Get Thread Opin response
   const { opinId } = useParams();
 
+  const reloadOpinList = () => {
+    GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
+  };
   useEffect(() => {
     GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
   }, []);
@@ -41,7 +44,7 @@ const Threadpage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
           </OpinionArea>
         </>
       )}
-      <Input />
+      <Input onOpinSubmit={() => reloadOpinList()} />
     </ThreadWrapper>
   );
 };
