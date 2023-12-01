@@ -12,6 +12,7 @@ const Threadpage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
   const reloadOpinList = () => {
     GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
   };
+
   useEffect(() => {
     GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
   }, []);
@@ -21,6 +22,7 @@ const Threadpage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
       {opinList?.parentOpin && opinList?.childOpinList && (
         <>
           <ThreadOpinion
+            reloadOpinList={reloadOpinList}
             toggleReportModal={toggleReportModal}
             toggleDeleteModal={toggleDeleteModal}
             opinContent={opinList?.parentOpin}
@@ -32,6 +34,7 @@ const Threadpage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
               {opinList?.childOpinList?.map((opin) => {
                 return (
                   <ReOpin
+                    reloadOpinList={reloadOpinList}
                     key={opin.id}
                     opinContent={opin}
                     toggleReportModal={toggleReportModal}

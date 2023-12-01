@@ -5,8 +5,10 @@ import HEART_EMPTY from "../assets/imgs/empty_heart_icon.svg";
 import HEART_FULL from "../assets/imgs/full_heart_icon.svg";
 import SIREN from "../assets/imgs/siren_icon.svg";
 import default_profile_icon from "../assets/imgs/default-profile-img_icon.svg";
+import { PostLike } from "../api/PostLike";
 
 const Opinion = ({
+  reloadOpinList,
   isHot,
   isList,
   opinContent,
@@ -20,13 +22,18 @@ const Opinion = ({
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const isOur = selection === "B";
 
-  const onClickHeart = (e, isHot) => {
+  const onClickHeart = async (e, isHot) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
 
     if (!isHot) {
       // 하트(좋아요)일 경우
       setIsLikeClicked((prev) => !prev);
     }
+
+    const response = await PostLike(id);
+    reloadOpinList();
+
+    console.log(response);
   };
 
   const onClickReport = (e) => {

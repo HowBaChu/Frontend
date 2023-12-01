@@ -9,10 +9,15 @@ import OpinionInput from "../components/OpinionInput";
 import { GetVoteStatus } from "../api/GetVoteStatus";
 import { PostVote } from "../api/PostVote";
 
-const MainPage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
+const MainPage = ({
+  toggleReportModal,
+  toggleDeleteModal,
+  setCuropinId,
+  reloadOpinList,
+  opinList,
+}) => {
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
-  const [opinList, setOpinList] = useState([]); // GetOpin response
   const [isVoted, setIsVoted] = useState(undefined);
   const navigate = useNavigate();
 
@@ -20,16 +25,11 @@ const MainPage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
     PostVote(selection);
     setIsVoted(true);
   };
-  const reloadOpinList = () => {
-    GetOpin((newOpinListData) => {
-      setOpinList(newOpinListData);
-    });
-  };
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
   useEffect(() => {
-    GetOpin((opinListdata) => setOpinList(opinListdata));
+    GetOpin((opinListdata) => reloadOpinList(opinListdata));
   }, []);
   useEffect(() => {
     GetTopic((data) => {
@@ -69,6 +69,7 @@ const MainPage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
             {opinList?.content?.map((opin) => {
               return (
                 <OpinionBox
+                  reloadOpinList={reloadOpinList}
                   key={opin.id}
                   opinContent={opin}
                   onClick={() => {

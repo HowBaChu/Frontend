@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { DeleteOpin } from "../api/DeleteOpin";
 
-const DeleteModal = ({ toggleDeleteModal, opinId }) => {
-  const onSubmit = () => {
-    DeleteOpin(opinId);
+const DeleteModal = ({ reloadOpinList, toggleDeleteModal, opinId }) => {
+  const onSubmit = async () => {
+    const response = await DeleteOpin(opinId);
+    reloadOpinList()
   };
 
   return (

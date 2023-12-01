@@ -19,12 +19,18 @@ import NavBar from "./components/NavBar";
 import ReportModal from "./components/ReportModal";
 import DeleteModal from "./components/DeleteModal";
 import SignUpForm from "./pages/SignupPage";
+import { GetOpin } from "./api/GetOpin";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
   const [isDelModal, setIsDelModal] = useState(false);
   const [curopinId, setCuropinId] = useState(undefined);
-
+  const [opinList, setOpinList] = useState([]); // GetOpin response
+  const reloadOpinList = () => {
+    GetOpin((newOpinListData) => {
+      setOpinList(newOpinListData);
+    });
+  };
   const toggleReportModal = () => {
     setIsModal((prevState) => !prevState);
   };
@@ -44,6 +50,7 @@ function App() {
         )}
         {isDelModal && (
           <DeleteModal
+            reloadOpinList={reloadOpinList}
             toggleDeleteModal={toggleDeleteModal}
             opinId={curopinId}
           />
@@ -58,6 +65,8 @@ function App() {
                   setCuropinId={(curId) => setCuropinId(curId)}
                   toggleReportModal={toggleReportModal}
                   toggleDeleteModal={toggleDeleteModal}
+                  reloadOpinList={reloadOpinList}
+                  opinList={opinList} // 상태를 props로 전달
                 />
               }
             />
