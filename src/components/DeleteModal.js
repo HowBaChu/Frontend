@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import { DeleteOpin } from "../api/DeleteOpin";
 
-const DeleteModal = ({ reloadOpinList, toggleDeleteModal, opinId }) => {
+const DeleteModal = ({
+  handleDeleteState,
+  reloadOpinList,
+  toggleDeleteModal,
+  opinId,
+}) => {
   const onSubmit = async () => {
     const response = await DeleteOpin(opinId);
-    reloadOpinList()
+    reloadOpinList();
+    handleDeleteState(true);
   };
 
   return (

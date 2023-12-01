@@ -5,9 +5,20 @@ import { useEffect, useState } from "react";
 import { GetOpin } from "../api/GetOpin";
 import { useParams } from "react-router-dom";
 
-const Threadpage = ({ toggleReportModal, toggleDeleteModal, setCuropinId }) => {
+const Threadpage = ({
+  isDelete,
+  handleDeleteState,
+  toggleReportModal,
+  toggleDeleteModal,
+  setCuropinId,
+}) => {
   const [opinList, setOpinList] = useState([]); // Get Thread Opin response
   const { opinId } = useParams();
+
+  useEffect(() => {
+    isDelete && reloadOpinList();
+    handleDeleteState(false);
+  }, [isDelete]);
 
   const reloadOpinList = () => {
     GetOpin((opinListdata) => setOpinList(opinListdata), opinId);

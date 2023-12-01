@@ -26,6 +26,8 @@ function App() {
   const [isDelModal, setIsDelModal] = useState(false);
   const [curopinId, setCuropinId] = useState(undefined);
   const [opinList, setOpinList] = useState([]); // GetOpin response
+  const [isDelete, setIsDelete] = useState(false);
+
   const reloadOpinList = () => {
     GetOpin((newOpinListData) => {
       setOpinList(newOpinListData);
@@ -36,6 +38,9 @@ function App() {
   };
   const toggleDeleteModal = () => {
     setIsDelModal((prevState) => !prevState);
+  };
+  const handleDeleteState = (state) => {
+    setIsDelete(state);
   };
 
   return (
@@ -50,6 +55,7 @@ function App() {
         )}
         {isDelModal && (
           <DeleteModal
+            handleDeleteState={handleDeleteState}
             reloadOpinList={reloadOpinList}
             toggleDeleteModal={toggleDeleteModal}
             opinId={curopinId}
@@ -74,6 +80,8 @@ function App() {
               path="/:opinId"
               element={
                 <Threadpage
+                  isDelete={isDelete}
+                  handleDeleteState={handleDeleteState}
                   setCuropinId={(curId) => setCuropinId(curId)}
                   toggleReportModal={toggleReportModal}
                   toggleDeleteModal={toggleDeleteModal}
