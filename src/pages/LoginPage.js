@@ -6,10 +6,10 @@ import AuthInput from "../components/AuthInput";
 import { useAuth } from "../hooks/useAuth";
 
 const LoginPage = () => {
+  const { login, isLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const { login, isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const toggleEye = () => {
@@ -30,15 +30,14 @@ const LoginPage = () => {
       password: password,
     };
 
-    try {
-      const token = await PostLogIn(formData);
-      if (token) {
-        login();
-      } else {
-        console.error("Login failed: No token received");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
+    const loginResponse = await PostLogIn(formData);
+
+    if (loginResponse?.code === "200") {
+      navigate("/");
+    } else {
+      alert(loginResponse?.response?.data?.message);
+      setEmail("");
+      setPassword("");
     }
   };
 
