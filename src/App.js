@@ -19,17 +19,28 @@ import NavBar from "./components/NavBar";
 import ReportModal from "./components/ReportModal";
 import DeleteModal from "./components/DeleteModal";
 import SignUpForm from "./pages/SignupPage";
+import { GetOpin } from "./api/GetOpin";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
   const [isDelModal, setIsDelModal] = useState(false);
   const [curopinId, setCuropinId] = useState(undefined);
+  const [opinList, setOpinList] = useState([]); // GetOpin response
+  const [isDelete, setIsDelete] = useState(false);
 
+  const reloadOpinList = () => {
+    GetOpin((newOpinListData) => {
+      setOpinList(newOpinListData);
+    });
+  };
   const toggleReportModal = () => {
     setIsModal((prevState) => !prevState);
   };
   const toggleDeleteModal = () => {
     setIsDelModal((prevState) => !prevState);
+  };
+  const handleDeleteState = (state) => {
+    setIsDelete(state);
   };
 
   return (
@@ -44,6 +55,8 @@ function App() {
         )}
         {isDelModal && (
           <DeleteModal
+            handleDeleteState={handleDeleteState}
+            reloadOpinList={reloadOpinList}
             toggleDeleteModal={toggleDeleteModal}
             opinId={curopinId}
           />
@@ -58,6 +71,8 @@ function App() {
                   setCuropinId={(curId) => setCuropinId(curId)}
                   toggleReportModal={toggleReportModal}
                   toggleDeleteModal={toggleDeleteModal}
+                  reloadOpinList={reloadOpinList}
+                  opinList={opinList} // 상태를 props로 전달
                 />
               }
             />
@@ -65,6 +80,8 @@ function App() {
               path="/:opinId"
               element={
                 <Threadpage
+                  isDelete={isDelete}
+                  handleDeleteState={handleDeleteState}
                   setCuropinId={(curId) => setCuropinId(curId)}
                   toggleReportModal={toggleReportModal}
                   toggleDeleteModal={toggleDeleteModal}

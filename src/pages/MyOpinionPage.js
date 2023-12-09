@@ -19,6 +19,7 @@ const MyOpinionPage = () => {
   useEffect(() => {
     fetchMyOpins();
   }, []);
+
   return (
     <PageWrapper>
       <InfoContainer>
