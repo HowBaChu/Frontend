@@ -3,10 +3,8 @@ import { PostLogIn } from "../api/PostLogIn";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthInput from "../components/AuthInput";
-import { useAuth } from "../hooks/useAuth";
 
 const LoginPage = () => {
-  const { login, isLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -15,13 +13,6 @@ const LoginPage = () => {
   const toggleEye = () => {
     setIsOpen((prev) => !prev);
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      login();
-      navigate("/");
-    }
-  }, [isLoggedIn, navigate]);
 
   const onSubmit = async (event) => {
     event.preventDefault();

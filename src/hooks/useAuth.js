@@ -13,12 +13,7 @@ export const useAuth = () => {
     setIsLoggedIn(true);
   };
 
-  const logout = () => {
-    Cookies.remove("Access-Token");
-    setIsLoggedIn(false);
-  };
-
-  return { isLoggedIn, login, logout };
+  return { isLoggedIn, login };
 };
 
 export default useAuth;
