@@ -88,7 +88,7 @@ function App() {
                 />
               }
             />
-            <Route path="/serch" element={<SearchPage />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/profile" element={<MyPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/profile/pwdcheck" element={<CurPwdCheckPage />} />

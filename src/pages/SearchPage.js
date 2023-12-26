@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import SEARCH_ICON from "../assets/imgs/search_icon.svg";
+import Opinion from "../components/Opinion";
+import Topic from "../components/Topic";
 
 const SearchPage = () => {
+  const opinContent = {};
+
   return (
     <PageWrapper>
       <SearchBar>
@@ -11,6 +15,32 @@ const SearchPage = () => {
           <Icon src={SEARCH_ICON} />
         </Button>
       </SearchBar>
+      <ResultWrapper>
+        <Area>
+          <Title>댓글</Title>
+          <ReasultBox>
+            <ResultOpinion opinContent={opinContent} />
+            <ResultOpinion opinContent={opinContent} />
+          </ReasultBox>
+          <MoreBtn> ﹒﹒﹒ 댓글 더보기 ﹒﹒﹒ </MoreBtn>
+        </Area>
+        <Area>
+          <Title>대댓글</Title>
+          <ReasultBox>
+            <ResultOpinion opinContent={opinContent} />
+            <ResultOpinion opinContent={opinContent} />
+          </ReasultBox>
+          <MoreBtn> ﹒﹒﹒ 대댓글 더보기 ﹒﹒﹒ </MoreBtn>
+        </Area>
+        <Area>
+          <Title>토픽</Title>
+          <ReasultBox>
+            <ResultTopic isVoted={true} history={true} isList={true} />
+            <ResultTopic isVoted={true} history={true} isList={true} />
+          </ReasultBox>
+          <MoreBtn> ﹒﹒﹒ 토픽 더보기 ﹒﹒﹒ </MoreBtn>
+        </Area>
+      </ResultWrapper>
     </PageWrapper>
   );
 };
@@ -48,5 +78,39 @@ const Icon = styled.img`
   width: 25px;
   height: 25px;
 `;
+const ResultWrapper = styled.div`
+  width: 100%;
+  height: calc(100% - 40px);
+  padding: 20px 2px;
+  overflow: scroll;
+`;
+const Area = styled.div`
+  width: 100%;
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+`;
+const ReasultBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+const MoreBtn = styled.button`
+  width: 100%;
+  margin-top: 15px;
+  color: ${({ theme }) => theme.colors.TXT_GRAY};
+  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+`;
+const Title = styled.p`
+  margin-bottom: 5px;
+  color: ${({ theme }) => theme.colors.GRAY};
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+`;
+const ResultOpinion = styled(Opinion)`
+  width: 100%;
+`;
+const ResultTopic = styled(Topic)``;
 
 export default SearchPage;
