@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import AuthInput from "../components/AuthInput";
 import { PostSignUp } from "../api/PostSignUp";
+import { useNavigate } from "react-router-dom";
+import { sign } from "chart.js/helpers";
 
 const SignUpForm = () => {
   const [isOpen, setIsOpen] = useState({
@@ -22,7 +24,9 @@ const SignUpForm = () => {
       [fieldName]: !prevState[fieldName],
     }));
   };
-  const onSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     const data = {
       email: formData.email,
@@ -31,7 +35,17 @@ const SignUpForm = () => {
       statusMessage: formData.statusMessage,
       username: formData.username,
     };
-    PostSignUp(data);
+    const signupResponse = await PostSignUp(data);
+
+    if (signupResponse?.code === "201") {
+      navigate("/login");
+    } else {
+      alert(signupResponse?.response?.data?.message);
+      setFormData({ ...formData, email: "" });
+      setFormData({ ...formData, mbti: "" });
+      setFormData({ ...formData, password: "" });
+      setFormData({ ...formData, username: "" });
+    }
   };
 
   return (

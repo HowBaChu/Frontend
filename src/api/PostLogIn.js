@@ -6,8 +6,8 @@ export const PostLogIn = async (formData) => {
       email: formData.email,
       password: formData.password,
     });
-    return response.data.data.accessToken;
+    return response.data;
   } catch (error) {
-    throw error;
+    return (error);
   }
 };

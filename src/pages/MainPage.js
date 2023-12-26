@@ -8,6 +8,7 @@ import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
 import { GetVoteStatus } from "../api/GetVoteStatus";
 import { PostVote } from "../api/PostVote";
+import { useAuth } from "../hooks/useAuth";
 
 const MainPage = ({
   toggleReportModal,
@@ -16,6 +17,8 @@ const MainPage = ({
   reloadOpinList,
   opinList,
 }) => {
+  const { login, isLoggedIn } = useAuth();
+
   const [isSmall, setIsSmall] = useState(false);
   const [topicData, setTopicData] = useState({}); // GetTopic response
   const [isVoted, setIsVoted] = useState(undefined);
@@ -49,6 +52,13 @@ const MainPage = ({
     };
     fetchVoteStatus();
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      login();
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <MainPageLayout>
