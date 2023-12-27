@@ -29,11 +29,8 @@ const Opinion = ({
       // 하트(좋아요)일 경우
       setIsLikeClicked((prev) => !prev);
     }
-
     const response = await PostLike(id);
     reloadOpinList();
-
-    console.log(response);
   };
 
   const onClickReport = (e) => {

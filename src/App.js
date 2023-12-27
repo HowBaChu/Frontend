@@ -92,7 +92,15 @@ function App() {
             <Route path="/profile" element={<MyPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/profile/pwdcheck" element={<CurPwdCheckPage />} />
-            <Route path="/my-opinions" element={<MyOpinionPage />} />
+            <Route
+              path="/my-opinions"
+              element={
+                <MyOpinionPage
+                  toggleDeleteModal={toggleDeleteModal}
+                  setCuropinId={(curId) => setCuropinId(curId)}
+                />
+              }
+            />
             <Route path="/popular-posts" element={<TopicHistoryPage />} />
             <Route path="/reports" element={<ReportPage />} />
             <Route path="/login" element={<LoginPage />} />

@@ -4,7 +4,7 @@ import Opinion from "../components/Opinion";
 import styled from "styled-components";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 
-const MyOpinionPage = () => {
+const MyOpinionPage = ({toggleDeleteModal, setCuropinId}) => {
   const [myOpins, setMyOpins] = useState([]);
 
   const fetchMyOpins = async () => {
@@ -18,7 +18,7 @@ const MyOpinionPage = () => {
 
   useEffect(() => {
     fetchMyOpins();
-  }, []);
+  }, [myOpins]);
 
   return (
     <PageWrapper>
@@ -43,6 +43,8 @@ const MyOpinionPage = () => {
               opinContent={opin}
               isMine={true}
               isList={true}
+              toggleDeleteModal={toggleDeleteModal}
+              setCuropinId={setCuropinId}
             />
           );
         })}
