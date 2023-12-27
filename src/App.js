@@ -96,6 +96,8 @@ function App() {
               path="/my-opinions"
               element={
                 <MyOpinionPage
+                  isDelete={isDelete}
+                  handleDeleteState={handleDeleteState}
                   toggleDeleteModal={toggleDeleteModal}
                   setCuropinId={(curId) => setCuropinId(curId)}
                 />

@@ -4,7 +4,12 @@ import Opinion from "../components/Opinion";
 import styled from "styled-components";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 
-const MyOpinionPage = ({toggleDeleteModal, setCuropinId}) => {
+const MyOpinionPage = ({
+  isDelete,
+  handleDeleteState,
+  toggleDeleteModal,
+  setCuropinId,
+}) => {
   const [myOpins, setMyOpins] = useState([]);
 
   const fetchMyOpins = async () => {
@@ -18,7 +23,14 @@ const MyOpinionPage = ({toggleDeleteModal, setCuropinId}) => {
 
   useEffect(() => {
     fetchMyOpins();
-  }, [myOpins]);
+  }, []);
+
+  useEffect(() => {
+    isDelete && fetchMyOpins();
+    handleDeleteState(false);
+  }, [isDelete]);
+
+
 
   return (
     <PageWrapper>
@@ -45,6 +57,7 @@ const MyOpinionPage = ({toggleDeleteModal, setCuropinId}) => {
               isList={true}
               toggleDeleteModal={toggleDeleteModal}
               setCuropinId={setCuropinId}
+              reloadOpinList={fetchMyOpins}
             />
           );
         })}
