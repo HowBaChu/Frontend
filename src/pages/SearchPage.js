@@ -1,45 +1,76 @@
 import styled from "styled-components";
-import SEARCH_ICON from "../assets/imgs/search_icon.svg";
-import Opinion from "../components/Opinion";
+import { useState } from "react";
+import { GetSearch } from "../api/GetSearch";
 import Topic from "../components/Topic";
+import Opinion from "../components/Opinion";
+import SEARCH_ICON from "../assets/imgs/search_icon.svg";
 
 const SearchPage = () => {
-  const opinContent = {};
+  const [value, setValue] = useState("");
+  const [childOpinList, setChildOpinList] = useState([]);
+  const [parentsOpinList, setParentsOpinList] = useState([]);
+  const [topicList, setTopicList] = useState([]);
+
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const searchData = await GetSearch(value);
+    setChildOpinList(searchData?.childOpinList);
+    setParentsOpinList(searchData?.parentsOpinList);
+    setTopicList(searchData?.topicList);
+  };
 
   return (
     <PageWrapper>
-      <SearchBar>
+      <SearchBar onSubmit={onSubmit}>
         <Bull>&bull;</Bull>
-        <SearchInput placeholder="검색어를 입력해주세요" autoFocus />
-        <Button>
+        <SearchInput
+          placeholder="검색어를 입력해주세요"
+          autoFocus
+          value={value}
+          onChange={(e) => onChange(e)}
+        />
+        <Button disabled={value.length === 0}>
           <Icon src={SEARCH_ICON} />
         </Button>
       </SearchBar>
       <ResultWrapper>
-        <Area>
-          <Title>댓글</Title>
-          <ReasultBox>
-            <ResultOpinion opinContent={opinContent} />
-            <ResultOpinion opinContent={opinContent} />
-          </ReasultBox>
-          <MoreBtn> ﹒﹒﹒ 댓글 더보기 ﹒﹒﹒ </MoreBtn>
-        </Area>
-        <Area>
-          <Title>대댓글</Title>
-          <ReasultBox>
-            <ResultOpinion opinContent={opinContent} />
-            <ResultOpinion opinContent={opinContent} />
-          </ReasultBox>
-          <MoreBtn> ﹒﹒﹒ 대댓글 더보기 ﹒﹒﹒ </MoreBtn>
-        </Area>
-        <Area>
-          <Title>토픽</Title>
-          <ReasultBox>
-            <ResultTopic isVoted={true} history={true} isList={true} />
-            <ResultTopic isVoted={true} history={true} isList={true} />
-          </ReasultBox>
-          <MoreBtn> ﹒﹒﹒ 토픽 더보기 ﹒﹒﹒ </MoreBtn>
-        </Area>
+        {parentsOpinList?.length !== 0 && (
+          <Area>
+            <Title>댓글</Title>
+            <ReasultBox>
+              {parentsOpinList?.map((opin) => (
+                <ResultOpinion key={opin.author} opinContent={opin} />
+              ))}
+            </ReasultBox>
+            <MoreBtn> ﹒﹒﹒ 댓글 더보기 ﹒﹒﹒ </MoreBtn>
+          </Area>
+        )}
+
+        {childOpinList?.length !== 0 && (
+          <Area>
+            <Title>대댓글</Title>
+            <ReasultBox>
+              {childOpinList?.map((opin) => (
+                <ResultOpinion key={opin.author} opinContent={opin} />
+              ))}
+            </ReasultBox>
+            <MoreBtn> ﹒﹒﹒ 대댓글 더보기 ﹒﹒﹒ </MoreBtn>
+          </Area>
+        )}
+
+        {topicList.length !== 0 && (
+          <Area>
+            <Title>토픽</Title>
+            <ReasultBox>
+              <ResultTopic isVoted={true} history={true} isList={true} />
+            </ReasultBox>
+            <MoreBtn> ﹒﹒﹒ 토픽 더보기 ﹒﹒﹒ </MoreBtn>
+          </Area>
+        )}
       </ResultWrapper>
     </PageWrapper>
   );
@@ -50,7 +81,7 @@ const PageWrapper = styled.div`
   height: calc(100vh - 70px - 50px); // 헤더, Nav
   margin: 70px auto 0 auto;
 `;
-const SearchBar = styled.div`
+const SearchBar = styled.form`
   width: 100%;
   height: 40px;
   border-bottom: 4px solid ${({ theme }) => theme.colors.LIGHT_GRAY};

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { PostLike } from "../api/PostLike";
 import FIRE from "../assets/imgs/fire_icon.svg";
 import HEART_EMPTY from "../assets/imgs/empty_heart_icon.svg";
 import HEART_FULL from "../assets/imgs/full_heart_icon.svg";
 import SIREN from "../assets/imgs/siren_icon.svg";
 import default_profile_icon from "../assets/imgs/default-profile-img_icon.svg";
-import { PostLike } from "../api/PostLike";
 
 const Opinion = ({
   reloadOpinList,
@@ -17,10 +17,8 @@ const Opinion = ({
   setCuropinId,
   ...attrProps
 }) => {
-  const { id, nickname, owner, content, selection, topicSubTitle, likeCnt } =
-    opinContent;
   const [isLikeClicked, setIsLikeClicked] = useState(false);
-  const isOur = selection === "B";
+  const isOur = opinContent?.selection === "B";
 
   const onClickHeart = async (e, isHot) => {
     e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
@@ -29,19 +27,19 @@ const Opinion = ({
       // 하트(좋아요)일 경우
       setIsLikeClicked((prev) => !prev);
     }
-    const response = await PostLike(id);
+    const response = await PostLike(opinContent.id);
     reloadOpinList();
   };
 
   const onClickReport = (e) => {
     e.stopPropagation();
     toggleReportModal();
-    setCuropinId(id);
+    setCuropinId(opinContent.id);
   };
   const onClickDelete = (e) => {
     e.stopPropagation();
     toggleDeleteModal();
-    setCuropinId(id);
+    setCuropinId(opinContent.id);
   };
 
   return (
@@ -55,10 +53,14 @@ const Opinion = ({
               </ProfileImgBox>
               <ContentContainer $isOur={isOur}>
                 <InfoBox $isOur={isOur}>
-                  <UserName>{nickname}</UserName>
-                  <OpinTitle $isOur={isOur}>{topicSubTitle}</OpinTitle>
+                  <UserName>
+                    {opinContent.nickname || opinContent.author}
+                  </UserName>
+                  <OpinTitle $isOur={isOur}>
+                    {opinContent.topicSubTitle || opinContent.topicSubtitle}
+                  </OpinTitle>
                 </InfoBox>
-                <Content $isHot={isHot}>{content}</Content>
+                <Content $isHot={isHot}>{opinContent.content}</Content>
               </ContentContainer>
             </TopBox>
             <IconBtn
@@ -66,19 +68,22 @@ const Opinion = ({
               onClick={(e, isHot) => onClickHeart(e, isHot)}
             >
               <IconImg $isHot={isHot} $isLikeClicked={isLikeClicked} />
-              <LikeCount>{likeCnt}</LikeCount>
+              <LikeCount>{opinContent.likeCnt}</LikeCount>
             </IconBtn>
           </OpinionBox>
           <UserActionBtn>
             <ReportBtn
               $isList={isList}
-              $isOwner={owner}
+              $isOwner={opinContent.owner}
               onClick={(e) => onClickReport(e)}
             >
               신고하기
               <img src={SIREN} />
             </ReportBtn>
-            <DeleteBtn $isOwner={owner} onClick={(e) => onClickDelete(e)}>
+            <DeleteBtn
+              $isOwner={opinContent.owner}
+              onClick={(e) => onClickDelete(e)}
+            >
               삭제하기
             </DeleteBtn>
           </UserActionBtn>

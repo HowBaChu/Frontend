@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Graph from "./Graph";
-import time_icon from "../assets/imgs/hourglass_icon.svg";
 import BeforeVoteTopic from "./BeforeVoteTopic";
+import time_icon from "../assets/imgs/hourglass_icon.svg";
 
 const Topic = ({
   isVoted,
