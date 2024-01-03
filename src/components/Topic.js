@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Graph from "./Graph";
 import BeforeVoteTopic from "./BeforeVoteTopic";
 import time_icon from "../assets/imgs/hourglass_icon.svg";
+import date_icon from "../assets/imgs/date.svg"
 
 const Topic = ({
   isVoted,
@@ -25,6 +26,7 @@ const Topic = ({
     ],
     labels: ["", ""],
   });
+  const date = topicData.date.join("-");
 
   useEffect(() => {
     if (topicData && subTitle && votingStatus) {
@@ -62,8 +64,8 @@ const Topic = ({
         <BeforeVoteTopic subTitle={subTitle} handleVote={handleVote} />
       )}
       <LeftTime>
-        <TimeIcon src={time_icon} />
-        <TimeTxt>13 : 05 : 14</TimeTxt>
+        <TimeIcon src={date_icon} />
+        <TimeTxt>{history && date}</TimeTxt>
       </LeftTime>
     </TopicWrapper>
   );
@@ -102,8 +104,9 @@ const LeftTime = styled.div`
   margin: 5px 10px 5px 0;
 `;
 const TimeIcon = styled.img`
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
 `;
 const TimeTxt = styled.p`
   margin-top: 3px;
