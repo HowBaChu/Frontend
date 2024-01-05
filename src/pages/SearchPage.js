@@ -18,9 +18,9 @@ const SearchPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const searchData = await GetSearch(value);
-    setChildOpinList(searchData?.childOpinList);
-    setParentsOpinList(searchData?.parentsOpinList);
-    setTopicList(searchData?.topicList);
+    setChildOpinList(searchData?.childOpinList.content);
+    setParentsOpinList(searchData?.parentsOpinList.content);
+    setTopicList(searchData?.topicList.content);
   };
 
   return (
@@ -66,7 +66,15 @@ const SearchPage = () => {
           <Area>
             <Title>토픽</Title>
             <ReasultBox>
-              <ResultTopic isVoted={true} history={true} isList={true} />
+              {topicList?.map((topic) => (
+                <ResultTopic
+                  key={topic.title}
+                  isVoted={true}
+                  history={true}
+                  isList={true}
+                  topicData={topic}
+                />
+              ))}
             </ReasultBox>
             <MoreBtn> ﹒﹒﹒ 토픽 더보기 ﹒﹒﹒ </MoreBtn>
           </Area>
