@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Graph from "./Graph";
 import BeforeVoteTopic from "./BeforeVoteTopic";
 import time_icon from "../assets/imgs/hourglass_icon.svg";
-import date_icon from "../assets/imgs/date.svg"
+import date_icon from "../assets/imgs/date.svg";
 
 const Topic = ({
   isVoted,
@@ -15,6 +15,7 @@ const Topic = ({
   ...attrProps
 }) => {
   const { subTitle, title, votingStatus } = topicData || {};
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   /* chart.js에 들어가는 data */
   const [graphData, setGraphData] = useState({
@@ -26,8 +27,8 @@ const Topic = ({
     ],
     labels: ["", ""],
   });
-  const date = topicData.date.join("-");
 
+  // Topic data
   useEffect(() => {
     if (topicData && subTitle && votingStatus) {
       setGraphData({
@@ -42,6 +43,32 @@ const Topic = ({
       });
     }
   }, [topicData]);
+
+  // 남은 시간 표시
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, []);
+
+  const getRemainingTime = () => {
+    const now = currentTime;
+    const endOfDay = new Date(now);
+    endOfDay.setHours(24, 0, 0, 0);
+
+    const difference = endOfDay - now;
+    let hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    let minutes = Math.floor((difference / (1000 * 60)) % 60);
+    let seconds = Math.floor((difference / 1000) % 60);
+
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    return `${hours}:${minutes}:${seconds}`;
+  };
 
   return (
     <TopicWrapper $isSmall={isSmall} $history={history} {...attrProps}>
@@ -64,8 +91,10 @@ const Topic = ({
         <BeforeVoteTopic subTitle={subTitle} handleVote={handleVote} />
       )}
       <LeftTime>
-        <TimeIcon src={date_icon} />
-        <TimeTxt>{history && date}</TimeTxt>
+        <TimeIcon src={history ? date_icon : time_icon} />
+        <TimeTxt>
+          {history ? topicData?.date.join("-") : getRemainingTime()}
+        </TimeTxt>
       </LeftTime>
     </TopicWrapper>
   );
