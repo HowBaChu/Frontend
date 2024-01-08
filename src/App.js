@@ -28,8 +28,8 @@ function App() {
   const [opinList, setOpinList] = useState([]); // GetOpin response
   const [isDelete, setIsDelete] = useState(false);
 
-  const reloadOpinList = () => {
-    GetOpin((newOpinListData) => {
+  const reloadOpinList = async () => {
+    await GetOpin((newOpinListData) => {
       setOpinList(newOpinListData);
     });
   };
@@ -73,6 +73,7 @@ function App() {
                   toggleDeleteModal={toggleDeleteModal}
                   reloadOpinList={reloadOpinList}
                   opinList={opinList} // 상태를 props로 전달
+                  setOpinList={setOpinList}
                 />
               }
             />

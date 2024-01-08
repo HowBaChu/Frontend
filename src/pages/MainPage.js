@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { GetVoteStatus } from "../api/GetVoteStatus";
+import { PostVote } from "../api/PostVote";
 import { GetTopic } from "../api/GetTopic";
 import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
-import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
-import { GetVoteStatus } from "../api/GetVoteStatus";
-import { PostVote } from "../api/PostVote";
-import { useAuth } from "../hooks/useAuth";
+import Opinion from "../components/Opinion";
 
 const MainPage = ({
   toggleReportModal,
@@ -16,13 +16,18 @@ const MainPage = ({
   setCuropinId,
   reloadOpinList,
   opinList,
+  setOpinList,
 }) => {
   const { login, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const [isSmall, setIsSmall] = useState(false);
-  const [topicData, setTopicData] = useState({}); // GetTopic response
+  const [topicData, setTopicData] = useState({});
   const [isVoted, setIsVoted] = useState(undefined);
-  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [isLastPage, setIsLastPage] = useState(false);
 
   const handleVote = (selection) => {
     PostVote(selection);
@@ -31,9 +36,6 @@ const MainPage = ({
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
-  useEffect(() => {
-    GetOpin((opinListdata) => reloadOpinList(opinListdata));
-  }, []);
   useEffect(() => {
     GetTopic((data) => {
       setTopicData(data);
@@ -52,13 +54,63 @@ const MainPage = ({
     };
     fetchVoteStatus();
   }, []);
-
   useEffect(() => {
     if (isLoggedIn) {
       login();
       navigate("/");
     }
   }, [isLoggedIn, navigate]);
+  useEffect(() => {
+    GetOpin((opinListdata) => setOpinList(opinListdata), undefined, page);
+  }, []);
+
+  useEffect(() => {
+    const reloadData = async () => {
+      try {
+        const responseData = await GetOpin(
+          (opinListdata) => console.log(opinListdata),
+          undefined,
+          page,
+        );
+
+        setIsLastPage(responseData?.last);
+
+        if (Array.isArray(responseData?.content)) {
+          setOpinList((prevOpinList) =>
+            Array.isArray(prevOpinList)
+              ? [...prevOpinList, ...responseData.content]
+              : [...responseData.content],
+          );
+        }
+      } catch (error) {
+        setIsLoading(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (isLoading) {
+      reloadData();
+    }
+  }, [isLoading, isLastPage, page]);
+
+  const observer = useRef();
+
+  const lastElementRef = useCallback(
+    (node) => {
+      if (isLoading || isLastPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prev) => prev + 1);
+          setIsLoading(true);
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, isLastPage, page],
+  );
 
   return (
     <MainPageLayout>
@@ -76,23 +128,41 @@ const MainPage = ({
       >
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>
-            {opinList?.content?.map((opin) => {
-              return (
-                <OpinionBox
-                  reloadOpinList={reloadOpinList}
-                  key={opin.id}
-                  opinContent={opin}
-                  onClick={() => {
-                    navigate(`/${opin.id}`);
-                  }}
-                  toggleReportModal={toggleReportModal}
-                  toggleDeleteModal={toggleDeleteModal}
-                  setCuropinId={setCuropinId}
-                />
-              );
+            {opinList?.map((opin, index) => {
+              if (opinList.length === index + 1) {
+                return (
+                  <OpinionBox
+                    ref={lastElementRef}
+                    reloadOpinList={reloadOpinList}
+                    key={opin.id}
+                    opinContent={opin}
+                    onClick={() => {
+                      navigate(`/${opin.id}`);
+                    }}
+                    toggleReportModal={toggleReportModal}
+                    toggleDeleteModal={toggleDeleteModal}
+                    setCuropinId={setCuropinId}
+                  />
+                );
+              } else {
+                return (
+                  <OpinionBox
+                    reloadOpinList={reloadOpinList}
+                    key={opin.id}
+                    opinContent={opin}
+                    onClick={() => {
+                      navigate(`/${opin.id}`);
+                    }}
+                    toggleReportModal={toggleReportModal}
+                    toggleDeleteModal={toggleDeleteModal}
+                    setCuropinId={setCuropinId}
+                  />
+                );
+              }
             })}
           </OpinionContainer>
         )}
+        {isLoading && <p>로딩중 . . .</p>}
       </OpinionArea>
       <Input onOpinSubmit={() => reloadOpinList()} disabled={!isVoted} />
     </MainPageLayout>
