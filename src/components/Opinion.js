@@ -23,6 +23,10 @@ const Opinion = forwardRef(
     },
     ref,
   ) => {
+    if (!opinContent) {
+      return null;
+    }
+
     const { id, nickname, owner, content, selection, topicSubTitle, likeCnt } =
       opinContent;
     const [isLikeClicked, setIsLikeClicked] = useState(false);

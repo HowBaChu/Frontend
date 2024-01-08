@@ -46,34 +46,38 @@ const Threadpage = ({
   }, []);
 
   return (
-    <ThreadWrapper>
-      <ThreadOpinion
-        reloadOpinList={reloadOpinList}
-        toggleReportModal={toggleReportModal}
-        toggleDeleteModal={toggleDeleteModal}
-        opinContent={parentOpin[0]}
-        setCuropinId={setCuropinId}
-      />
-      <Hr />
-      <OpinionArea>
-        <OpinList>
-          {opinList?.childOpinList?.map((opin) => {
-            return (
-              <ReOpin
-                reloadOpinList={reloadOpinList}
-                key={opin.id}
-                opinContent={opin}
-                toggleReportModal={toggleReportModal}
-                toggleDeleteModal={toggleDeleteModal}
-                setCuropinId={setCuropinId}
-              />
-            );
-          })}
-        </OpinList>
-      </OpinionArea>
+    <>
+      {opinList && (
+        <ThreadWrapper>
+          <ThreadOpinion
+            reloadOpinList={reloadOpinList}
+            toggleReportModal={toggleReportModal}
+            toggleDeleteModal={toggleDeleteModal}
+            opinContent={parentOpin[0]}
+            setCuropinId={setCuropinId}
+          />
+          <Hr />
+          <OpinionArea>
+            <OpinList>
+              {opinList?.childOpinList?.map((opin) => {
+                return (
+                  <ReOpin
+                    reloadOpinList={reloadOpinList}
+                    key={opin.id}
+                    opinContent={opin}
+                    toggleReportModal={toggleReportModal}
+                    toggleDeleteModal={toggleDeleteModal}
+                    setCuropinId={setCuropinId}
+                  />
+                );
+              })}
+            </OpinList>
+          </OpinionArea>
 
-      <Input onOpinSubmit={() => reloadOpinList()} />
-    </ThreadWrapper>
+          <Input onOpinSubmit={() => reloadOpinList()} />
+        </ThreadWrapper>
+      )}
+    </>
   );
 };
 
