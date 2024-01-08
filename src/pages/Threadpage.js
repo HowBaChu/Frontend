@@ -13,6 +13,7 @@ const Threadpage = ({
   setCuropinId,
 }) => {
   const [opinList, setOpinList] = useState([]); // Get Thread Opin response
+  const [parentOpin, setParentOpin] = useState([{}]);
   const { opinId } = useParams();
 
   useEffect(() => {
@@ -20,44 +21,57 @@ const Threadpage = ({
     handleDeleteState(false);
   }, [isDelete]);
 
-  const reloadOpinList = () => {
-    GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
+  const reloadOpinList = async () => {
+    const opinListdata = await GetOpin(
+      (opinListdata) => console.log(opinListdata),
+      opinId,
+      0,
+    );
+    setOpinList(opinListdata);
+
+    setParentOpin([opinListdata?.parentOpin]);
   };
 
   useEffect(() => {
-    GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
+    const loadOpinList = async () => {
+      const opinListdata = await GetOpin(
+        (opinListdata) => console.log(opinListdata),
+        opinId,
+        0,
+      );
+      setOpinList(opinListdata);
+      setParentOpin([opinListdata?.parentOpin]);
+    };
+    loadOpinList();
   }, []);
 
   return (
     <ThreadWrapper>
-      {opinList?.parentOpin && opinList?.childOpinList && (
-        <>
-          <ThreadOpinion
-            reloadOpinList={reloadOpinList}
-            toggleReportModal={toggleReportModal}
-            toggleDeleteModal={toggleDeleteModal}
-            opinContent={opinList?.parentOpin}
-            setCuropinId={setCuropinId}
-          />
-          <Hr />
-          <OpinionArea>
-            <OpinList>
-              {opinList?.childOpinList?.map((opin) => {
-                return (
-                  <ReOpin
-                    reloadOpinList={reloadOpinList}
-                    key={opin.id}
-                    opinContent={opin}
-                    toggleReportModal={toggleReportModal}
-                    toggleDeleteModal={toggleDeleteModal}
-                    setCuropinId={setCuropinId}
-                  />
-                );
-              })}
-            </OpinList>
-          </OpinionArea>
-        </>
-      )}
+      <ThreadOpinion
+        reloadOpinList={reloadOpinList}
+        toggleReportModal={toggleReportModal}
+        toggleDeleteModal={toggleDeleteModal}
+        opinContent={parentOpin[0]}
+        setCuropinId={setCuropinId}
+      />
+      <Hr />
+      <OpinionArea>
+        <OpinList>
+          {opinList?.childOpinList?.map((opin) => {
+            return (
+              <ReOpin
+                reloadOpinList={reloadOpinList}
+                key={opin.id}
+                opinContent={opin}
+                toggleReportModal={toggleReportModal}
+                toggleDeleteModal={toggleDeleteModal}
+                setCuropinId={setCuropinId}
+              />
+            );
+          })}
+        </OpinList>
+      </OpinionArea>
+
       <Input onOpinSubmit={() => reloadOpinList()} />
     </ThreadWrapper>
   );
