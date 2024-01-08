@@ -23,9 +23,17 @@ const Opinion = forwardRef(
     },
     ref,
   ) => {
-    const { id, nickname, owner, content, selection, topicSubTitle, likeCnt } =
-      opinContent;
-    const [isLikeClicked, setIsLikeClicked] = useState(false);
+    const {
+      id,
+      nickname,
+      owner,
+      content,
+      selection,
+      topicSubTitle,
+      likeCnt,
+      liked,
+    } = opinContent;
+    const [isLikeClicked, setIsLikeClicked] = useState(liked);
     const isOur = selection === "B";
 
     const onClickHeart = async (e, isHot) => {
