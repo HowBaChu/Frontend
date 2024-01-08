@@ -162,6 +162,7 @@ const MainPage = ({
             })}
           </OpinionContainer>
         )}
+        {isLoading && <p>로딩중 . . .</p>}
       </OpinionArea>
       <Input onOpinSubmit={() => reloadOpinList()} disabled={!isVoted} />
     </MainPageLayout>
