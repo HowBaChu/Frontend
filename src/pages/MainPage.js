@@ -72,10 +72,6 @@ const MainPage = ({
   }, []);
 
   useEffect(() => {
-    GetOpin((opinListdata) => setOpinList(opinListdata), undefined, page);
-  }, []);
-
-  useEffect(() => {
     const reloadData = async () => {
       try {
         const responseData = await GetOpin(
@@ -87,11 +83,23 @@ const MainPage = ({
         setIsLastPage(responseData?.last);
 
         if (Array.isArray(responseData?.content)) {
-          setOpinList((prevOpinList) =>
-            Array.isArray(prevOpinList)
+          setOpinList((prevOpinList) => {
+            // OpinList에 데이터를 추가하는 과정에서 중복을 방지한다.
+            //   responseData.content의 첫 번째 요소의 ID가 prevOpinList에 이미 있는지 확인한다.
+            const firstNewItem = responseData.content[0];
+            if (
+              firstNewItem &&
+              prevOpinList.some((opin) => opin.id === firstNewItem.id)
+            ) {
+              // 첫 번째 새 항목의 ID가 이미 리스트에 있으면 추가하지 않는다.
+              return prevOpinList;
+            }
+
+            // 중복이 없는 경우 새로운 항목을 추가한다.
+            return Array.isArray(prevOpinList)
               ? [...prevOpinList, ...responseData.content]
-              : [...responseData.content],
-          );
+              : [...responseData.content];
+          });
         }
       } catch (error) {
         setIsLoading(false);
