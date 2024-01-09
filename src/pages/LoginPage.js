@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthInput from "../components/AuthInput";
 
-const LoginPage = () => {
+const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -25,12 +25,17 @@ const LoginPage = () => {
 
     if (loginResponse?.code === "200") {
       navigate("/");
+      setIsLoggedIn(true);
     } else {
       alert(loginResponse?.response?.data?.message);
       setEmail("");
       setPassword("");
     }
   };
+
+  useEffect(() => {
+    isLoggedIn && navigate("/");
+  }, [isLoggedIn]);
 
   return (
     <PageContainer>

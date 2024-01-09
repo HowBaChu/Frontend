@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 import { GetVoteStatus } from "../api/GetVoteStatus";
 import { PostVote } from "../api/PostVote";
-import { GetTopic } from "../api/GetTopic";
 import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
 import OpinionInput from "../components/OpinionInput";
 import Opinion from "../components/Opinion";
 
 const MainPage = ({
+  topicData,
+  isLoggedIn,
   toggleReportModal,
   toggleDeleteModal,
   setCuropinId,
@@ -18,16 +18,13 @@ const MainPage = ({
   opinList,
   setOpinList,
 }) => {
-  const { login, isLoggedIn } = useAuth();
-  const navigate = useNavigate();
-
   const [isSmall, setIsSmall] = useState(false);
-  const [topicData, setTopicData] = useState({});
   const [isVoted, setIsVoted] = useState(undefined);
-
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleVote = (selection) => {
     PostVote(selection);
@@ -36,11 +33,30 @@ const MainPage = ({
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
+
+  const observer = useRef();
+
+  const lastElementRef = useCallback(
+    (node) => {
+      if (isLoading || isLastPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prev) => prev + 1);
+          setIsLoading(true);
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, isLastPage, page],
+  );
+
   useEffect(() => {
-    GetTopic((data) => {
-      setTopicData(data);
-    });
-  }, []);
+    !isLoggedIn && navigate("/login");
+  }, [isLoggedIn]);
+
   useEffect(() => {
     const fetchVoteStatus = async () => {
       try {
@@ -54,12 +70,7 @@ const MainPage = ({
     };
     fetchVoteStatus();
   }, []);
-  useEffect(() => {
-    if (isLoggedIn) {
-      login();
-      navigate("/");
-    }
-  }, [isLoggedIn, navigate]);
+
   useEffect(() => {
     GetOpin((opinListdata) => setOpinList(opinListdata), undefined, page);
   }, []);
@@ -92,25 +103,6 @@ const MainPage = ({
       reloadData();
     }
   }, [isLoading, isLastPage, page]);
-
-  const observer = useRef();
-
-  const lastElementRef = useCallback(
-    (node) => {
-      if (isLoading || isLastPage) return;
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          setPage((prev) => prev + 1);
-          setIsLoading(true);
-        }
-      });
-
-      if (node) observer.current.observe(node);
-    },
-    [isLoading, isLastPage, page],
-  );
 
   return (
     <MainPageLayout>
