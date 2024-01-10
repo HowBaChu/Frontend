@@ -1,92 +1,170 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GetVoteStatus } from "../api/GetVoteStatus";
+import { PostVote } from "../api/PostVote";
 import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
-import Opinion from "../components/Opinion";
 import OpinionInput from "../components/OpinionInput";
+import Opinion from "../components/Opinion";
 
-const MainPage = ({ openModal }) => {
+const MainPage = ({
+  topicData,
+  isLoggedIn,
+  toggleReportModal,
+  toggleDeleteModal,
+  setCuropinId,
+  reloadOpinList,
+  opinList,
+  setOpinList,
+}) => {
   const [isSmall, setIsSmall] = useState(false);
+  const [isVoted, setIsVoted] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [isLastPage, setIsLastPage] = useState(false);
 
+  const navigate = useNavigate();
+
+  const handleVote = (selection) => {
+    PostVote(selection);
+    setIsVoted(true);
+  };
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
-  const navigate = useNavigate();
+
+  const observer = useRef();
+
+  const lastElementRef = useCallback(
+    (node) => {
+      if (isLoading || isLastPage) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prev) => prev + 1);
+          setIsLoading(true);
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, isLastPage, page],
+  );
 
   useEffect(() => {
-    GetOpin();
+    !isLoggedIn && navigate("/login");
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const fetchVoteStatus = async () => {
+      try {
+        const voteStatusData = await GetVoteStatus();
+
+        if (voteStatusData === "VOTING_SUCCESS") setIsVoted(true);
+        else if (voteStatusData === "VOTE_NOT_FOUND") setIsVoted(false);
+      } catch (error) {
+        console.error("vote status data fetching error", error);
+      }
+    };
+    fetchVoteStatus();
   }, []);
+
+  useEffect(() => {
+    const reloadData = async () => {
+      try {
+        const responseData = await GetOpin(
+          (opinListdata) => console.log(opinListdata),
+          undefined,
+          page,
+        );
+
+        setIsLastPage(responseData?.last);
+
+        if (Array.isArray(responseData?.content)) {
+          setOpinList((prevOpinList) => {
+            // OpinList에 데이터를 추가하는 과정에서 중복을 방지한다.
+            //   responseData.content의 첫 번째 요소의 ID가 prevOpinList에 이미 있는지 확인한다.
+            const firstNewItem = responseData.content[0];
+            if (
+              firstNewItem &&
+              prevOpinList.some((opin) => opin.id === firstNewItem.id)
+            ) {
+              // 첫 번째 새 항목의 ID가 이미 리스트에 있으면 추가하지 않는다.
+              return prevOpinList;
+            }
+
+            // 중복이 없는 경우 새로운 항목을 추가한다.
+            return Array.isArray(prevOpinList)
+              ? [...prevOpinList, ...responseData.content]
+              : [...responseData.content];
+          });
+        }
+      } catch (error) {
+        setIsLoading(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (isLoading) {
+      reloadData();
+    }
+  }, [isLoading, isLastPage, page]);
 
   return (
     <MainPageLayout>
-      <TopicBox id="topic" isSmall={isSmall} />
-      <OpinionArea $isSmall={isSmall} onScroll={handleOpinionScroll}>
-        <OpinionContainer $isSmall={isSmall}>
-          <OpinionBox
-            isMine={false}
-            isHot={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕수육 맛있겠다"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕수육 맛있겠다"
-          />
-          <OpinionBox
-            isMine={false}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
-          />
-          <OpinionBox
-            isMine={false}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕 수 육 맛 있 겠 다 !!!!!!!! ! ! ! !! !  !"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕 수 육"
-          />
-          <OpinionBox
-            isMine={false}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="나는 찍어먹는게 좋아 !!~!~!!!!!!!!!!!!~!~~~~~~~~~~~~~~~~~~~~~"
-          />
-          <OpinionBox
-            isMine={false}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="부어서 먹기"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕수육 맛있겠다"
-          />
-          <OpinionBox
-            isMine={true}
-            onClick={() => navigate("/test")}
-            openModal={openModal}
-            content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
-          />
-        </OpinionContainer>
+      <TopicBox
+        id="topic"
+        isVoted={isVoted}
+        handleVote={handleVote}
+        isSmall={isSmall}
+        topicData={topicData}
+      />
+      <OpinionArea
+        $isVoted={isVoted}
+        $isSmall={isSmall}
+        onScroll={handleOpinionScroll}
+      >
+        {opinList && (
+          <OpinionContainer $isSmall={isSmall}>
+            {opinList?.map((opin, index) => {
+              if (opinList.length === index + 1) {
+                return (
+                  <OpinionBox
+                    ref={lastElementRef}
+                    reloadOpinList={reloadOpinList}
+                    key={opin.id}
+                    opinContent={opin}
+                    onClick={() => {
+                      navigate(`/${opin.id}`);
+                    }}
+                    toggleReportModal={toggleReportModal}
+                    toggleDeleteModal={toggleDeleteModal}
+                    setCuropinId={setCuropinId}
+                  />
+                );
+              } else {
+                return (
+                  <OpinionBox
+                    reloadOpinList={reloadOpinList}
+                    key={opin.id}
+                    opinContent={opin}
+                    onClick={() => {
+                      navigate(`/${opin.id}`);
+                    }}
+                    toggleReportModal={toggleReportModal}
+                    toggleDeleteModal={toggleDeleteModal}
+                    setCuropinId={setCuropinId}
+                  />
+                );
+              }
+            })}
+          </OpinionContainer>
+        )}
+        {isLoading && <p>로딩중 . . .</p>}
       </OpinionArea>
-      <Input />
+      <Input onOpinSubmit={() => reloadOpinList()} disabled={!isVoted} />
     </MainPageLayout>
   );
 };
@@ -102,10 +180,11 @@ const MainPageLayout = styled.div`
 `;
 const OpinionArea = styled.div`
   width: 100%;
-  margin-top: 100px;
-  padding: 100px 0 15px;
+  margin-top: ${({ $isVoted }) => ($isVoted ? `100px` : `200px`)};
+  padding: ${({ $isVoted }) => ($isVoted ? `100px 0 15px` : `0 15px`)};
   height: 100%;
   overflow: scroll;
+  filter: ${({ $isVoted }) => !$isVoted && `blur(5px)`};
 `;
 const OpinionContainer = styled.div`
   margin: 0 auto;

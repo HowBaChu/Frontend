@@ -1,8 +1,25 @@
+import { useEffect, useState } from "react";
+import { GetMyOpin } from "../api/GetMyOpin";
 import Opinion from "../components/Opinion";
 import styled from "styled-components";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 
 const MyOpinionPage = () => {
+  const [myOpins, setMyOpins] = useState([]);
+
+  const fetchMyOpins = async () => {
+    try {
+      const response = await GetMyOpin();
+      setMyOpins(response?.data?.data || []);
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMyOpins();
+  }, []);
+
   return (
     <PageWrapper>
       <InfoContainer>
@@ -17,67 +34,18 @@ const MyOpinionPage = () => {
           <Email>howbachu@naver.com</Email>
         </InfoTxt>
       </InfoContainer>
+
       <MyOpinList>
-        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
-        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕"
-        />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
-        />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="탕 수 육 맛 있 겠 다 !!!!!!!! ! ! ! !! !  !"
-        />
-        <MyOpin isMine={true} isList={true} content="탕 수 육" />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="나는 찍어먹는게 좋아 !!~!~!!!!!!!!!!!!~!~~~~~~~~~~~~~~~~~~~~~"
-        />
-        <MyOpin isMine={true} isList={true} content="부어서 먹기" />
-        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
-        />
-        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
-        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕 탕탕탕탕탕탕탕탕탕"
-        />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
-        />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="탕 수 육 맛 있 겠 다 !!!!!!!! ! ! ! !! !  !"
-        />
-        <MyOpin isMine={true} isList={true} content="탕 수 육" />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="나는 찍어먹는게 좋아 !!~!~!!!!!!!!!!!!~!~~~~~~~~~~~~~~~~~~~~~"
-        />
-        <MyOpin isMine={true} isList={true} content="부어서 먹기" />
-        <MyOpin isMine={true} isList={true} content="탕수육 맛있겠다" />
-        <MyOpin
-          isMine={true}
-          isList={true}
-          content="탕 수 육 맛 있 겠 다 !!!!!! !! ! ! !!!!!!! !! ! !"
-        />
+        {myOpins?.content?.map((opin) => {
+          return (
+            <MyOpin
+              key={opin.id}
+              opinContent={opin}
+              isMine={true}
+              isList={true}
+            />
+          );
+        })}
       </MyOpinList>
     </PageWrapper>
   );
@@ -89,7 +57,6 @@ const PageWrapper = styled.div`
   margin: 70px auto 0 auto;
   padding-top: 10px;
 `;
-
 const MyOpin = styled(Opinion)`
   margin: 0 auto;
   width: 98%;
@@ -127,7 +94,6 @@ const InfoBox = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
-  //flex-wrap: wrap;
 `;
 const UserName = styled.p`
   font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
@@ -146,10 +112,7 @@ const Email = styled.p`
 `;
 const MyOpinList = styled.div`
   margin: 10px 0;
-  //height: 550px;
-
   height: calc(100vh - 70px - 50px - 130px); // 헤더, Nav, 상단 요소
-
   display: flex;
   flex-direction: column;
   align-items: center;

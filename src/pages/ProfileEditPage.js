@@ -2,46 +2,28 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import { GetProfileDetail } from "../api/GetProfileDetail";
 import { PostAvatar } from "../api/PostAvatar";
-import { PatchProfileDetail } from "../api/PatchProfileDetail";
+
 import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
+import DropDown from "../components/DropDown";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
 import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
 import SAVE_ICON from "../assets/imgs/save_icon.svg";
 
 const ProfileEditPage = () => {
-  /* 초기 api response */
-  const [apiData, setApiData] = useState({});
-  /* '저장'한 데이터 */
   const [profileData, setProfileData] = useState({
-    avatar: "",
-    email: "",
-    mbti: "",
-    statusMessage: "",
     username: "",
+    mbti: "",
+    msg: "",
   });
-  /* '수정 중'인 데이터 */
   const [editingData, setEditingData] = useState({
     ...profileData,
   });
-  /* '취소'할 때 되돌릴 이미지 */
   const [selectedImage, setSelectedImage] = useState(null);
-  /* '저장'전 수정중인 이미지 */
   const [editingImage, setEditingImage] = useState(null);
+  ``;
 
-  /* API response에서 avatar, id를 제외한 객체를 반환*/
-  const filterOutKeys = (data, keysToExclude) => {
-    let filteredData = { ...data };
-    keysToExclude.forEach((key) => {
-      delete filteredData[key];
-    });
-    return filteredData;
-  };
-  /* avatar, id를 제외한 값만 profile edit data로 관리하기 위함 */
-  const filteredState = filterOutKeys(apiData, ["avatar", "id"]);
-
-  // submit 될 때 마다 초기화 되는 문제 useRef 사용해서 해결
   const imgFormDataRef = useRef(new FormData());
 
   // handleImageChange에서 파일을 변경할 때마다 새로운 FormData 인스턴스를 생성하여 imgFormData를 업데이트
@@ -59,8 +41,9 @@ const ProfileEditPage = () => {
     if (file) {
       const imageURL = URL.createObjectURL(file); // URL로 변환해서 state에 저장 -> 렌더링 위함
       setEditingImage(imageURL);
+      // TODO 필요없어진 후에 URL을 해제하는 코드
       updateFormData(file);
-      // console.log(imgFormDataRef.current.getAll("file")[0]); // useRef의 current를 사용하여 접근
+      console.log(imgFormDataRef.current.getAll("file")[0]); // useRef의 current를 사용하여 접근
     }
   };
 
@@ -73,20 +56,17 @@ const ProfileEditPage = () => {
     setProfileData(editingData); // 저장 버튼 클릭 시 수정 중이던 내용 저장
     setSelectedImage(editingImage);
 
-    /* TODO 폼 데이터 전송 Axios PATCH formData */
+    // TODO 폼 데이터 전송 Axios POST formData
     // const formData = {
     //   username: editingData.username,
     //   MBTI: value.MBTI,
     // };
     // PostEditForm(formData);
 
-    /* TODO 필요없어진 후에 URL을 해제하는 코드 */
+    // TODO 필요없어진 후에 URL을 해제하는 코드
     // URL.revokeObjectURL(editingImage);
-
-    /* API */
-    PatchProfileDetail(editingData);
     PostAvatar(imgFormDataRef.current);
-    // console.log(imgFormDataRef.current.getAll("file")[0]);
+    console.log(imgFormDataRef.current.getAll("file")[0]);
   };
 
   const handleCancel = () => {
@@ -95,24 +75,26 @@ const ProfileEditPage = () => {
   };
 
   useEffect(() => {
-    GetProfileDetail((apidata) => setApiData(apidata));
+    GetProfileDetail((profileDetail) => setProfileData(profileDetail));
   }, []);
 
+  // profileData가 처음으로 업데이트될 때, 그 값을 editingData의 초기 값으로 설정하기 위함
   useEffect(() => {
-    setEditingData({ ...profileData });
-    // console.log(profileData);
+    if (
+      editingData.username === "" &&
+      editingData.mbti === "" &&
+      editingData.msg === ""
+    ) {
+      setEditingData({ ...profileData });
+    }
   }, [profileData]);
 
   useEffect(() => {
     // profileData.avatar 설정, avatar 없으면 default img
-    const avatarSrc = apiData.avatar || DEFAULT_IMG;
+    const avatarSrc = profileData.avatar || DEFAULT_IMG;
     setSelectedImage(avatarSrc);
     setEditingImage(avatarSrc);
   }, [profileData]);
-
-  useEffect(() => {
-    setProfileData(filteredState);
-  }, [apiData]);
 
   return (
     <PageWrapper>
@@ -145,24 +127,23 @@ const ProfileEditPage = () => {
           <hr />
           <InputWrapper>
             <InfoInput
+              name="email"
               title="이메일"
               placeHolder="howbachu@gmail.com"
               disabled={true}
             />
             <NewPwd />
             <InfoInput
+              name="username"
               title="닉네임"
               value={editingData.username}
               onValueChange={(newValue) =>
                 handleInputChange("username", newValue)
               }
             />
+            <DropDown />
             <InfoInput
-              title="MBTI"
-              value={editingData.mbti}
-              onValueChange={(newValue) => handleInputChange("mbti", newValue)}
-            />
-            <InfoInput
+              name="statusMessage"
               title="상태메세지"
               value={editingData.statusMessage}
               textArea={true}
@@ -196,9 +177,9 @@ const PageWrapper = styled.div`
 `;
 const ProfileContainer = styled.div`
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
   display: flex;
-  gap: 20px;
+  //gap: 20px;
   align-items: center;
 `;
 const ProfileImgContainer = styled.div`
@@ -236,6 +217,7 @@ const ImgInput = styled.input`
   display: none;
 `;
 const InfoContainer = styled.div`
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;

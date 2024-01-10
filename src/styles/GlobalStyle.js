@@ -22,9 +22,11 @@ const GlobalStyle = createGlobalStyle`
       -webkit-user-select: auto;
       -ms-user-select: auto;
       user-select: auto;
-    }
-    input:focus, textarea {
-      outline: none;
+      background-color: transparent;  
+      
+      &:focus {
+        outline: none;
+      }
     }
     button {
       border: none;

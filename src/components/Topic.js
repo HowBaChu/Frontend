@@ -1,55 +1,65 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Graph from "./Graph";
-import { GetTopic } from "../api/GetTopic";
 import time_icon from "../assets/imgs/hourglass_icon.svg";
+import BeforeVoteTopic from "./BeforeVoteTopic";
 
-const Topic = ({ isSmall, history, isList, ...attrProps }) => {
-  const [topicData, setTopicData] = useState({}); // GetTopic response
+const Topic = ({
+  isVoted,
+  handleVote,
+  isSmall,
+  history,
+  isList,
+  topicData,
+  ...attrProps
+}) => {
+  const { subTitle, title, votingStatus } = topicData || {};
+
+  /* chart.js에 들어가는 data */
   const [graphData, setGraphData] = useState({
-    //chart.js에 들어가는 data
     datasets: [
       {
-        data: [1, 2],
+        data: [0, 0],
         backgroundColor: ["rgb(196,168,255)", "rgb(173,90,255)"],
       },
     ],
     labels: ["", ""],
   });
 
-  const { data, id, subTitle, title, votingStatus } = topicData || {};
-
   useEffect(() => {
-    GetTopic((data) => {
-      if (data && data?.subTitle && data?.votingStatus) {
-        setTopicData(data);
-
-        setGraphData({
-          ...graphData,
-          datasets: [
-            {
-              ...(graphData?.datasets?.[0] || {}), // 모든 프로퍼티를 유지하면서 data 프로퍼티만 새로운 값으로 설정
-              data: [data.votingStatus.a, data.votingStatus.b],
-            },
-          ],
-          labels: [data.subTitle.sub_A, data.subTitle.sub_B],
-        });
-      }
-    });
-  }, [data]);
+    if (topicData && subTitle && votingStatus) {
+      setGraphData({
+        ...graphData,
+        datasets: [
+          {
+            ...(graphData?.datasets?.[0] || {}), // 모든 프로퍼티를 유지하면서 data 프로퍼티만 새로운 값으로 설정
+            data: [votingStatus.a, votingStatus.b],
+          },
+        ],
+        labels: [subTitle.sub_A, subTitle.sub_B],
+      });
+    }
+  }, [topicData]);
 
   return (
     <TopicWrapper $isSmall={isSmall} $history={history} {...attrProps}>
-      <Title $isSmall={isSmall} $history={history} {...attrProps}>
+      <Title
+        $isVoted={isVoted}
+        $isSmall={isSmall}
+        $history={history}
+        {...attrProps}
+      >
         {title}
       </Title>
-      {graphData && (
+      {isVoted ? (
         <Graph
           $isSmall={isSmall}
           $isList={isList}
           graphData={graphData}
           {...attrProps}
         />
+      ) : (
+        <BeforeVoteTopic subTitle={subTitle} handleVote={handleVote} />
       )}
       <LeftTime>
         <TimeIcon src={time_icon} />
@@ -71,15 +81,15 @@ const TopicWrapper = styled.div`
   background-color: white;
 `;
 const Title = styled.h2`
-  padding: ${({ $history, $isSmall }) => {
+  padding: ${({ $isVoted, $history, $isSmall }) => {
     if ($history) {
-      return `25px 0 10px 0`;
+      return `25px 15px 10px`;
     } else {
-      return $isSmall ? `10px` : `5px`;
+      return $isVoted && $isSmall ? `10px` : `5px`;
     }
   }};
-  font-size: ${({ $isSmall, $history, theme }) =>
-    $isSmall || $history
+  font-size: ${({ $isVoted, $isSmall, $history, theme }) =>
+    ($isVoted && $isSmall) || $history
       ? theme.fontsize.S_TOPIC_TITLE
       : theme.fontsize.B_TOPIC_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
