@@ -5,10 +5,10 @@ const InfoInput = ({
   name,
   title,
   autoFocus,
-  placeHolder,
+  placeholder,
   disabled,
   value,
-  textArea,
+  textarea,
   onValueChange,
 }) => {
   const onChange = (e) => {
@@ -22,10 +22,15 @@ const InfoInput = ({
   return (
     <InfoInputBox>
       <InputTitle>{title}</InputTitle>
-      <InputContainer textArea={textArea}>
-        {textArea ? (
+      <InputContainer $textarea={textarea}>
+        {textarea ? (
           <TextAreaBox>
-            <TextArea name={name} type="text" value={value} onChange={onChange} />
+            <TextArea
+              name={name}
+              type="text"
+              value={value || ""}
+              onChange={onChange}
+            />
             <LimitMsg>({value ? value.length : 0} / 60)</LimitMsg>
           </TextAreaBox>
         ) : (
@@ -33,9 +38,9 @@ const InfoInput = ({
             name={name}
             type="text"
             autoFocus={autoFocus}
-            placeHolder={placeHolder}
+            placeholder={placeholder}
             disabled={disabled}
-            value={value}
+            value={value || ""}
             onChange={onChange}
           />
         )}
@@ -58,7 +63,7 @@ const InputTitle = styled.div`
 `;
 const InputContainer = styled.div`
   padding: 0 15px;
-  height: ${({ textArea }) => (textArea ? `120px` : `40px`)};
+  height: ${({ $textarea }) => ($textarea ? `120px` : `40px`)};
   display: flex;
   justify-content: center;
   align-items: center;

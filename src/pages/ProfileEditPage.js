@@ -129,14 +129,14 @@ const ProfileEditPage = () => {
             <InfoInput
               name="email"
               title="이메일"
-              placeHolder="howbachu@gmail.com"
+              placeholder="howbachu@gmail.com"
               disabled={true}
             />
             <NewPwd />
             <InfoInput
               name="username"
               title="닉네임"
-              value={editingData.username}
+              value={editingData?.username || ""}
               onValueChange={(newValue) =>
                 handleInputChange("username", newValue)
               }
@@ -145,8 +145,8 @@ const ProfileEditPage = () => {
             <InfoInput
               name="statusMessage"
               title="상태메세지"
-              value={editingData.statusMessage}
-              textArea={true}
+              value={editingData?.statusMessage || ""}
+              textarea={true}
               onValueChange={(newValue) =>
                 handleInputChange("statusMessage", newValue)
               }
