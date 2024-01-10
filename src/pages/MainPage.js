@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 import { GetVoteStatus } from "../api/GetVoteStatus";
 import { PostVote } from "../api/PostVote";
-import { GetTopic } from "../api/GetTopic";
 import { GetOpin } from "../api/GetOpin";
 import Topic from "../components/Topic";
 import OpinionInput from "../components/OpinionInput";
 import Opinion from "../components/Opinion";
 
 const MainPage = ({
+  topicData,
+  isLoggedIn,
   toggleReportModal,
   toggleDeleteModal,
   setCuropinId,
@@ -18,16 +18,13 @@ const MainPage = ({
   opinList,
   setOpinList,
 }) => {
-  const { login, isLoggedIn } = useAuth();
-  const navigate = useNavigate();
-
   const [isSmall, setIsSmall] = useState(false);
-  const [topicData, setTopicData] = useState({});
   const [isVoted, setIsVoted] = useState(undefined);
-
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleVote = (selection) => {
     PostVote(selection);
@@ -36,62 +33,6 @@ const MainPage = ({
   const handleOpinionScroll = (event) => {
     setIsSmall(event.target.scrollTop > 30);
   };
-  useEffect(() => {
-    GetTopic((data) => {
-      setTopicData(data);
-    });
-  }, []);
-  useEffect(() => {
-    const fetchVoteStatus = async () => {
-      try {
-        const voteStatusData = await GetVoteStatus();
-
-        if (voteStatusData === "VOTING_SUCCESS") setIsVoted(true);
-        else if (voteStatusData === "VOTE_NOT_FOUND") setIsVoted(false);
-      } catch (error) {
-        console.error("vote status data fetching error", error);
-      }
-    };
-    fetchVoteStatus();
-  }, []);
-  useEffect(() => {
-    if (isLoggedIn) {
-      login();
-      navigate("/");
-    }
-  }, [isLoggedIn, navigate]);
-  useEffect(() => {
-    GetOpin((opinListdata) => setOpinList(opinListdata), undefined, page);
-  }, []);
-
-  useEffect(() => {
-    const reloadData = async () => {
-      try {
-        const responseData = await GetOpin(
-          (opinListdata) => console.log(opinListdata),
-          undefined,
-          page,
-        );
-
-        setIsLastPage(responseData?.last);
-
-        if (Array.isArray(responseData?.content)) {
-          setOpinList((prevOpinList) =>
-            Array.isArray(prevOpinList)
-              ? [...prevOpinList, ...responseData.content]
-              : [...responseData.content],
-          );
-        }
-      } catch (error) {
-        setIsLoading(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    if (isLoading) {
-      reloadData();
-    }
-  }, [isLoading, isLastPage, page]);
 
   const observer = useRef();
 
@@ -111,6 +52,65 @@ const MainPage = ({
     },
     [isLoading, isLastPage, page],
   );
+
+  useEffect(() => {
+    !isLoggedIn && navigate("/login");
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const fetchVoteStatus = async () => {
+      try {
+        const voteStatusData = await GetVoteStatus();
+
+        if (voteStatusData === "VOTING_SUCCESS") setIsVoted(true);
+        else if (voteStatusData === "VOTE_NOT_FOUND") setIsVoted(false);
+      } catch (error) {
+        console.error("vote status data fetching error", error);
+      }
+    };
+    fetchVoteStatus();
+  }, []);
+
+  useEffect(() => {
+    const reloadData = async () => {
+      try {
+        const responseData = await GetOpin(
+          (opinListdata) => console.log(opinListdata),
+          undefined,
+          page,
+        );
+
+        setIsLastPage(responseData?.last);
+
+        if (Array.isArray(responseData?.content)) {
+          setOpinList((prevOpinList) => {
+            // OpinList에 데이터를 추가하는 과정에서 중복을 방지한다.
+            //   responseData.content의 첫 번째 요소의 ID가 prevOpinList에 이미 있는지 확인한다.
+            const firstNewItem = responseData.content[0];
+            if (
+              firstNewItem &&
+              prevOpinList.some((opin) => opin.id === firstNewItem.id)
+            ) {
+              // 첫 번째 새 항목의 ID가 이미 리스트에 있으면 추가하지 않는다.
+              return prevOpinList;
+            }
+
+            // 중복이 없는 경우 새로운 항목을 추가한다.
+            return Array.isArray(prevOpinList)
+              ? [...prevOpinList, ...responseData.content]
+              : [...responseData.content];
+          });
+        }
+      } catch (error) {
+        setIsLoading(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (isLoading) {
+      reloadData();
+    }
+  }, [isLoading, isLastPage, page]);
 
   return (
     <MainPageLayout>
