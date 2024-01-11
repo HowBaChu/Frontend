@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GetProfileDetail } from "../api/GetProfileDetail";
 import { PostAvatar } from "../api/PostAvatar";
 import { PatchProfileDetail } from "../api/PatchProfileDetail";
@@ -7,13 +8,12 @@ import { PatchProfileDetail } from "../api/PatchProfileDetail";
 import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
 import DropDown from "../components/DropDown";
-
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
 import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
 import SAVE_ICON from "../assets/imgs/save_icon.svg";
 
-const ProfileEditPage = () => {
+const ProfileEditPage = ({ isCheckedPwd }) => {
   const [profileData, setProfileData] = useState({
     email: "",
     username: "",
@@ -27,6 +27,8 @@ const ProfileEditPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [editingImage, setEditingImage] = useState(null);
   const imgFormDataRef = useRef(new FormData());
+
+  const navigate = useNavigate();
 
   // handleImageChange에서 파일을 변경할 때마다 새로운 FormData 인스턴스를 생성하여 imgFormData를 업데이트
   const updateFormData = (newFile) => {
@@ -97,6 +99,10 @@ const ProfileEditPage = () => {
     setSelectedImage(avatarSrc);
     setEditingImage(avatarSrc);
   }, [profileData]);
+
+  useEffect(() => {
+    !isCheckedPwd && navigate(-1);
+  }, []);
 
   return (
     <PageWrapper>

@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import CurPwd from "../components/CurPwd";
 
-const CurPwdCheckPage = () => {
+const CurPwdCheckPage = ({ setIsCheckedPwd }) => {
   return (
     <PageWrapper>
-      <CurPwd />
+      <CurPwd setIsCheckedPwd={setIsCheckedPwd} />
     </PageWrapper>
   );
 };
