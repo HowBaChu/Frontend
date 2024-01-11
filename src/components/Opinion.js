@@ -19,6 +19,7 @@ const Opinion = forwardRef(
       toggleReportModal,
       toggleDeleteModal,
       setCuropinId,
+      avatar,
       ...attrProps
     },
     ref,
@@ -68,7 +69,7 @@ const Opinion = forwardRef(
             <OpinionBox $isOur={isOur}>
               <TopBox $isOur={isOur}>
                 <ProfileImgBox>
-                  <ProfileImg src={default_profile_icon} />
+                  <ProfileImg src={avatar || default_profile_icon} />
                 </ProfileImgBox>
                 <ContentContainer $isOur={isOur}>
                   <InfoBox $isOur={isOur}>
@@ -143,6 +144,7 @@ const ProfileImgBox = styled.div`
 const ProfileImg = styled.img`
   width: 30px;
   height: 30px;
+  object-fit: cover;
 `;
 const ContentContainer = styled.div`
   color: ${({ theme }) => theme.colors.DARK_GRAY};
