@@ -10,6 +10,7 @@ export const GetProfileDetail = (callbackFunctions) => {
   })
     .then((res) => {
       callbackFunctions(res.data.data);
+      return res.data.data.email;
     })
     .catch((errors) => {
       console.log(errors);

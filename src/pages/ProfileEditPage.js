@@ -13,9 +13,10 @@ import SAVE_ICON from "../assets/imgs/save_icon.svg";
 
 const ProfileEditPage = () => {
   const [profileData, setProfileData] = useState({
+    email: "",
     username: "",
     mbti: "",
-    msg: "",
+    statusMessage: "",
   });
   const [editingData, setEditingData] = useState({
     ...profileData,
@@ -23,7 +24,6 @@ const ProfileEditPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [editingImage, setEditingImage] = useState(null);
   ``;
-
   const imgFormDataRef = useRef(new FormData());
 
   // handleImageChange에서 파일을 변경할 때마다 새로운 FormData 인스턴스를 생성하여 imgFormData를 업데이트
@@ -43,7 +43,7 @@ const ProfileEditPage = () => {
       setEditingImage(imageURL);
       // TODO 필요없어진 후에 URL을 해제하는 코드
       updateFormData(file);
-      console.log(imgFormDataRef.current.getAll("file")[0]); // useRef의 current를 사용하여 접근
+      // console.log(imgFormDataRef.current.getAll("file")[0]); // useRef의 current를 사용하여 접근
     }
   };
 
@@ -65,8 +65,8 @@ const ProfileEditPage = () => {
 
     // TODO 필요없어진 후에 URL을 해제하는 코드
     // URL.revokeObjectURL(editingImage);
-    PostAvatar(imgFormDataRef.current);
-    console.log(imgFormDataRef.current.getAll("file")[0]);
+    PostAvatar(imgFormDataRef?.current);
+    // console.log(imgFormDataRef?.current.getAll("file")[0]);
   };
 
   const handleCancel = () => {
@@ -83,7 +83,7 @@ const ProfileEditPage = () => {
     if (
       editingData.username === "" &&
       editingData.mbti === "" &&
-      editingData.msg === ""
+      editingData.statusMessage === ""
     ) {
       setEditingData({ ...profileData });
     }
@@ -129,7 +129,7 @@ const ProfileEditPage = () => {
             <InfoInput
               name="email"
               title="이메일"
-              placeholder="howbachu@gmail.com"
+              placeholder={profileData?.email}
               disabled={true}
             />
             <NewPwd />
@@ -141,7 +141,12 @@ const ProfileEditPage = () => {
                 handleInputChange("username", newValue)
               }
             />
-            <DropDown />
+
+            <DropDown
+              mbti={editingData?.mbti}
+              onValueChange={(newValue) => handleInputChange("mbti", newValue)}
+            />
+
             <InfoInput
               name="statusMessage"
               title="상태메세지"
