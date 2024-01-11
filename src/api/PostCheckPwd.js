@@ -1,7 +1,6 @@
 import { Axios } from "./Axios";
 
 export const PostCheckPwd = async (password) => {
-  console.log("실행");
   try {
     const response = await Axios.post("/api/v1/member/password-verification", {
       password: password,

@@ -12,6 +12,7 @@ import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
 import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
 import SAVE_ICON from "../assets/imgs/save_icon.svg";
+import BACK_ICON from "../assets/imgs/back_icon.svg";
 
 const ProfileEditPage = ({ isCheckedPwd }) => {
   const [profileData, setProfileData] = useState({
@@ -35,7 +36,6 @@ const ProfileEditPage = ({ isCheckedPwd }) => {
     let newFormData = new FormData();
     newFormData.append("file", newFile);
     imgFormDataRef.current = newFormData; // useRef의 current 속성을 업데이트
-
     return newFormData;
   };
 
@@ -65,7 +65,9 @@ const ProfileEditPage = ({ isCheckedPwd }) => {
       mbti: editingData.mbti,
       statusMessage: editingData.statusMessage,
     };
+
     await PatchProfileDetail(formData);
+    navigate("/profile");
 
     // TODO 필요없어진 후에 URL을 해제하는 코드
     // URL.revokeObjectURL(editingImage);
@@ -106,6 +108,9 @@ const ProfileEditPage = ({ isCheckedPwd }) => {
 
   return (
     <PageWrapper>
+      <GoLogInBtn onClick={() => navigate("/profile")}>
+        <img src={BACK_ICON} />
+      </GoLogInBtn>
       {profileData && editingData && (
         <Form onSubmit={handleFormSubmit}>
           <ProfileContainer>
@@ -185,8 +190,12 @@ const PageWrapper = styled.div`
   width: calc(100vw - 44px);
   height: calc(100vh - 70px - 50px); // 헤더, Nav
   margin: 70px auto 0 auto;
-  padding: 2%;
+  padding: 0 2%;
   overflow: scroll;
+`;
+const GoLogInBtn = styled.button`
+  width: 30px;
+  height: 30px;
 `;
 const ProfileContainer = styled.div`
   width: 100%;
