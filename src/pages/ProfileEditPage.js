@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import { GetProfileDetail } from "../api/GetProfileDetail";
 import { PostAvatar } from "../api/PostAvatar";
+import { PatchProfileDetail } from "../api/PatchProfileDetail";
 
 import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
 import DropDown from "../components/DropDown";
+
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
 import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
@@ -17,13 +19,13 @@ const ProfileEditPage = () => {
     username: "",
     mbti: "",
     statusMessage: "",
+    password: "gusdml1!",
   });
   const [editingData, setEditingData] = useState({
     ...profileData,
   });
   const [selectedImage, setSelectedImage] = useState(null);
   const [editingImage, setEditingImage] = useState(null);
-  ``;
   const imgFormDataRef = useRef(new FormData());
 
   // handleImageChange에서 파일을 변경할 때마다 새로운 FormData 인스턴스를 생성하여 imgFormData를 업데이트
@@ -51,17 +53,17 @@ const ProfileEditPage = () => {
     setEditingData((prevData) => ({ ...prevData, [field]: value }));
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     setProfileData(editingData); // 저장 버튼 클릭 시 수정 중이던 내용 저장
     setSelectedImage(editingImage);
 
-    // TODO 폼 데이터 전송 Axios POST formData
-    // const formData = {
-    //   username: editingData.username,
-    //   MBTI: value.MBTI,
-    // };
-    // PostEditForm(formData);
+    const formData = {
+      username: editingData.username,
+      mbti: editingData.mbti,
+      statusMessage: editingData.statusMessage,
+    };
+    await PatchProfileDetail(formData);
 
     // TODO 필요없어진 후에 URL을 해제하는 코드
     // URL.revokeObjectURL(editingImage);
