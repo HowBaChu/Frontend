@@ -28,6 +28,7 @@ const Opinion = forwardRef(
       id,
       nickname,
       owner,
+      profileImg,
       content,
       selection,
       topicSubTitle,
@@ -69,7 +70,9 @@ const Opinion = forwardRef(
             <OpinionBox $isOur={isOur}>
               <TopBox $isOur={isOur}>
                 <ProfileImgBox>
-                  <ProfileImg src={avatar || default_profile_icon} />
+                  <ProfileImg
+                    src={profileImg || avatar || default_profile_icon}
+                  />
                 </ProfileImgBox>
                 <ContentContainer $isOur={isOur}>
                   <InfoBox $isOur={isOur}>
