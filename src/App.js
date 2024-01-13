@@ -2,7 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./styles/GlobalStyle";
 import { Theme } from "./styles/Theme";
 import { ThemeProvider } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { GetOpin } from "./api/GetOpin";
+import { GetTopic } from "./api/GetTopic";
 
 import Logo from "./components/Logo";
 import MainPage from "./pages/MainPage";
@@ -15,11 +18,11 @@ import ReportPage from "./pages/ReportPage";
 import LoginPage from "./pages/LoginPage";
 import Threadpage from "./pages/Threadpage";
 import CurPwdCheckPage from "./pages/CurPwdCheckPage";
+
 import NavBar from "./components/NavBar";
 import ReportModal from "./components/ReportModal";
 import DeleteModal from "./components/DeleteModal";
 import SignUpForm from "./pages/SignupPage";
-import { GetOpin } from "./api/GetOpin";
 
 function App() {
   const [isModal, setIsModal] = useState(false);
@@ -27,6 +30,9 @@ function App() {
   const [curopinId, setCuropinId] = useState(undefined);
   const [opinList, setOpinList] = useState([]); // GetOpin response
   const [isDelete, setIsDelete] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [topicData, setTopicData] = useState({});
 
   const reloadOpinList = async () => {
     await GetOpin((newOpinListData) => {
@@ -42,6 +48,20 @@ function App() {
   const handleDeleteState = (state) => {
     setIsDelete(state);
   };
+
+  useEffect(() => {
+    const getTopic = async () => {
+      const topicResponse = await GetTopic();
+
+      if (topicResponse === "403") {
+        setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(true);
+        setTopicData(topicResponse);
+      }
+    };
+    getTopic();
+  }, [isLoggedIn]);
 
   return (
     <div className="App">
@@ -62,12 +82,14 @@ function App() {
           />
         )}
         <BrowserRouter>
-          <Logo />
+          <Logo isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           <Routes>
             <Route
               path="/"
               element={
                 <MainPage
+                  topicData={topicData}
+                  isLoggedIn={isLoggedIn}
                   setCuropinId={(curId) => setCuropinId(curId)}
                   toggleReportModal={toggleReportModal}
                   toggleDeleteModal={toggleDeleteModal}
@@ -106,7 +128,15 @@ function App() {
             />
             <Route path="/popular-posts" element={<TopicHistoryPage />} />
             <Route path="/reports" element={<ReportPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/login"
+              element={
+                <LoginPage
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              }
+            />
             <Route path="/join" element={<SignUpForm />} />
           </Routes>
           <NavBar />
