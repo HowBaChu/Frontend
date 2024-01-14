@@ -16,11 +16,10 @@ import BACK_ICON from "../assets/imgs/back_icon.svg";
 
 const ProfileEditPage = ({ isCheckedPwd }) => {
   const [profileData, setProfileData] = useState({
-    email: "",
     username: "",
     mbti: "",
     statusMessage: "",
-    password: "gusdml1!",
+    password: "",
   });
   const [editingData, setEditingData] = useState({
     ...profileData,
@@ -62,6 +61,7 @@ const ProfileEditPage = ({ isCheckedPwd }) => {
 
     const formData = {
       username: editingData.username,
+      password: editingData.password,
       mbti: editingData.mbti,
       statusMessage: editingData.statusMessage,
     };
@@ -88,6 +88,7 @@ const ProfileEditPage = ({ isCheckedPwd }) => {
   useEffect(() => {
     if (
       editingData.username === "" &&
+      editingData.password === "" &&
       editingData.mbti === "" &&
       editingData.statusMessage === ""
     ) {
@@ -145,7 +146,11 @@ const ProfileEditPage = ({ isCheckedPwd }) => {
               placeholder={profileData?.email}
               disabled={true}
             />
-            <NewPwd />
+            <NewPwd
+              onValueChange={(newValue) =>
+                handleInputChange("password", newValue)
+              }
+            />
             <InfoInput
               name="username"
               title="닉네임"
@@ -154,12 +159,10 @@ const ProfileEditPage = ({ isCheckedPwd }) => {
                 handleInputChange("username", newValue)
               }
             />
-
             <DropDown
               mbti={editingData?.mbti}
               onValueChange={(newValue) => handleInputChange("mbti", newValue)}
             />
-
             <InfoInput
               name="statusMessage"
               title="상태메세지"
