@@ -8,7 +8,7 @@ export const Theme = {
     HOT_PINK: "#FFCCCC",
     YELLOW1: "#ffe9a9",
     YELLOW2: "#ffd86e",
-    TOMATO: "#FF6347FF",
+    TOMATO: "#ff8974",
     BG_PURPLE: "#fafaff",
     LIGHT_PURPLE: "#eeeeff",
     DIV_BG_LIGHT_PURPLE: "#F4F0FF",

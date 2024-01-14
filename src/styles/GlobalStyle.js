@@ -22,8 +22,7 @@ const GlobalStyle = createGlobalStyle`
       -webkit-user-select: auto;
       -ms-user-select: auto;
       user-select: auto;
-      background-color: transparent;  
-      
+      background-color: transparent;
       &:focus {
         outline: none;
       }

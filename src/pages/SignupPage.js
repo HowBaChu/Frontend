@@ -19,7 +19,6 @@ const PageWrapper = styled.div`
   width: 393px;
   height: 852px;
   padding: 20px;
-  border: 1px solid black;
 `;
 const GoLogInBtn = styled.button`
   margin-top: 50px;

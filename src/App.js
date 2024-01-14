@@ -83,7 +83,7 @@ function App() {
           />
         )}
         <BrowserRouter>
-          <Logo />
+          <Logo isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           <Routes>
             <Route
               path="/"
