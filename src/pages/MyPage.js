@@ -7,7 +7,7 @@ import COMMENT_ICON from "../assets/imgs/my-opins_icon.svg";
 import EDIT_ICON from "../assets/imgs/edit_icon.svg";
 import REPORT_ICON from "../assets/imgs/siren_big_icon.svg";
 
-const MyPage = () => {
+const MyPage = ({ setIsCheckedPwd }) => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState([]);
   const { avatar, email, mbti, statusMessage, username } = profileData;
@@ -19,6 +19,10 @@ const MyPage = () => {
 
   useEffect(() => {
     GetProfileDetail((profileDetail) => setProfileData(profileDetail));
+  }, []);
+
+  useEffect(() => {
+    setIsCheckedPwd(false);
   }, []);
 
   return (

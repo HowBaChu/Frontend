@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import NewPwdInput from "./NewPwdInput";
 import * as yup from "yup";
+import NewPwdInput from "./NewPwdInput";
 
 const MIN_PWD = 8;
 const MAX_PWD = 15;
@@ -20,19 +20,15 @@ const regexPattern = new RegExp(
 );
 
 const schema = yup.object().shape({
-  newPwd: yup.string().matches(
-    regexPattern,
-    PWD_VALID_MSG,
-  ),
+  newPwd: yup.string().matches(regexPattern, PWD_VALID_MSG),
 });
 
-const NewPwd = () => {
+const NewPwd = ({ onValueChange }) => {
   const [isSame, setIsSame] = useState(false); // 새로운 비밀번호 재확인 -> 일치 여부 관리 state
   const [isAble, setIsAble] = useState(false); // 유효성 검사, 일치 여부 확인
   const {
     register,
     watch,
-    // setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -46,9 +42,14 @@ const NewPwd = () => {
       value.newPwd && value.reConfirm && value.newPwd === value.reConfirm,
     );
   }, [value.newPwd, value.reConfirm]);
+
   useEffect(() => {
     setIsAble(errors.newPwd === undefined && isSame); // 유효성 검사: 통과, 비밀번호 재확인: 일치인 경우
   }, [errors.newPwd, isSame]);
+
+  useEffect(() => {
+    onValueChange(value.newPwd);
+  }, [isAble]);
 
   return (
     <ConfirmContainer>
@@ -58,7 +59,7 @@ const NewPwd = () => {
         value={value}
         placeholder="새로운 비밀번호를 입력해 주세요."
         type="password"
-        name={"newPwd"}
+        name="newPwd"
         valid={errors.newPwd}
         errorMsg={PWD_VALID_MSG}
         register={register}
@@ -69,7 +70,7 @@ const NewPwd = () => {
         value={value}
         placeholder="한번 더 입력해주세요."
         type="password"
-        name={"reConfirm"}
+        name="reConfirm"
         isSame={isSame}
         errorMsg={PWD_ERROR_MSG}
         register={register}
