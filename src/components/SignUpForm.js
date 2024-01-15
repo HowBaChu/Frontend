@@ -1,22 +1,31 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import AuthInput from "../components/AuthInput";
+import { useState } from "react";
 import { PostSignUp } from "../api/PostSignUp";
 import { useNavigate } from "react-router-dom";
-import { sign } from "chart.js/helpers";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signup_schema } from "../validation/Schema";
+import AuthInput from "../components/AuthInput";
 
 const SignUpForm = () => {
+  const {
+    register,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signup_schema),
+    mode: "onChange",
+  });
+  const value = watch();
+
   const [isOpen, setIsOpen] = useState({
     password: false,
     checkPwd: false,
   });
-  const [formData, setFormData] = useState({
-    email: "",
-    mbti: "",
-    password: "",
-    statusMessage: "",
-    username: "",
-  });
+
+  const navigate = useNavigate();
 
   const toggleEye = (fieldName) => {
     setIsOpen((prevState) => ({
@@ -24,75 +33,86 @@ const SignUpForm = () => {
       [fieldName]: !prevState[fieldName],
     }));
   };
-  const navigate = useNavigate();
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const data = {
-      email: formData.email,
-      mbti: formData.mbti,
-      password: formData.password,
-      statusMessage: formData.statusMessage,
-      username: formData.username,
+  const onSubmit = async (data) => {
+    const formData = {
+      email: data.email,
+      password: data.password,
+      username: data.username,
+      mbti: data.mbti,
     };
-    const signupResponse = await PostSignUp(data);
+    const signupResponse = await PostSignUp(formData);
 
     if (signupResponse?.code === "201") {
       navigate("/login");
     } else {
       alert(signupResponse?.response?.data?.message);
-      setFormData({ ...formData, email: "" });
-      setFormData({ ...formData, mbti: "" });
-      setFormData({ ...formData, password: "" });
-      setFormData({ ...formData, username: "" });
+
+      setValue("email", "");
+      setValue("password", "");
+      setValue("checkPwd", "");
+      setValue("username", "");
     }
   };
 
   return (
-    <StyledSignUpForm onSubmit={(e) => onSubmit(e)}>
+    <StyledSignUpForm onSubmit={handleSubmit(onSubmit)}>
       <AuthInput
         inputId="email"
+        name="email"
         label="이메일"
-        placeholder="이메일을 입력하세요."
         type="email"
-        value={formData.email}
-        onChange={(e) => {
-          setFormData({ ...formData, email: e.target.value });
-        }}
+        placeholder="이메일을 입력하세요."
+        value={value}
+        register={register}
+        errorMsg={errors.email?.message}
+        autoFocus
       />
       <AuthInput
         inputId="password"
+        name="password"
         label="비밀번호"
         placeholder="비밀번호를 입력하세요."
         type={isOpen.password ? "text" : "password"}
         toggleEye={() => toggleEye("password")}
         eyeState={isOpen.password}
-        value={formData.password}
-        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+        value={value}
+        register={register}
+        errorMsg={errors.password?.message}
       />
       <AuthInput
         inputId="checkPwd"
+        name="checkPwd"
         label="비밀번호 재입력"
         placeholder="비밀번호를 재입력하세요"
         type={isOpen.checkPwd ? "text" : "password"}
         toggleEye={() => toggleEye("checkPwd")}
         eyeState={isOpen.checkPwd}
+        value={value}
+        register={register}
+        errorMsg={errors.checkPwd?.message}
       />
       <AuthInput
         inputId="username"
+        name="username"
         label="이름"
         placeholder="이름을 입력하세요."
         type="text"
-        value={formData.username}
-        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+        value={value}
+        setValue={setValue}
+        register={register}
+        errorMsg={errors.username?.message}
       />
       <AuthInput
         inputId="mbti"
+        name="mbti"
         label="MBTI"
         placeholder="MBTI를 입력하세요."
         type="text"
-        value={formData.mbti}
-        onChange={(e) => setFormData({ ...formData, mbti: e.target.value })}
+        value={value}
+        setValue={setValue}
+        register={register}
+        errorMsg={errors.username?.message}
       />
       <SubmitBtn type="submit">회원가입</SubmitBtn>
     </StyledSignUpForm>

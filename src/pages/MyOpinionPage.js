@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { GetMyOpin } from "../api/GetMyOpin";
+import { GetProfileDetail } from "../api/GetProfileDetail";
 import Opinion from "../components/Opinion";
 import styled from "styled-components";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
@@ -11,6 +12,8 @@ const MyOpinionPage = ({
   setCuropinId,
 }) => {
   const [myOpins, setMyOpins] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
+  const { avatar, email, mbti, username } = userInfo;
 
   const fetchMyOpins = async () => {
     try {
@@ -22,6 +25,10 @@ const MyOpinionPage = ({
   };
 
   useEffect(() => {
+    GetProfileDetail((profileDetail) => setUserInfo(profileDetail));
+  }, []);
+
+  useEffect(() => {
     fetchMyOpins();
   }, []);
 
@@ -30,20 +37,18 @@ const MyOpinionPage = ({
     handleDeleteState(false);
   }, [isDelete]);
 
-
-
   return (
     <PageWrapper>
       <InfoContainer>
         <ProfileImgBox>
-          <ProfileImg src={DEFAULT_IMG} />
+          <ProfileImg src={avatar || DEFAULT_IMG} />
         </ProfileImgBox>
         <InfoTxt>
           <InfoBox>
-            <UserName>하우바츄</UserName>
-            <MBTI>INTJ</MBTI>
+            <UserName>{username || "하우바츄"} </UserName>
+            <MBTI>{mbti || "INFP"} </MBTI>
           </InfoBox>
-          <Email>howbachu@naver.com</Email>
+          <Email>{email || "howbachu@naver.com"} </Email>
         </InfoTxt>
       </InfoContainer>
 
@@ -55,6 +60,7 @@ const MyOpinionPage = ({
               opinContent={opin}
               isMine={true}
               isList={true}
+              avatar={avatar}
               toggleDeleteModal={toggleDeleteModal}
               setCuropinId={setCuropinId}
               reloadOpinList={fetchMyOpins}
@@ -98,6 +104,7 @@ const ProfileImgBox = styled.div`
 const ProfileImg = styled.img`
   width: 80px;
   height: 80px;
+  object-fit: cover;
 `;
 const InfoTxt = styled.div`
   display: flex;

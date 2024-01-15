@@ -2,11 +2,24 @@ import styled from "styled-components";
 import { PostLogIn } from "../api/PostLogIn";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { login_schema } from "../validation/Schema";
 import AuthInput from "../components/AuthInput";
 
 const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(login_schema),
+    mode: "onChange",
+  });
+  const value = watch();
+
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -14,22 +27,16 @@ const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
     setIsOpen((prev) => !prev);
   };
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    const formData = {
-      email: email,
-      password: password,
-    };
-
-    const loginResponse = await PostLogIn(formData);
+  const onSubmit = async (data) => {
+    const loginResponse = await PostLogIn(data);
 
     if (loginResponse?.code === "200") {
       navigate("/");
       setIsLoggedIn(true);
     } else {
       alert(loginResponse?.response?.data?.message);
-      setEmail("");
-      setPassword("");
+      setValue("email", "");
+      setValue("password", "");
     }
   };
 
@@ -40,25 +47,31 @@ const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <PageContainer>
       <Title>로그인</Title>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <AuthInput
           inputId="email"
+          name="email"
           label="이메일"
           type="email"
           placeholder="이메일을 입력해주세요."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={value}
+          setValue={setValue}
+          register={register}
+          errorMsg={errors.email?.message}
           autoFocus
         />
         <AuthInput
           inputId="password"
+          name="password"
           label="비밀번호"
           type={isOpen ? "text" : "password"}
           placeholder="비밀번호를 입력해주세요."
           toggleEye={toggleEye}
           eyeState={isOpen}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={value}
+          setValue={setValue}
+          register={register}
+          errorMsg={errors.password?.message}
         />
         <SubmitBtn type="submit">제출</SubmitBtn>
         <GoSignUpBtn type="button" onClick={() => navigate("/join")}>
