@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import OPTION_DATA from "../assets/data/option_data";
 
-const DropDown = () => {
+const DropDown = ({ mbti, onValueChange }) => {
   return (
     <InfoInputBox>
       <InputTitle>MBTI</InputTitle>
       <InputContainer>
-        <Select name="mbti">
+        <Select
+          name="mbti"
+          value={mbti}
+          onChange={(e) => onValueChange(e.target.value)}
+        >
           {OPTION_DATA.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.value}
+            <option key={option.label} value={option.label}>
+              {option.label}
             </option>
           ))}
         </Select>

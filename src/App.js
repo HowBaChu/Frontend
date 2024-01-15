@@ -32,6 +32,7 @@ function App() {
   const [isDelete, setIsDelete] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCheckedPwd, setIsCheckedPwd] = useState(false);
   const [topicData, setTopicData] = useState({});
 
   const reloadOpinList = async () => {
@@ -112,9 +113,30 @@ function App() {
               }
             />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/profile" element={<MyPage />} />
-            <Route path="/profile/edit" element={<ProfileEditPage />} />
-            <Route path="/profile/pwdcheck" element={<CurPwdCheckPage />} />
+            <Route
+              path="/profile"
+              element={
+                <MyPage
+                  setIsCheckedPwd={setIsCheckedPwd}
+                />
+              }
+            />
+            <Route
+              path="/profile/edit"
+              element={
+                <ProfileEditPage
+                  isCheckedPwd={isCheckedPwd}
+                />
+              }
+            />
+            <Route
+              path="/profile/pwdcheck"
+              element={
+                <CurPwdCheckPage
+                  setIsCheckedPwd={setIsCheckedPwd}
+                />
+              }
+            />
             <Route
               path="/my-opinions"
               element={

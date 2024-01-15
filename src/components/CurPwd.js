@@ -1,16 +1,21 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PostCheckPwd } from "../api/PostCheckPwd";
 
-const Verified_MSG = "인증 되었습니다:)";
-const NO_Verified_MSG = "현재 비밀번호 확인이 필요합니다.";
+const CurPwd = ({ setIsCheckedPwd }) => {
+  const [password, setPassword] = useState("");
+  const [helperMsg, setHelperMsg] = useState("");
 
-const CurPwd = () => {
-  const [isVerified, setIsVerified] = useState(false);
-  const helperMsg = isVerified ? Verified_MSG : NO_Verified_MSG;
-
-  const onSubmit = (e, data) => {
-    // PostCurPwd(data); //TODO Axios POST Current Pwd
+  const onSubmit = async (e) => {
+    const response = await PostCheckPwd(password);
+    if (response === "PASSWORD_CORRECT") {
+      navigate("/profile/edit");
+      setIsCheckedPwd(true);
+    } else {
+      setHelperMsg(response);
+      setIsCheckedPwd(false);
+    }
     e.preventDefault();
     e.stopPropagation();
   };
@@ -23,18 +28,20 @@ const CurPwd = () => {
         <InputWrapper>
           <InputBox>
             <Input
+              value={password || ""}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="현재 비밀번호를 입력해주세요."
               type="password"
               autoFocus
             />
           </InputBox>
-          <HelperTextBox $isVerified={isVerified}>{helperMsg}</HelperTextBox>
+          <HelperTextBox>{helperMsg}</HelperTextBox>
         </InputWrapper>
         <Buttons>
           <Btn type="cancel" onClick={() => navigate("/profile")}>
             취소
           </Btn>
-          <Btn type="submit" onClick={() => navigate("/profile/edit")}>
+          <Btn type="submit" disabled={password === ""} onClick={onSubmit}>
             확인
           </Btn>
         </Buttons>
@@ -67,7 +74,7 @@ const ContentBox = styled.div`
 `;
 const InputWrapper = styled.div`
   margin: 0 auto;
-`
+`;
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
@@ -101,7 +108,7 @@ const Input = styled.input`
   color: ${({ theme }) => theme.colors.DARK_GRAY};
 `;
 const HelperTextBox = styled.p`
-  margin: 5px 0 0 20px;
+  margin: 5px 0 0 10px;
   font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.TOMATO};

@@ -1,6 +1,10 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GetProfileDetail } from "../api/GetProfileDetail";
+import { PostAvatar } from "../api/PostAvatar";
+import { PatchProfileDetail } from "../api/PatchProfileDetail";
+
 import InfoInput from "../components/InfoInput";
 import NewPwd from "../components/NewPwd";
 import DropDown from "../components/DropDown";
@@ -8,25 +12,31 @@ import DEFAULT_IMG from "../assets/imgs/logo.png";
 import EDIT_ICON from "../assets/imgs/edit_purple_icon.svg";
 import CANCEL_ICON from "../assets/imgs/cancel_icon.svg";
 import SAVE_ICON from "../assets/imgs/save_icon.svg";
+import BACK_ICON from "../assets/imgs/back_icon.svg";
 
-const ProfileEditPage = () => {
+const ProfileEditPage = ({ isCheckedPwd }) => {
   const [profileData, setProfileData] = useState({
     username: "",
     mbti: "",
-    msg: "",
+    statusMessage: "",
+    password: "",
   });
   const [editingData, setEditingData] = useState({
     ...profileData,
   });
   const [selectedImage, setSelectedImage] = useState(null);
   const [editingImage, setEditingImage] = useState(null);
-  ``;
-  useEffect(() => {
-    // profileData.avatar 설정, avatar 없으면 default img
-    const avatarSrc = profileData.avatar || DEFAULT_IMG;
-    setSelectedImage(avatarSrc);
-    setEditingImage(avatarSrc);
-  }, [profileData]);
+  const imgFormDataRef = useRef(new FormData());
+
+  const navigate = useNavigate();
+
+  // handleImageChange에서 파일을 변경할 때마다 새로운 FormData 인스턴스를 생성하여 imgFormData를 업데이트
+  const updateFormData = (newFile) => {
+    let newFormData = new FormData();
+    newFormData.append("file", newFile);
+    imgFormDataRef.current = newFormData; // useRef의 current 속성을 업데이트
+    return newFormData;
+  };
 
   const handleImageChange = (e) => {
     e.preventDefault();
@@ -35,24 +45,36 @@ const ProfileEditPage = () => {
       const imageURL = URL.createObjectURL(file); // URL로 변환해서 state에 저장 -> 렌더링 위함
       setEditingImage(imageURL);
       // TODO 필요없어진 후에 URL을 해제하는 코드
-      // URL.revokeObjectURL(imageURL);
+      updateFormData(file);
+      // console.log(imgFormDataRef.current.getAll("file")[0]); // useRef의 current를 사용하여 접근
     }
   };
+
   const handleInputChange = (field, value) => {
     setEditingData((prevData) => ({ ...prevData, [field]: value }));
   };
-  const handleFormSubmit = (e) => {
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     setProfileData(editingData); // 저장 버튼 클릭 시 수정 중이던 내용 저장
     setSelectedImage(editingImage);
 
-    //TODO 폼 데이터 전송 Axios POST formData
-    // const formData = {
-    //   username: editingData.username,
-    //   MBTI: value.MBTI,
-    // };
-    // PostEditForm(formData);
+    const formData = {
+      username: editingData.username,
+      password: editingData.password,
+      mbti: editingData.mbti,
+      statusMessage: editingData.statusMessage,
+    };
+
+    await PatchProfileDetail(formData);
+    navigate("/profile");
+
+    // TODO 필요없어진 후에 URL을 해제하는 코드
+    // URL.revokeObjectURL(editingImage);
+    PostAvatar(imgFormDataRef?.current);
+    // console.log(imgFormDataRef?.current.getAll("file")[0]);
   };
+
   const handleCancel = () => {
     setEditingData(profileData); // 취소 버튼 클릭 시
     setEditingImage(selectedImage); // 취소 버튼 클릭 시
@@ -66,15 +88,30 @@ const ProfileEditPage = () => {
   useEffect(() => {
     if (
       editingData.username === "" &&
+      editingData.password === "" &&
       editingData.mbti === "" &&
-      editingData.msg === ""
+      editingData.statusMessage === ""
     ) {
       setEditingData({ ...profileData });
     }
   }, [profileData]);
 
+  useEffect(() => {
+    // profileData.avatar 설정, avatar 없으면 default img
+    const avatarSrc = profileData.avatar || DEFAULT_IMG;
+    setSelectedImage(avatarSrc);
+    setEditingImage(avatarSrc);
+  }, [profileData]);
+
+  useEffect(() => {
+    !isCheckedPwd && navigate(-1);
+  }, []);
+
   return (
     <PageWrapper>
+      <GoLogInBtn onClick={() => navigate("/profile")}>
+        <img src={BACK_ICON} />
+      </GoLogInBtn>
       {profileData && editingData && (
         <Form onSubmit={handleFormSubmit}>
           <ProfileContainer>
@@ -106,24 +143,31 @@ const ProfileEditPage = () => {
             <InfoInput
               name="email"
               title="이메일"
-              placeHolder="howbachu@gmail.com"
+              placeholder={profileData?.email}
               disabled={true}
             />
-            <NewPwd />
+            <NewPwd
+              onValueChange={(newValue) =>
+                handleInputChange("password", newValue)
+              }
+            />
             <InfoInput
               name="username"
               title="닉네임"
-              value={editingData.username}
+              value={editingData?.username || ""}
               onValueChange={(newValue) =>
                 handleInputChange("username", newValue)
               }
             />
-            <DropDown />
+            <DropDown
+              mbti={editingData?.mbti}
+              onValueChange={(newValue) => handleInputChange("mbti", newValue)}
+            />
             <InfoInput
               name="statusMessage"
               title="상태메세지"
-              value={editingData.statusMessage}
-              textArea={true}
+              value={editingData?.statusMessage || ""}
+              textarea={true}
               onValueChange={(newValue) =>
                 handleInputChange("statusMessage", newValue)
               }
@@ -149,14 +193,18 @@ const PageWrapper = styled.div`
   width: calc(100vw - 44px);
   height: calc(100vh - 70px - 50px); // 헤더, Nav
   margin: 70px auto 0 auto;
-  padding: 2%;
+  padding: 0 2%;
   overflow: scroll;
+`;
+const GoLogInBtn = styled.button`
+  width: 30px;
+  height: 30px;
 `;
 const ProfileContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   display: flex;
-  gap: 20px;
+  //gap: 20px;
   align-items: center;
 `;
 const ProfileImgContainer = styled.div`
@@ -194,6 +242,7 @@ const ImgInput = styled.input`
   display: none;
 `;
 const InfoContainer = styled.div`
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
