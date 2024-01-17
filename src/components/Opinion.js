@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { useState } from "react";
 import { PostLike } from "../api/PostLike";
 import FIRE from "../assets/imgs/fire_icon.svg";
@@ -24,6 +24,9 @@ const Opinion = forwardRef(
     },
     ref,
   ) => {
+    if (!opinContent) {
+      return null;
+    }
     const {
       id,
       nickname,
@@ -38,18 +41,13 @@ const Opinion = forwardRef(
     const [isLikeClicked, setIsLikeClicked] = useState(liked);
     const isOur = selection === "B";
 
-    const onClickHeart = async (e, isHot) => {
+    const onClickHeart = async (e) => {
       e.stopPropagation(); // 상위 div의 클릭 이벤트 방지
 
-      if (!isHot) {
-        // 하트(좋아요)일 경우
-        setIsLikeClicked((prev) => !prev);
-      }
+      setIsLikeClicked((prev) => !prev);
 
       const response = await PostLike(id);
       reloadOpinList();
-
-      console.log(response);
     };
 
     const onClickReport = (e) => {
@@ -62,6 +60,10 @@ const Opinion = forwardRef(
       toggleDeleteModal();
       setCuropinId(id);
     };
+
+    useEffect(() => {
+      setIsLikeClicked(liked);
+    }, [liked]);
 
     return (
       <OpinionWrapper $isOur={isOur} $isHot={isHot} ref={ref} {...attrProps}>

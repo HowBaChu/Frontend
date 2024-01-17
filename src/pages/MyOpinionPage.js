@@ -5,14 +5,14 @@ import Opinion from "../components/Opinion";
 import styled from "styled-components";
 import DEFAULT_IMG from "../assets/imgs/logo.png";
 
-const MyOpinionPage = () => {
+const MyOpinionPage = ({
+  isDelete,
+  handleDeleteState,
+  toggleDeleteModal,
+  setCuropinId,
+}) => {
   const [myOpins, setMyOpins] = useState([]);
   const [userInfo, setUserInfo] = useState({});
-
-  useEffect(() => {
-    GetProfileDetail((profileDetail) => setUserInfo(profileDetail));
-  }, []);
-
   const { avatar, email, mbti, username } = userInfo;
 
   const fetchMyOpins = async () => {
@@ -25,8 +25,17 @@ const MyOpinionPage = () => {
   };
 
   useEffect(() => {
+    GetProfileDetail((profileDetail) => setUserInfo(profileDetail));
+  }, []);
+
+  useEffect(() => {
     fetchMyOpins();
   }, []);
+
+  useEffect(() => {
+    isDelete && fetchMyOpins();
+    handleDeleteState(false);
+  }, [isDelete]);
 
   return (
     <PageWrapper>
@@ -52,6 +61,9 @@ const MyOpinionPage = () => {
               isMine={true}
               isList={true}
               avatar={avatar}
+              toggleDeleteModal={toggleDeleteModal}
+              setCuropinId={setCuropinId}
+              reloadOpinList={fetchMyOpins}
             />
           );
         })}

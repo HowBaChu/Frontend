@@ -12,7 +12,7 @@ const NavBar = ({ className }) => {
       <Menu onClick={() => navigate("/")}>
         <Icon src={HOME_ICON} />
       </Menu>
-      <Menu onClick={() => navigate("/serch")}>
+      <Menu onClick={() => navigate("/search")}>
         <Icon src={SERCH_ICON} />
       </Menu>
       <Menu onClick={() => navigate("/popular-posts")}>

@@ -92,7 +92,6 @@ const SignUpForm = () => {
         register={register}
         errorMsg={errors.checkPwd?.message}
       />
-
       <AuthInput
         inputId="username"
         name="username"
@@ -104,7 +103,6 @@ const SignUpForm = () => {
         register={register}
         errorMsg={errors.username?.message}
       />
-
       <AuthInput
         inputId="mbti"
         name="mbti"
@@ -116,7 +114,6 @@ const SignUpForm = () => {
         register={register}
         errorMsg={errors.username?.message}
       />
-
       <SubmitBtn type="submit">회원가입</SubmitBtn>
     </StyledSignUpForm>
   );

@@ -112,7 +112,7 @@ function App() {
                 />
               }
             />
-            <Route path="/serch" element={<SearchPage />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route
               path="/profile"
               element={
@@ -137,7 +137,17 @@ function App() {
                 />
               }
             />
-            <Route path="/my-opinions" element={<MyOpinionPage />} />
+            <Route
+              path="/my-opinions"
+              element={
+                <MyOpinionPage
+                  isDelete={isDelete}
+                  handleDeleteState={handleDeleteState}
+                  toggleDeleteModal={toggleDeleteModal}
+                  setCuropinId={(curId) => setCuropinId(curId)}
+                />
+              }
+            />
             <Route path="/popular-posts" element={<TopicHistoryPage />} />
             <Route path="/reports" element={<ReportPage />} />
             <Route

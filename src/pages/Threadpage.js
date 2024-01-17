@@ -13,6 +13,7 @@ const Threadpage = ({
   setCuropinId,
 }) => {
   const [opinList, setOpinList] = useState([]); // Get Thread Opin response
+  const [parentOpin, setParentOpin] = useState([{}]);
   const { opinId } = useParams();
 
   useEffect(() => {
@@ -20,23 +21,39 @@ const Threadpage = ({
     handleDeleteState(false);
   }, [isDelete]);
 
-  const reloadOpinList = () => {
-    GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
+  const reloadOpinList = async () => {
+    const opinListdata = await GetOpin(
+      (opinListdata) => console.log(opinListdata),
+      opinId,
+      0,
+    );
+    setOpinList(opinListdata);
+
+    setParentOpin([opinListdata?.parentOpin]);
   };
 
   useEffect(() => {
-    GetOpin((opinListdata) => setOpinList(opinListdata), opinId);
+    const loadOpinList = async () => {
+      const opinListdata = await GetOpin(
+        (opinListdata) => console.log(opinListdata),
+        opinId,
+        0,
+      );
+      setOpinList(opinListdata);
+      setParentOpin([opinListdata?.parentOpin]);
+    };
+    loadOpinList();
   }, []);
 
   return (
-    <ThreadWrapper>
-      {opinList?.parentOpin && opinList?.childOpinList && (
-        <>
+    <>
+      {opinList && (
+        <ThreadWrapper>
           <ThreadOpinion
             reloadOpinList={reloadOpinList}
             toggleReportModal={toggleReportModal}
             toggleDeleteModal={toggleDeleteModal}
-            opinContent={opinList?.parentOpin}
+            opinContent={parentOpin[0]}
             setCuropinId={setCuropinId}
           />
           <Hr />
@@ -56,10 +73,11 @@ const Threadpage = ({
               })}
             </OpinList>
           </OpinionArea>
-        </>
+
+          <Input onOpinSubmit={() => reloadOpinList()} />
+        </ThreadWrapper>
       )}
-      <Input onOpinSubmit={() => reloadOpinList()} />
-    </ThreadWrapper>
+    </>
   );
 };
 
