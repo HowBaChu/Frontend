@@ -57,21 +57,19 @@ const SearchPage = () => {
     if (path === "child-opin") {
       setIsLast((prevState) => ({
         ...prevState,
-        child: value,
+        child: searchData.last,
       }));
     }
     if (path === "parent-opin") {
-      setIsLast(searchData.content);
       setIsLast((prevState) => ({
         ...prevState,
-        parent: value,
+        parent: searchData.last,
       }));
     }
     if (path === "topic") {
-      setIsLast(searchData.content);
       setIsLast((prevState) => ({
         ...prevState,
-        topic: value,
+        topic: searchData.last,
       }));
     }
   };
@@ -122,7 +120,7 @@ const SearchPage = () => {
               <Title>댓글</Title>
               <ResultBox>
                 {parentsOpinList?.map((opin) => (
-                  <ResultOpinion key={opin.author} opinContent={opin} />
+                  <ResultOpinion key={opin.title} opinContent={opin} />
                 ))}
               </ResultBox>
               {!isLast.parent && (
