@@ -9,6 +9,7 @@ import OpinionInput from "../components/OpinionInput";
 import Opinion from "../components/Opinion";
 
 const MainPage = ({
+  hotOpin,
   topicData,
   isLoggedIn,
   toggleReportModal,
@@ -128,6 +129,7 @@ const MainPage = ({
       >
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>
+            <Opinion isHot={true} opinContent={hotOpin} />
             {opinList?.map((opin, index) => {
               if (opinList.length === index + 1) {
                 return (
