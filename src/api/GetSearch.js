@@ -5,7 +5,7 @@ export const GetSearch = async (value, path, page) => {
     const response = await Axios.get(
       `/api/v1/search/${path ? path + "/" : ""}`,
       {
-        params: { cond: value, pageNumber: page },
+        params: { cond: value, page: page },
       },
     );
     return response.data.data;

@@ -159,10 +159,15 @@ const ProfileEditPage = ({ isCheckedPwd }) => {
                 handleInputChange("username", newValue)
               }
             />
-            <DropDown
-              mbti={editingData?.mbti}
-              onValueChange={(newValue) => handleInputChange("mbti", newValue)}
-            />
+            <MBTIArea>
+              <InputTitle>MBTI</InputTitle>
+              <DropDown
+                mbti={editingData?.mbti}
+                onValueChange={(newValue) =>
+                  handleInputChange("mbti", newValue)
+                }
+              />
+            </MBTIArea>
             <InfoInput
               name="statusMessage"
               title="상태메세지"
@@ -204,7 +209,6 @@ const ProfileContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   display: flex;
-  //gap: 20px;
   align-items: center;
 `;
 const ProfileImgContainer = styled.div`
@@ -286,6 +290,15 @@ const InputWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 25px;
+`;
+const MBTIArea = styled.div`
+  width: 100%;
+`;
+const InputTitle = styled.div`
+  margin-bottom: 2px;
+  font-size: ${({ theme }) => theme.fontsize.B_TOPIC_TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  color: ${({ theme }) => theme.colors.PURPLE3};
 `;
 const Buttons = styled.div`
   margin-top: 30px;

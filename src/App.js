@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { GetOpin } from "./api/GetOpin";
 import { GetTopic } from "./api/GetTopic";
+import { GetHotOpin } from "./api/GetHotOpin";
 
 import Logo from "./components/Logo";
 import MainPage from "./pages/MainPage";
@@ -17,8 +18,8 @@ import TopicHistoryPage from "./pages/TopicHistoryPage";
 import ReportPage from "./pages/ReportPage";
 import LoginPage from "./pages/LoginPage";
 import Threadpage from "./pages/Threadpage";
-import CurPwdCheckPage from "./pages/CurPwdCheckPage";
 
+import CurPwdCheckPage from "./pages/CurPwdCheckPage";
 import NavBar from "./components/NavBar";
 import ReportModal from "./components/ReportModal";
 import DeleteModal from "./components/DeleteModal";
@@ -29,6 +30,7 @@ function App() {
   const [isDelModal, setIsDelModal] = useState(false);
   const [curopinId, setCuropinId] = useState(undefined);
   const [opinList, setOpinList] = useState([]); // GetOpin response
+  const [hotOpin, setHotOpin] = useState({});
   const [isDelete, setIsDelete] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -64,6 +66,14 @@ function App() {
     getTopic();
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    const hotOpinResponse = async () => {
+      const response = await GetHotOpin();
+      setHotOpin(response);
+    };
+    hotOpinResponse();
+  }, []);
+
   return (
     <div className="App">
       <ThemeProvider theme={Theme}>
@@ -89,6 +99,7 @@ function App() {
               path="/"
               element={
                 <MainPage
+                  hotOpin={hotOpin}
                   topicData={topicData}
                   isLoggedIn={isLoggedIn}
                   setCuropinId={(curId) => setCuropinId(curId)}
@@ -115,27 +126,15 @@ function App() {
             <Route path="/search" element={<SearchPage />} />
             <Route
               path="/profile"
-              element={
-                <MyPage
-                  setIsCheckedPwd={setIsCheckedPwd}
-                />
-              }
+              element={<MyPage setIsCheckedPwd={setIsCheckedPwd} />}
             />
             <Route
               path="/profile/edit"
-              element={
-                <ProfileEditPage
-                  isCheckedPwd={isCheckedPwd}
-                />
-              }
+              element={<ProfileEditPage isCheckedPwd={isCheckedPwd} />}
             />
             <Route
               path="/profile/pwdcheck"
-              element={
-                <CurPwdCheckPage
-                  setIsCheckedPwd={setIsCheckedPwd}
-                />
-              }
+              element={<CurPwdCheckPage setIsCheckedPwd={setIsCheckedPwd} />}
             />
             <Route
               path="/my-opinions"

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signup_schema } from "../validation/Schema";
 import AuthInput from "../components/AuthInput";
+import DropDown from "./DropDown";
 
 const SignUpForm = () => {
   const {
@@ -24,6 +25,7 @@ const SignUpForm = () => {
     password: false,
     checkPwd: false,
   });
+  const [mbti, setMbti] = useState("INFP");
 
   const navigate = useNavigate();
 
@@ -39,7 +41,7 @@ const SignUpForm = () => {
       email: data.email,
       password: data.password,
       username: data.username,
-      mbti: data.mbti,
+      mbti: mbti,
     };
     const signupResponse = await PostSignUp(formData);
 
@@ -103,17 +105,8 @@ const SignUpForm = () => {
         register={register}
         errorMsg={errors.username?.message}
       />
-      <AuthInput
-        inputId="mbti"
-        name="mbti"
-        label="MBTI"
-        placeholder="MBTI를 입력하세요."
-        type="text"
-        value={value}
-        setValue={setValue}
-        register={register}
-        errorMsg={errors.username?.message}
-      />
+      <DropDown mbti={mbti} onValueChange={(newValue) => setMbti(newValue)} />
+
       <SubmitBtn type="submit">회원가입</SubmitBtn>
     </StyledSignUpForm>
   );
