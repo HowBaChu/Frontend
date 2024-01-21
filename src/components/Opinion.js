@@ -147,8 +147,8 @@ const ProfileImgBox = styled.div`
   align-items: center;
 `;
 const ProfileImg = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 `;
 const ContentContainer = styled.div`

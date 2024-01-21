@@ -70,7 +70,7 @@ const MainPage = ({
       }
     };
     fetchVoteStatus();
-  }, []);
+  }, [opinList]);
 
   useEffect(() => {
     const reloadData = async () => {
