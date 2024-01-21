@@ -28,7 +28,7 @@ const ReportModal = ({ toggleReportModal, opinId }) => {
   return (
     <ModalContainer onClick={() => toggleReportModal()}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Title>신고 사유 선택 {opinId}</Title>
+        <Title>신고 사유 선택</Title>
         <ReasonList>
           {REPORT_LIST.map((reason, index) => (
             <Reason

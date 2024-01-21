@@ -16,7 +16,7 @@ const DeleteModal = ({
   return (
     <ModalContainer onClick={() => toggleDeleteModal()}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Title>댓글 삭제 {opinId}</Title>
+        <Title>댓글 삭제</Title>
         <Content>댓글을 삭제할까요?</Content>
         <SubmitBtn
           onClick={() => {
