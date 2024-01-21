@@ -129,7 +129,13 @@ const MainPage = ({
       >
         {opinList && (
           <OpinionContainer $isSmall={isSmall}>
-            <Opinion isHot={true} opinContent={hotOpin} />
+            <Opinion
+              isHot={true}
+              opinContent={hotOpin}
+              toggleReportModal={toggleReportModal}
+              toggleDeleteModal={toggleDeleteModal}
+              setCuropinId={setCuropinId}
+            />
             {opinList?.map((opin, index) => {
               if (opinList.length === index + 1) {
                 return (
